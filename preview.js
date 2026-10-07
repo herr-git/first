@@ -140,7 +140,10 @@ function drawMix() {
     </tr>`;
   }).join('');
   document.getElementById('mix-table').hidden = mix.length === 0;
-  document.getElementById('mix-empty').hidden = mix.length > 0;
+  const empty = document.getElementById('mix-empty');
+  empty.hidden = mix.length > 0;
+  empty.classList.remove('loading');
+  empty.textContent = 'No assets yet. Pick one above and click Add.';
   drawTotal();
   drawPicker();
 }
@@ -256,7 +259,7 @@ function drawChart(r) {
 // ---------- Start ----------
 
 async function loadAssets() {
-  const get = p => fetch(p, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+  const get = p => fetch(p, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(p + ' could not be loaded'); return r.json(); });
   const [latest, funds] = await Promise.all([get('data/latest.json'), get('data/funds-config.json')]);
   history = await get('data/history.json').catch(() => null);
   const list = [];
@@ -303,8 +306,10 @@ function showDataLabels() {
   } catch (err) {
     const box = document.getElementById('load-error');
     box.hidden = false;
-    box.textContent = 'The list of assets could not be loaded (' + err.message + '). If you opened this file straight from your computer, open the web link instead.';
+    box.textContent = 'The list of tokens and funds could not be loaded: ' + err.message + '. If you opened this file straight from your computer, open the web link instead.';
     document.getElementById('add-asset').disabled = true;
+    document.getElementById('mix-empty').hidden = true;
+    document.getElementById('sample-date').textContent = 'unknown, because the data could not be loaded';
     return;
   }
   drawMix();

@@ -118,18 +118,6 @@ h2 { font-size: 1.2rem; margin: 0; }
 .note { color: var(--muted); font-size: 0.85rem; margin: 8px 0 0; }
 .note a { color: var(--accent); }
 
-.sort-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 12px; font-size: 0.9rem; }
-.sort-bar button {
-  font: inherit;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  cursor: pointer;
-}
-.sort-bar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-
 .error {
   background: var(--warn-bg);
   color: var(--warn-text);
@@ -141,7 +129,7 @@ h2 { font-size: 1.2rem; margin: 0; }
 .data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .data-table th, .data-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
 .data-table th { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
-.data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .data-table .name { font-weight: 600; }
 .data-table .sub { display: block; color: var(--muted); font-size: 0.8rem; font-weight: 400; }
 .data-table .num .sub { white-space: nowrap; }
@@ -174,22 +162,75 @@ h2 { font-size: 1.2rem; margin: 0; }
   padding: 12px 16px;
   font-size: 0.9rem;
   font-weight: 600;
+  z-index: 10; /* always above the pinned table column */
 }
 
-/* Phone layout: each table row becomes a small card */
+/* ---------- Dashboard: about box, search, tables ---------- */
+h3 { font-size: 1.05rem; margin: 0; }
+.about h2 { margin-bottom: 8px; }
+.about-list { margin: 0; display: grid; grid-template-columns: 200px 1fr; gap: 6px 16px; }
+.about-list dt { font-weight: 600; }
+.about-list dd { margin: 0; color: var(--muted); }
+
+.search-bar { margin: 0 0 20px; }
+.search-bar label { display: block; font-weight: 600; margin-bottom: 6px; }
+.search-bar input {
+  width: 100%;
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+}
+.search-bar input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-status { margin: 6px 0 0; color: var(--muted); font-size: 0.9rem; min-height: 1.2em; }
+
+.sub-head { margin-top: 24px; }
+.table-area { margin-top: 4px; }
+.loading { color: var(--muted); font-style: italic; padding: 12px 0; margin: 0; }
+.no-match { color: var(--muted); font-style: italic; margin: 8px 0; }
+
+/* Tables scroll sideways when they do not fit; the name column stays in view. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: 8px; }
+.table-scroll:focus-visible { outline: 2px solid var(--accent); }
+.table-scroll .data-table { min-width: 560px; }
+.data-table th.first, .data-table td.first {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--panel);
+  min-width: 170px;
+  box-shadow: 1px 0 0 var(--border);
+}
+.data-table tr.group td.first { background: var(--group-bg); }
+.data-table tr:last-child td { border-bottom: none; }
+.sort-btn {
+  font: inherit;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+.sort-btn:hover, .sort-btn.active { color: var(--text); }
+.sort-btn .arrow { font-size: 0.75em; margin-left: 2px; }
+.swipe-hint { display: none; color: var(--muted); font-size: 0.8rem; margin: 4px 0 0; }
+
+.notes { color: var(--muted); font-size: 0.88rem; padding-left: 18px; margin: 10px 0 0; }
+.notes li { margin: 3px 0; }
+.notes a { color: var(--accent); }
+
 @media (max-width: 680px) {
-  .data-table thead { display: none; }
-  .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
-  .data-table tr { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; padding: 6px 10px; }
-  .data-table td { border: none; padding: 4px 0; display: flex; justify-content: space-between; gap: 12px; text-align: right; }
-  .data-table td { flex-wrap: wrap; }
-  .data-table td.num .sub { flex-basis: 100%; margin-top: -2px; }
-  .data-table td::before { content: attr(data-label); color: var(--muted); font-size: 0.85rem; text-align: left; }
-  .data-table td.name { display: block; text-align: left; font-size: 1.05rem; }
-  .data-table td.name::before { content: none; }
-  .data-table tr.group { border: none; padding: 0; margin: 14px 0 6px; }
-  .data-table tr.group td { background: none; padding: 0; font-size: 1rem; }
-  .data-table tr.group td::before { content: none; }
+  .about-list { grid-template-columns: 1fr; gap: 2px; }
+  .about-list dd { margin-bottom: 8px; }
+  .swipe-hint { display: block; }
+  .data-table { font-size: 0.9rem; }
+  .data-table th.first, .data-table td.first { min-width: 140px; max-width: 160px; }
+  .page-header h1 { font-size: 1.3rem; }
+  .panel { padding: 14px 12px; }
 }
 
 /* ---------- Version 2 preview page ---------- */
@@ -265,18 +306,9 @@ button.link { font: inherit; background: none; border: none; color: var(--accent
 }
 .table-view summary { cursor: pointer; color: var(--accent); margin: 8px 0; }
 .table-view .data-table { max-width: 360px; }
-.notes { color: var(--muted); font-size: 0.9rem; padding-left: 20px; }
-.notes li { margin: 4px 0; }
-
-@media (max-width: 680px) {
-  .table-view .data-table thead { display: none; }
-}
 .mix-table .sub { display: block; color: var(--muted); font-size: 0.8rem; }
 
 /* Tokenized funds and exchange-traded products section */
-.section-intro { margin: 8px 0 4px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--group-bg); border-radius: 4px; }
-.sub-title { font-size: 1.05rem; margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.data-table td.tracks { color: var(--muted); font-size: 0.88rem; max-width: 220px; }
-@media (max-width: 680px) {
-  .data-table td.tracks { max-width: none; }
-}
+.section-intro { margin: 10px 0 4px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--group-bg); border-radius: 4px; }
+.data-table td.tracks { color: var(--muted); font-size: 0.88rem; min-width: 150px; max-width: 200px; }
+.data-table th.num { white-space: normal; }

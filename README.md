@@ -9,6 +9,12 @@ A read-only demo dashboard. Demo only. Not investment advice. No trading happens
 - Fund data check (V1-1): see `reports/fund-data-check.md`.
 - Tokenized funds and European exchange-traded crypto products: **live**, CoinGecko and Yahoo, every 15 minutes. Product list in `data/tokenized-config.json`; job in `scripts/fetch_tokenized.py` and `.github/workflows/refresh-tokenized.yml`.
 
+## Using the dashboard
+- Search box: filters every table by name or ticker.
+- Click Price, Market value or Volume headings to sort; click again to reverse.
+- On a phone, tables scroll sideways; the name column stays in view.
+- To refresh data by hand: GitHub, Actions tab, pick a job, Run workflow (branch main).
+
 ## Files
 - `index.html`, `style.css`, `app.js`, `theme.js`: the dashboard page.
 - `preview.html`, `preview.js`: the Version 2 preview page.
