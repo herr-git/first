@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pretend Portfolio Preview</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="intro">
+      <p class="back"><a href="index.html">&larr; Back to the dashboard</a></p>
+      <h1>Pretend portfolio (preview)</h1>
+      <p class="lead">A preview of Version 2. Split 100% across tokens and funds and see how that mix would have done over 30 days. Nothing is bought and no real money is involved.</p>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
+  </header>
+
+  <main>
+    <div class="panel notice">
+      <span class="badge sample">Sample data</span>
+      <span class="badge info">Pretend money</span>
+      <p><strong>Every number on this page is made up.</strong> The 30 days of prices and the exchange rates are invented to show how the page will work. Real past prices come in Version 2.</p>
+      <p class="meta"><strong>Where this comes from:</strong> sample prices made up for this preview. Planned live sources: CoinGecko (tokens), Yahoo Finance (funds), Frankfurter (exchange rates).<br>
+      <strong>Last updated:</strong> <span id="sample-date"></span> (sample data, not refreshed)</p>
+    </div>
+
+    <section class="panel" aria-labelledby="mix-title">
+      <div class="panel-head">
+        <h2 id="mix-title">1. Build your mix</h2>
+        <span class="badge info">Pretend money</span>
+      </div>
+      <p class="meta">Pick assets and give each a percentage. The total must be exactly 100%. Tiny rounding is fine: 33.3% three times counts as 100%.</p>
+      <div class="add-row">
+        <label for="asset-pick">Asset</label>
+        <select id="asset-pick"></select>
+        <button type="button" id="add-asset">Add</button>
+      </div>
+      <div id="load-error" class="error" hidden></div>
+      <table class="mix-table" id="mix-table">
+        <thead><tr><th scope="col">Asset</th><th scope="col" class="num">Share of the mix</th><th scope="col"><span class="sr-only">Remove</span></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="empty" id="mix-empty">No assets yet. Pick one above and click Add.</p>
+      <p class="total" id="mix-total" aria-live="polite"></p>
+      <button type="button" class="primary" id="show-result" disabled>Show result</button>
+    </section>
+
+    <section class="panel" aria-labelledby="result-title" id="result-panel" hidden>
+      <div class="panel-head">
+        <h2 id="result-title">2. How this mix would have done</h2>
+        <div class="badges"><span class="badge sample">Sample data</span><span class="badge info">Pretend money</span></div>
+      </div>
+      <p class="warn-line"><strong>Illustration only, based on past prices, does not predict the future.</strong></p>
+
+      <div class="ccy-row">
+        <label for="ccy">Show values in</label>
+        <select id="ccy">
+          <option value="USD">US dollar (USD)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="GBP">British pound (GBP)</option>
+        </select>
+        <span class="badge sample">Sample exchange rates</span>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <figure class="chart">
+        <figcaption id="chart-title">Value of the pretend portfolio, day by day</figcaption>
+        <div class="chart-wrap" id="chart"></div>
+      </figure>
+
+      <details class="table-view">
+        <summary>Show the numbers as a table</summary>
+        <table class="data-table" id="day-table">
+          <thead><tr><th scope="col">Day</th><th scope="col" class="num">Value</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </details>
+
+      <ul class="notes">
+        <li>The mix is fixed: it starts with the percentages you chose and is never adjusted afterwards (no "rebalancing").</li>
+        <li>Biggest drop means the largest fall from a high point to a later low point during the 30 days.</li>
+        <li>A calm month may show little or no drop. That does not mean the mix is safe.</li>
+        <li>Funds do not trade at weekends or on US holidays. On those days the last closing price is carried forward.</li>
+        <li>Your mix is not saved in this preview. It is gone when you leave the page.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">Demo only. Not investment advice. No trading happens here.</footer>
+
+  <script src="theme.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>
