@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crypto Fund Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply a saved Light/Dark choice before the page draws, so it does not flash.
+    try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
   <header class="page-header">
-    <h1>Crypto and crypto fund dashboard</h1>
-    <p class="lead">A read-only demo. It shows prices for the 10 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
+    <div class="intro">
+      <h1>Crypto and crypto fund dashboard</h1>
+      <p class="lead">A read-only demo. It shows prices for the 10 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
   </header>
 
   <main>
