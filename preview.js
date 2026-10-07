@@ -10,6 +10,7 @@ let assets = [];   // { key, label, kind: 'stable' | 'crypto' | 'fund' }
 let mix = [];      // { key, pct }
 let ccy = 'USD';
 let lastResult = null;
+let history = null;  // real daily prices from data/history.json, when available
 
 // ---------- Sample prices ----------
 
@@ -164,9 +165,14 @@ function drawTotal() {
 // ---------- Result ----------
 
 function showResult() {
-  const dates = sampleDates();
-  const priceMap = {};
-  mix.forEach(r => { priceMap[r.key] = samplePrices(assets.find(a => a.key === r.key), dates); });
+  let dates, priceMap = {};
+  if (history) {
+    dates = history.dates.map(d => new Date(d + 'T00:00:00Z'));
+    mix.forEach(r => { priceMap[r.key] = history.assets[r.key].prices; });
+  } else {
+    dates = sampleDates();
+    mix.forEach(r => { priceMap[r.key] = samplePrices(assets.find(a => a.key === r.key), dates); });
+  }
   lastResult = Object.assign(computeResult(mix, priceMap, START_USD), { dates });
   document.getElementById('result-panel').hidden = false;
   drawResult();
@@ -252,18 +258,48 @@ function drawChart(r) {
 async function loadAssets() {
   const get = p => fetch(p, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const [latest, funds] = await Promise.all([get('data/latest.json'), get('data/funds-config.json')]);
+  history = await get('data/history.json').catch(() => null);
   const list = [];
   latest.crypto.rows.forEach(t => list.push({ key: 'token:' + t.id, label: `${t.name} (${t.symbol})`, kind: t.stablecoin ? 'stable' : 'crypto' }));
   funds.funds.forEach(f => list.push({ key: 'fund:' + f.ticker, label: `${f.name} (${f.ticker})`, kind: 'fund' }));
-  return list;
+  if (!history) return list;
+  // With real prices, only offer assets that have a price for every day.
+  const full = list.filter(a => {
+    const h = history.assets[a.key];
+    return h && h.prices.length === history.dates.length && h.prices.every(p => typeof p === 'number' && p > 0);
+  });
+  const left = list.filter(a => !full.includes(a));
+  if (left.length) {
+    const note = document.getElementById('excluded-note');
+    note.hidden = false;
+    note.textContent = 'Not listed, because 6 months of daily prices are not available yet: ' + left.map(a => a.label).join(', ') + '.';
+  }
+  return full;
+}
+
+function showDataLabels() {
+  if (!history) {
+    document.getElementById('sample-date').textContent =
+      new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) + ' (sample data, not refreshed)';
+    return;
+  }
+  document.getElementById('notice-sample').hidden = true;
+  document.getElementById('result-sample').hidden = true;
+  document.getElementById('timing-note').hidden = false;
+  document.getElementById('notice-text').innerHTML =
+    '<strong>Prices are real daily prices from the last 6 months.</strong> The money is pretend. ' +
+    'The exchange rates for euro and pound are still <strong>sample data</strong> (made up).';
+  document.getElementById('notice-source').textContent =
+    'CoinGecko daily prices (tokens) and Yahoo Finance daily closing prices (funds), refreshed once a day. Exchange rates: sample data.';
+  document.getElementById('sample-date').textContent =
+    new Date(history.last_updated).toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
 }
 
 (async function start() {
   if (typeof document === 'undefined') return; // running in the automated test
-  document.getElementById('sample-date').textContent =
-    new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
   try {
     assets = await loadAssets();
+    showDataLabels();
   } catch (err) {
     const box = document.getElementById('load-error');
     box.hidden = false;
