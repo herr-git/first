@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypto Fund Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Crypto and crypto fund dashboard</h1>
+    <p class="lead">A read-only demo. It shows prices for the 10 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
+  </header>
+
+  <main>
+    <section class="panel" aria-labelledby="crypto-title">
+      <div class="panel-head">
+        <h2 id="crypto-title">Crypto tokens</h2>
+        <div class="badges" id="crypto-badges"></div>
+      </div>
+      <p class="meta" id="crypto-meta"></p>
+      <div class="sort-bar" role="group" aria-label="Sort crypto table">
+        <span>Sort by:</span>
+        <button type="button" data-sort="volume_24h_usd" aria-pressed="true">24-hour volume</button>
+        <button type="button" data-sort="market_value_usd" aria-pressed="false">Market value</button>
+      </div>
+      <div id="crypto-error" class="error" hidden></div>
+      <table class="data-table" id="crypto-table">
+        <thead>
+          <tr>
+            <th scope="col">Token</th>
+            <th scope="col" class="num">Price (USD)</th>
+            <th scope="col" class="num">Market value (USD)</th>
+            <th scope="col" class="num">24-hour volume (USD)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">Crypto trading volume is not fully reliable. Different data sources often report different numbers.</p>
+      <p class="note">Bid and ask are not available for tokens: the free source only gives one summary price.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="funds-title">
+      <div class="panel-head">
+        <h2 id="funds-title">Crypto funds (US stock market)</h2>
+        <div class="badges" id="funds-badges"></div>
+      </div>
+      <p class="meta" id="funds-meta"></p>
+      <div id="funds-error" class="error" hidden></div>
+      <table class="data-table" id="funds-table">
+        <thead>
+          <tr>
+            <th scope="col">Fund</th>
+            <th scope="col" class="num">Price (USD)</th>
+            <th scope="col" class="num">Market value (USD, approximate)</th>
+            <th scope="col" class="num">Volume today (shares)</th>
+            <th scope="col" class="num">Yearly fee</th>
+            <th scope="col" class="num">Bid</th>
+            <th scope="col" class="num">Ask</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">These funds are listed in the USA. They may not be available to buy in your country.</p>
+    </section>
+
+    <details class="panel glossary">
+      <summary>What do these words mean?</summary>
+      <dl>
+        <dt>Price</dt><dd>The cost of one token or one fund share, in US dollars.</dd>
+        <dt>Market value</dt><dd>The total worth of everything in circulation: price times the number of tokens or fund shares. For funds it is approximate, because the number of shares is typed in by hand and can be out of date.</dd>
+        <dt>24-hour volume</dt><dd>How much was traded in the last 24 hours. Crypto trades all day, every day.</dd>
+        <dt>Volume today</dt><dd>How many fund shares changed hands today. Funds only trade during US stock market hours (9:30 to 16:00 New York time, weekdays).</dd>
+        <dt>Stablecoin</dt><dd>A token designed to stay at a fixed price, usually 1 US dollar.</dd>
+        <dt>Bid / ask</dt><dd>Bid is the highest price a buyer is offering right now. Ask is the lowest price a seller will accept.</dd>
+        <dt>Yearly fee</dt><dd>What the fund charges each year, as a percentage of the money invested.</dd>
+        <dt>Delayed 15 minutes</dt><dd>Free data shows prices from about 15 minutes ago, not this second.</dd>
+        <dt>Sample data</dt><dd>Made-up numbers used to show the layout. They are not real prices.</dd>
+      </dl>
+    </details>
+  </main>
+
+  <footer class="site-footer">Demo only. Not investment advice. No trading happens here.</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

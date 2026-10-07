@@ -1,0 +1,36 @@
+{
+  "_note": "SAMPLE DATA. All numbers below are made up. Live data will replace this file in the same shape.",
+  "crypto": {
+    "sample": true,
+    "source": "Sample data (made up). Planned live source: CoinGecko free API.",
+    "source_url": "https://www.coingecko.com/",
+    "last_updated": "2026-10-07T14:00:00Z",
+    "rows": [
+      { "id": "tether",      "price_usd": 1.00,     "market_value_usd": 150000000000, "volume_24h_usd": 62000000000 },
+      { "id": "bitcoin",     "price_usd": 98000.00, "market_value_usd": 1940000000000, "volume_24h_usd": 41000000000 },
+      { "id": "ethereum",    "price_usd": 3600.00,  "market_value_usd": 433000000000, "volume_24h_usd": 22000000000 },
+      { "id": "usd-coin",    "price_usd": 1.00,     "market_value_usd": 60000000000,  "volume_24h_usd": 9000000000 },
+      { "id": "solana",      "price_usd": 180.00,   "market_value_usd": 85000000000,  "volume_24h_usd": 5200000000 },
+      { "id": "ripple",      "price_usd": 2.40,     "market_value_usd": 138000000000, "volume_24h_usd": 4100000000 },
+      { "id": "binancecoin", "price_usd": 650.00,   "market_value_usd": 95000000000,  "volume_24h_usd": 2300000000 },
+      { "id": "dogecoin",    "price_usd": 0.22,     "market_value_usd": 32000000000,  "volume_24h_usd": 1900000000 },
+      { "id": "cardano",     "price_usd": 0.75,     "market_value_usd": 27000000000,  "volume_24h_usd": 900000000 },
+      { "id": "tron",        "price_usd": 0.30,     "market_value_usd": 28000000000,  "volume_24h_usd": 850000000 }
+    ]
+  },
+  "funds": {
+    "sample": true,
+    "source": "Sample data (made up). Planned live source: Yahoo Finance (unofficial).",
+    "source_url": "https://finance.yahoo.com/",
+    "last_updated": "2026-10-07T14:00:00Z",
+    "market_status": "open",
+    "rows": [
+      { "ticker": "IBIT", "price_usd": 56.10, "volume": 38000000, "bid": 56.09, "ask": 56.11 },
+      { "ticker": "FBTC", "price_usd": 85.40, "volume": 4100000,  "bid": 85.38, "ask": 85.42 },
+      { "ticker": "GBTC", "price_usd": 78.20, "volume": 2600000,  "bid": 78.18, "ask": 78.23 },
+      { "ticker": "ETHA", "price_usd": 27.30, "volume": 21000000, "bid": 27.29, "ask": 27.31 },
+      { "ticker": "ETHE", "price_usd": 31.50, "volume": 3300000,  "bid": null,  "ask": null },
+      { "ticker": "ZCSH", "price_usd": 9.80,  "volume": 15000,    "bid": null,  "ask": null }
+    ]
+  }
+}
