@@ -1,23 +1,90 @@
 {
-  "_note": "Products for the 'Tokenized funds and exchange-traded crypto products' section. Edit to add or remove. 'tracks' text was written from general knowledge and should be checked against each issuer's page.",
+  "_note": "Products for the 'Tokenized funds and exchange-traded crypto products' section. Edit to add or remove. 'holds' groups a European product with the US funds in the same table; 'country' is where it is listed. 'tracks' text was written from general knowledge and should be checked against each issuer's page.",
   "tokenized": [
-    { "coingecko_id": "blackrock-usd-institutional-digital-liquidity-fund", "symbol": "BUIDL", "name": "BlackRock USD Institutional Digital Liquidity Fund", "issuer": "BlackRock",
-      "tracks": "US dollar cash and short-term US government debt (Treasury bills)" },
-    { "coingecko_id": "hashnote-usyc", "symbol": "USYC", "name": "Circle USYC", "issuer": "Circle (formerly Hashnote)",
-      "tracks": "Short-term US government debt (Treasury bills) and overnight loans backed by it" },
-    { "coingecko_id": "ondo-us-dollar-yield", "symbol": "USDY", "name": "Ondo US Dollar Yield", "issuer": "Ondo",
-      "tracks": "Short-term US government debt and US bank deposits" },
-    { "coingecko_id": "ousg", "symbol": "OUSG", "name": "Ondo Short-Term US Government Treasuries", "issuer": "Ondo",
-      "tracks": "Short-term US government debt (Treasuries)" },
-    { "coingecko_id": "superstate-short-duration-us-government-securities-fund-ustb", "symbol": "USTB", "name": "Superstate Short Duration US Government Securities Fund", "issuer": "Superstate",
-      "tracks": "Short-term US government debt (Treasury bills)" }
+    {
+      "coingecko_id": "blackrock-usd-institutional-digital-liquidity-fund",
+      "symbol": "BUIDL",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "issuer": "BlackRock",
+      "tracks": "US dollar cash and short-term US government debt (Treasury bills)"
+    },
+    {
+      "coingecko_id": "hashnote-usyc",
+      "symbol": "USYC",
+      "name": "Circle USYC",
+      "issuer": "Circle (formerly Hashnote)",
+      "tracks": "Short-term US government debt (Treasury bills) and overnight loans backed by it"
+    },
+    {
+      "coingecko_id": "ondo-us-dollar-yield",
+      "symbol": "USDY",
+      "name": "Ondo US Dollar Yield",
+      "issuer": "Ondo",
+      "tracks": "Short-term US government debt and US bank deposits"
+    },
+    {
+      "coingecko_id": "ousg",
+      "symbol": "OUSG",
+      "name": "Ondo Short-Term US Government Treasuries",
+      "issuer": "Ondo",
+      "tracks": "Short-term US government debt (Treasuries)"
+    },
+    {
+      "coingecko_id": "superstate-short-duration-us-government-securities-fund-ustb",
+      "symbol": "USTB",
+      "name": "Superstate Short Duration US Government Securities Fund",
+      "issuer": "Superstate",
+      "tracks": "Short-term US government debt (Treasury bills)"
+    }
   ],
   "exchange_traded": [
-    { "ticker": "ABTC.SW", "name": "21Shares Bitcoin ETP", "exchange": "SIX Swiss Exchange", "tracks": "Bitcoin price" },
-    { "ticker": "BITC.SW", "name": "CoinShares Physical Bitcoin", "exchange": "SIX Swiss Exchange", "tracks": "Bitcoin price" },
-    { "ticker": "BTCE.DE", "name": "Bitwise Physical Bitcoin ETC", "exchange": "XETRA (Germany)", "tracks": "Bitcoin price" },
-    { "ticker": "VBTC.DE", "name": "VanEck Bitcoin ETN", "exchange": "XETRA (Germany)", "tracks": "Bitcoin price" },
-    { "ticker": "ZETH.DE", "name": "Bitwise Physical Ethereum ETC", "exchange": "XETRA (Germany)", "tracks": "Ether price" },
-    { "ticker": "AETH.SW", "name": "21Shares Ethereum Staking ETP", "exchange": "SIX Swiss Exchange", "tracks": "Ether price, plus staking rewards (a payment for helping run the Ethereum network)" }
+    {
+      "ticker": "ABTC.SW",
+      "name": "21Shares Bitcoin ETP",
+      "exchange": "SIX Swiss Exchange",
+      "tracks": "Bitcoin price",
+      "country": "Switzerland",
+      "holds": "Bitcoin"
+    },
+    {
+      "ticker": "BITC.SW",
+      "name": "CoinShares Physical Bitcoin",
+      "exchange": "SIX Swiss Exchange",
+      "tracks": "Bitcoin price",
+      "country": "Switzerland",
+      "holds": "Bitcoin"
+    },
+    {
+      "ticker": "BTCE.DE",
+      "name": "Bitwise Physical Bitcoin ETC",
+      "exchange": "XETRA (Germany)",
+      "tracks": "Bitcoin price",
+      "country": "Germany",
+      "holds": "Bitcoin"
+    },
+    {
+      "ticker": "VBTC.DE",
+      "name": "VanEck Bitcoin ETN",
+      "exchange": "XETRA (Germany)",
+      "tracks": "Bitcoin price",
+      "country": "Germany",
+      "holds": "Bitcoin"
+    },
+    {
+      "ticker": "ZETH.DE",
+      "name": "Bitwise Physical Ethereum ETC",
+      "exchange": "XETRA (Germany)",
+      "tracks": "Ether price",
+      "country": "Germany",
+      "holds": "Ethereum"
+    },
+    {
+      "ticker": "AETH.SW",
+      "name": "21Shares Ethereum Staking ETP",
+      "exchange": "SIX Swiss Exchange",
+      "tracks": "Ether price, plus staking rewards (a payment for helping run the Ethereum network)",
+      "country": "Switzerland",
+      "holds": "Ethereum"
+    }
   ]
 }

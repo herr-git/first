@@ -457,3 +457,5 @@ a.trade-btn {
 }
 a.trade-btn:hover { text-decoration: underline; }
 a.trade-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.data-table td.trade .na { white-space: normal; display: inline-block; max-width: 7.5em; text-align: right; font-size: 0.85rem; }
+#funds-area .data-table th, #funds-area .data-table td { padding-left: 7px; padding-right: 7px; }

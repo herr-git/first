@@ -5,7 +5,7 @@ and save it into data/tokenized-latest.json.
   source gives bid/ask for these, so bid/ask are not stored.
 - Exchange-traded products in Europe: Yahoo Finance via yfinance (price in the
   product's own currency, volume today, bid/ask only when within 1% of the price,
-  total assets when Yahoo has them).
+  total assets and yearly fee when Yahoo has them).
 
 Each part is fetched separately. If one part fails, its last good data is kept,
 "last_error" is set for that part, and the failure is written to
@@ -85,6 +85,10 @@ def fetch_exchange_traded(items):
         if not (price and bid and ask and bid > 0 and ask > 0
                 and abs(bid - price) / price <= BID_ASK_LIMIT and abs(ask - price) / price <= BID_ASK_LIMIT):
             bid = ask = None
+        fee = num(info.get("netExpenseRatio"))
+        if fee is None:
+            fee = num(info.get("annualReportExpenseRatio"))
+            fee = fee * 100 if fee is not None and fee < 0.2 else fee  # some fields are fractions
         t = info.get("regularMarketTime")
         rows.append({
             "ticker": i["ticker"],
@@ -93,6 +97,7 @@ def fetch_exchange_traded(items):
             "price_time": datetime.fromtimestamp(t, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ") if isinstance(t, (int, float)) else None,
             "volume": num(info.get("regularMarketVolume")),
             "total_assets": num(info.get("totalAssets")),
+            "yearly_fee_pct": fee,
             "bid": bid,
             "ask": ask,
         })

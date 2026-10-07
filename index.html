@@ -28,7 +28,7 @@
         <dt>What it is not</dt>
         <dd>Not a real trading app and not investment advice. There is no login and no real money. The paper trading part uses pretend money, and no order ever leaves this site.</dd>
         <dt>Where the data comes from</dt>
-        <dd>CoinGecko (crypto tokens and tokenized funds) and Yahoo Finance (stock market funds). An automatic job collects new numbers regularly. Each table says exactly when it was last updated.</dd>
+        <dd>CoinGecko (crypto tokens and tokenized funds) and Yahoo Finance (exchange-traded funds in the US and Europe). An automatic job collects new numbers regularly. Each table says exactly when it was last updated.</dd>
         <dt>What is sample data</dt>
         <dd>Sample data is always marked with a yellow "Sample data" label. If you see no label, the numbers are real, from the sources above.</dd>
       </dl>
@@ -44,7 +44,7 @@
         <span class="badge pretend">Pretend money</span>
       </div>
       <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
-      <p>A practice area with 100,000 pretend US dollars for the crypto tokens and US funds below. Use "Pretend trade" next to any of them. Nothing is real and no order leaves this site.</p>
+      <p>A practice area with 100,000 pretend US dollars for the crypto tokens and US-listed funds below. Use "Pretend trade" next to any of them. Nothing is real and no order leaves this site.</p>
       <p class="loading" id="paper-loading" role="status">Loading your paper account&hellip;</p>
       <div id="paper-area"></div>
       <p class="meta" id="paper-meta"></p>
@@ -75,48 +75,35 @@
 
     <section class="panel" aria-labelledby="funds-title">
       <div class="panel-head">
-        <h2 id="funds-title">Crypto funds on the US stock market</h2>
+        <h2 id="funds-title">Exchange-traded crypto funds (US and Europe)</h2>
         <div class="badges" id="funds-badges"></div>
       </div>
+      <p class="section-intro">Exchange-traded crypto funds hold crypto and are bought and sold on a normal stock exchange, like a share. In Europe most of them are legally "exchange-traded notes" (a kind of bond backed by the crypto), but for a buyer they work much like a fund.</p>
       <p class="meta" id="funds-meta"></p>
       <div class="table-area" id="funds-area"></div>
       <ul class="notes">
-        <li>Market value is the fund's total size as reported by Yahoo. It can be a few days behind the price.</li>
+        <li>Prices are in the currency each fund trades in: US dollars ($), Swiss francs (CHF) or euros (EUR). They are not converted. Sorting by price or market value keeps each currency together.</li>
+        <li>Market value is the fund's total size as reported by Yahoo, where it has it. It can be a few days behind the price.</li>
+        <li>Volume today is the number of fund shares (or units, in Europe) that changed hands today.</li>
         <li>Bid and ask are shown only when they are within 1% of the price. Otherwise they say "not available".</li>
-        <li>These funds are listed in the USA and may not be available to buy in your country.</li>
-        <li>"Pretend trade" opens the paper trading page. Paper trading. Pretend money. No real orders.</li>
+        <li>Funds listed in one country may not be available to buy in another.</li>
+        <li>Paper trading covers the US-listed funds only. "Pretend trade" opens the paper trading page. Paper trading. Pretend money. No real orders.</li>
       </ul>
     </section>
 
-    <section class="panel" aria-labelledby="tok-title">
+    <section class="panel" aria-labelledby="tokf-title">
       <div class="panel-head">
-        <h2 id="tok-title">Tokenized funds and exchange-traded crypto products</h2>
-      </div>
-      <p class="section-intro">Tokenized funds are ordinary investment funds whose shares are issued as tokens on a blockchain; exchange-traded crypto products are funds or notes that hold crypto and trade on a normal stock exchange. Free data for these is limited: tokenized funds are mostly bought directly from the issuer, so they show little or no trading and no bid/ask.</p>
-
-      <div class="panel-head sub-head">
-        <h3 id="tokf-title">Tokenized funds</h3>
+        <h2 id="tokf-title">Tokenized funds</h2>
         <div class="badges" id="tokf-badges"></div>
       </div>
+      <p class="section-intro">Tokenized funds are ordinary investment funds whose shares are issued as tokens on a blockchain. Free data for them is limited: they are mostly bought directly from the issuer, so they show little or no trading and no bid/ask.</p>
       <p class="meta" id="tokf-meta"></p>
       <div class="table-area" id="tokf-area"></div>
       <ul class="notes">
         <li>Bid and ask: not available. These funds are bought and sold directly with the issuer, and no free source publishes these prices.</li>
         <li>A volume of $0 is what the source reports: little or no trading on exchanges in the last 24 hours.</li>
         <li>"What it tracks" is a short summary written for this demo. The issuer's own page has the full details.</li>
-      </ul>
-
-      <div class="panel-head sub-head">
-        <h3 id="etp-title">Exchange-traded crypto products listed in Europe</h3>
-        <div class="badges" id="etp-badges"></div>
-      </div>
-      <p class="meta" id="etp-meta"></p>
-      <div class="table-area" id="etp-area"></div>
-      <ul class="notes">
-        <li>Prices are in the currency each product trades in: Swiss francs (CHF) or euros (EUR). Sorting by price or market value puts the CHF products first, then the EUR products.</li>
-        <li>In Europe most of these are legally "exchange-traded notes": a kind of bond backed by the crypto. For a buyer they work much like a fund.</li>
-        <li>Bid and ask are shown only when they are within 1% of the price.</li>
-        <li>The US-listed crypto funds are in the table above.</li>
+        <li>Tokenized funds can be viewed here but not used for paper trading.</li>
       </ul>
     </section>
 

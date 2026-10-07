@@ -26,7 +26,9 @@ Every data source, its terms link, and how it is used.
      private demo and chose Yahoo only, with no backup source.
    - Also used once a day for about 6 months of daily closing prices (data/history.json).
    - Also used every 15 minutes for 6 European exchange-traded crypto products
-     (data/tokenized-latest.json): price in CHF/EUR, volume, bid/ask (1% rule), total assets.
+     (data/tokenized-latest.json): price in CHF/EUR, volume, bid/ask (1% rule), total assets,
+     yearly fee where Yahoo has it.
+   - Paper trading values holdings and fills pretend orders with these same saved prices.
    - Terms: https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html
    - Terms status: NOT YET READ.
 
