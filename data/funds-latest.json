@@ -2,7 +2,7 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-10-07T22:20:52Z",
+  "last_updated": "2026-10-07T23:47:13Z",
   "market_status": "closed",
   "last_error": null,
   "partial_problems": [],
@@ -24,7 +24,7 @@
       "volume": 3941422,
       "total_assets_usd": 15454059520,
       "yearly_fee_pct": 0.25,
-      "bid": 72.44,
+      "bid": 72.32,
       "ask": 72.45
     },
     {
@@ -55,7 +55,7 @@
       "total_assets_usd": 1953242368,
       "yearly_fee_pct": 2.5,
       "bid": 20.6,
-      "ask": 20.61
+      "ask": 20.71
     },
     {
       "ticker": "ZCSH",
