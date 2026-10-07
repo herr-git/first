@@ -1,0 +1,54 @@
+# Fetches live crypto data from CoinGecko and saves it into data/latest.json.
+# Timer: every 15 minutes (GitHub may start it a few minutes late).
+# Timed runs only happen from the main branch.
+name: Refresh crypto data
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # "Run workflow" button on the Actions tab
+  push:
+    branches: [main]
+    paths:
+      - "scripts/fetch_crypto.py"
+      - ".github/workflows/refresh-crypto.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-crypto
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch from CoinGecko
+        env:
+          COINGECKO_DEMO_KEY: ${{ secrets.COINGECKO_DEMO_KEY }}
+        run: python scripts/fetch_crypto.py
+
+      - name: Save the new data
+        run: |
+          git config user.name "crypto-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/fetch-log.txt 2>/dev/null || git add data/latest.json
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git commit -m "Refresh crypto data"
+          for i in 1 2 3; do
+            git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          echo "Could not save the data after 3 tries."
+          exit 1
