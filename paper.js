@@ -7,6 +7,9 @@ let canSave = true;
 let storage = null;
 let market = null;      // { settings, assets: {key: asset}, cryptoUpdated, fundsUpdated }
 let pending = null;     // the order waiting for "Place pretend order"
+let reloadProblem = null; // time of the last failed quiet re-read of the price files
+const RECHECK_MS = 60 * 1000;       // re-check the age of the prices shown
+const RELOAD_MS = 5 * 60 * 1000;    // quietly re-read our own price files
 
 const $ = id => document.getElementById(id);
 
@@ -68,7 +71,56 @@ function showDamaged() {
 function showPricesMeta() {
   $('prices-meta').innerHTML =
     '<strong>Where prices come from:</strong> CoinGecko (crypto tokens) and Yahoo Finance (US funds, delayed 15 minutes).' +
-    '<br><strong>Last updated:</strong> crypto ' + esc(when(market.cryptoUpdated)) + '; US funds ' + esc(when(market.fundsUpdated)) + '.';
+    '<br><strong>Last updated:</strong> crypto ' + (market.cryptoError ? 'unknown' : esc(when(market.cryptoUpdated))) +
+    '; US funds ' + (market.fundsError ? 'unknown' : esc(when(market.fundsUpdated))) + '.' +
+    (reloadProblem ? '<br>The price files could not be re-read at ' + esc(when(reloadProblem)) + '. Showing the prices loaded before that.' : '');
+  // One part failing does not stop the other.
+  const parts = [];
+  if (market.cryptoError) parts.push('Crypto prices could not be loaded, so crypto tokens cannot be traded right now. US funds still can.');
+  if (market.fundsError) parts.push('US fund prices could not be loaded, so US funds cannot be traded right now. Crypto tokens still can.');
+  $('prices-partial').hidden = parts.length === 0;
+  $('prices-partial').textContent = parts.join(' ');
+}
+
+// ---------- Another tab or window changed the account (2d) ----------
+
+// Compare with what is saved in this browser. If another tab or window saved a newer
+// version (a pretend order, or Start over), take that version and redraw. Returns true if it changed.
+function accountChangedElsewhere() {
+  if (!storage) return false;
+  const r = PaperAccount.loadAccount(storage);
+  if (r.status === 'blocked') return false;
+  if (r.status === 'damaged') {
+    if (!account) return false;
+    account = null;
+    showDamaged();
+    showPortfolio(false);
+    if (pending) closeReview();
+    $('order-form').hidden = true;
+    $('order-error').hidden = false;
+    $('order-error').textContent = 'Pretend orders are paused until your paper account can be read. Choose "Start over" above.';
+    return true;
+  }
+  const saved = r.status === 'new' ? null : r.account;
+  if (account && saved && saved.updated === account.updated && saved.orders.length === account.orders.length) return false;
+  if (!account && !saved) return false;
+  account = saved || r.account;
+  if (r.status === 'new') save();
+  $('account-error').hidden = true;
+  showAccount();
+  showPortfolio(false);
+  if (market) {
+    $('order-error').hidden = true;
+    if (pending) closeReview();
+    fillAssetList();
+    showPrice();
+  }
+  return true;
+}
+
+function showSyncNote() {
+  $('sync-note').hidden = false;
+  $('sync-note').textContent = 'Your paper account was changed in another tab or window. This page now shows the latest version. Check your order before reviewing it again.';
 }
 
 // ---------- Portfolio and order history (2c) ----------
@@ -93,8 +145,12 @@ function showPortfolio(pricesFailed) {
   const pf = PaperAccount.portfolio(account, key => (market ? priceFor(market, key, now) : null));
   $('portfolio-loading').hidden = true;
   $('portfolio-body').hidden = false;
-  $('portfolio-error').hidden = !pricesFailed;
-  if (pricesFailed) $('portfolio-error').textContent = 'Prices could not be loaded, so holdings are valued at the last price you traded at.';
+  const partial = market && (market.cryptoError || market.fundsError)
+    ? (market.cryptoError ? 'Crypto' : 'US fund') + ' prices could not be loaded, so those holdings are valued at the last price you traded at.'
+    : null;
+  const problem = pricesFailed ? 'Prices could not be loaded, so holdings are valued at the last price you traded at.' : partial;
+  $('portfolio-error').hidden = !problem;
+  if (problem) $('portfolio-error').textContent = problem;
   $('portfolio-stats').innerHTML =
     `<div class="stat"><span class="label">Total value</span><span class="value">${dollars(pf.total)}</span><span class="sub">pretend US dollars</span></div>` +
     `<div class="stat"><span class="label">Pretend cash</span><span class="value">${dollars(pf.cash)}</span><span class="sub">not invested</span></div>` +
@@ -149,6 +205,7 @@ function fillAssetList() {
   if (side() === 'buy') {
     ['Crypto tokens', 'US crypto funds'].forEach(g => {
       const items = Object.values(market.assets).filter(a => a.group === g);
+      if (!items.length) return; // that price file could not be loaded
       options += `<optgroup label="${g}">` + items.map(a => `<option value="${esc(a.key)}">${esc(a.name)}</option>`).join('') + '</optgroup>';
     });
   } else {
@@ -169,7 +226,10 @@ function current(key) {
   const base = a || (h ? { key, kind: key.startsWith('fund:') ? 'fund' : 'crypto', name: h.name, price: null, priceTime: null } : null);
   if (!base) return null;
   const check = PaperAccount.checkPrice(base, new Date(), market.settings.stale_after_minutes);
-  if (!a && h) check.reason = 'This token is no longer in the top 20, so there is no current price. Trading it is paused until it is back in the list.';
+  if (!a && h) {
+    check.reason = missingReason(market, key) ||
+      'This token is no longer in the top 20, so there is no current price. Trading it is paused until it is back in the list.';
+  }
   return Object.assign({}, base, { check });
 }
 
@@ -247,9 +307,13 @@ async function review(ev) {
   ev.preventDefault();
   $('order-done').hidden = true;
   $('review-error').hidden = true;
+  $('sync-note').hidden = true;
+  // Another tab or window may have changed the account since this page last looked.
+  if (accountChangedElsewhere()) { showSyncNote(); return; }
   // Collect the prices again first, so a page left open for a long time cannot use an old price.
   try {
     market = await loadMarket();
+    reloadProblem = null;
     showPricesMeta();
     showPortfolio(false);
   } catch (err) {
@@ -276,10 +340,14 @@ async function review(ev) {
     `<dt>Pretend cash after</dt><dd>${dollars(r.account.cash)}</dd>`;
   $('order-form').hidden = true;
   $('review').hidden = false;
+  $('place-btn').disabled = false;
   $('place-btn').focus();
 }
 
 function place() {
+  if (!pending) return;
+  // Another tab or window may have placed an order or started over since the review.
+  if (accountChangedElsewhere()) { showSyncNote(); return; }
   const c = current(pending.key);
   // Check the price again at the moment of placing: time has passed since the review.
   if (!c || !c.check.ok || c.price !== pending.price || c.priceTime !== pending.priceTime) {
@@ -336,6 +404,7 @@ async function startOrders() {
     return;
   }
   $('order-loading').hidden = true;
+  $('order-error').hidden = true;
   showPricesMeta();
   showPortfolio(false);
   if (!account) {
@@ -346,6 +415,45 @@ async function startOrders() {
   $('order-form').hidden = false;
   fillAssetList();
   showPrice();
+}
+
+// ---------- Keeping prices current while the page is open (2d) ----------
+
+function recheckAges() {
+  if (!market || !account) return;
+  showPortfolio(false);
+  if (pending) {
+    const c = current(pending.key);
+    if (c && !c.check.ok) {
+      $('review-error').hidden = false;
+      $('review-error').textContent = 'Trading paused: ' + c.check.reason + ' This order cannot be placed. Choose "Change".';
+      $('place-btn').disabled = true;
+    }
+  } else if (!$('order-form').hidden) {
+    showPrice();
+  }
+}
+
+async function reloadPrices() {
+  let fresh;
+  try {
+    fresh = await loadMarket();
+  } catch (err) {
+    reloadProblem = new Date().toISOString();
+    if (market) showPricesMeta();
+    return;
+  }
+  const wasMissing = !market;
+  market = fresh;
+  reloadProblem = null;
+  if (wasMissing) { startOrders(); return; } // prices are back after a failure
+  showPricesMeta();
+  showPortfolio(false);
+  if (account && !pending && !$('order-form').hidden) {
+    fillAssetList();
+    showPrice();
+  }
+  recheckAges();
 }
 
 // ---------- Start ----------
@@ -399,6 +507,18 @@ async function startOrders() {
   $('order-form').addEventListener('submit', review);
   $('place-btn').addEventListener('click', place);
   $('change-btn').addEventListener('click', () => { closeReview(); $('amount').focus(); });
+
+  // Another tab or window saved the account: show the latest version here too.
+  window.addEventListener('storage', ev => {
+    if (ev.key !== PaperAccount.STORAGE_KEY && ev.key !== null) return;
+    const hadReview = !!pending;
+    if (accountChangedElsewhere() && hadReview) showSyncNote();
+  });
+
+  // Every minute: re-check how old the prices shown are, so "Trading paused" appears without a reload.
+  setInterval(recheckAges, RECHECK_MS);
+  // Every 5 minutes: quietly re-read our own price files (never the data providers).
+  setInterval(reloadPrices, RELOAD_MS);
 
   startOrders();
 })();
