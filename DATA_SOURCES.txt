@@ -1,5 +1,5 @@
 DATA SOURCES
-Required by regulation-notes.txt: every data source, its terms link, and how it is used.
+Every data source, its terms link, and how it is used.
 
 1. CoinGecko free API (IN USE: crypto table)
    - What: price, market value (market cap) and 24-hour volume for the top 20 tokens
