@@ -65,7 +65,7 @@ function whenText(iso) {
 function badge(cls, text) { return '<span class="badge ' + cls + '">' + esc(text) + '</span>'; }
 
 // Badges and the "source / last updated" line shared by both tables.
-function renderMeta(prefix, block, settings, extraBadges, timingLabel) {
+function renderMeta(prefix, block, settings, extraBadges, timingLabel, marketClosed) {
   const badges = [];
   if (block.sample) badges.push(badge('sample', 'Sample data'));
   badges.push(badge('info', timingLabel || 'Delayed 15 minutes'));
@@ -73,8 +73,9 @@ function renderMeta(prefix, block, settings, extraBadges, timingLabel) {
   const failed = block.last_error && !(new Date(block.last_error.time) < new Date(block.last_updated));
   if (failed) badges.push(badge('warn', 'Latest refresh failed'));
   const ageMin = (Date.now() - new Date(block.last_updated).getTime()) / 60000;
-  // The "may be old" check only applies to live data. Sample data is always old by design.
-  if (!block.sample && !(ageMin <= settings.stale_after_minutes)) {
+  // The "may be old" check only applies to live data while the market is open.
+  // Sample data is always old by design, and fund data is not refreshed when the market is closed.
+  if (!block.sample && !marketClosed && !(ageMin <= settings.stale_after_minutes)) {
     badges.push(badge('warn', 'Data may be old'));
   }
   (extraBadges || []).forEach(b => badges.push(b));
@@ -132,9 +133,9 @@ async function loadCrypto(latest, settings) {
 
 // ---------- Fund table ----------
 
-async function loadFunds(latest, settings) {
-  const config = await loadJson('data/funds-config.json');
-  const byTicker = Object.fromEntries(latest.funds.rows.map(r => [r.ticker, r]));
+async function loadFunds(settings) {
+  const [config, block] = await Promise.all([loadJson('data/funds-config.json'), loadJson('data/funds-latest.json')]);
+  const byTicker = Object.fromEntries((block.rows || []).map(r => [r.ticker, r]));
   const groups = ['Bitcoin', 'Ethereum', 'Zcash'];
   // Any type not in the list above still shows, after the known groups.
   config.funds.forEach(f => { if (!groups.includes(f.type)) groups.push(f.type); });
@@ -146,16 +147,13 @@ async function loadFunds(latest, settings) {
     html += `<tr class="group"><td colspan="7">${esc(type)} funds</td></tr>`;
     funds.forEach(f => {
       const d = byTicker[f.ticker] || {};
-      const mv = isNum(d.price_usd) && isNum(f.shares_outstanding) ? d.price_usd * f.shares_outstanding : null;
-      const mvNote = isNum(mv) && f.shares_as_of ? `<span class="sub">shares as of ${esc(f.shares_as_of)}</span>` : '';
-      const feeNote = isNum(f.yearly_fee_pct) && f.fee_as_of ? `<span class="sub">as of ${esc(f.fee_as_of)}</span>` : '';
       html += `
         <tr>
           <td class="name">${esc(f.name)} <span class="sub">Ticker: ${esc(f.ticker)}</span></td>
           <td class="num" data-label="Price (USD)">${usd(d.price_usd)}</td>
-          <td class="num" data-label="Market value (approx.)">${bigUsd(mv)}${mvNote}</td>
+          <td class="num" data-label="Market value (total assets)">${bigUsd(d.total_assets_usd)}</td>
           <td class="num" data-label="Volume today (shares)">${count(d.volume)}</td>
-          <td class="num" data-label="Yearly fee">${percent(f.yearly_fee_pct)}${feeNote}</td>
+          <td class="num" data-label="Yearly fee">${percent(d.yearly_fee_pct)}</td>
           <td class="num" data-label="Bid">${usd(d.bid)}</td>
           <td class="num" data-label="Ask">${usd(d.ask)}</td>
         </tr>`;
@@ -163,23 +161,24 @@ async function loadFunds(latest, settings) {
   });
   document.querySelector('#funds-table tbody').innerHTML = html;
 
+  const closed = block.market_status === 'closed';
   const extra = [];
-  if (latest.funds.market_status === 'closed') extra.push(badge('info', 'Market closed: showing last close'));
-  if (config.sample && !latest.funds.sample) extra.push(badge('sample', 'Shares and fees: sample data'));
-  renderMeta('funds', latest.funds, settings, extra);
+  if (closed) extra.push(badge('info', 'Market closed: showing last close'));
+  renderMeta('funds', block, settings, extra, 'Delayed 15 minutes', closed);
 }
 
 // ---------- Start ----------
 
 (async function start() {
-  let latest, settings;
+  let settings;
   try {
-    [latest, settings] = await Promise.all([loadJson('data/latest.json'), loadJson('data/settings.json')]);
+    settings = await loadJson('data/settings.json');
   } catch (err) {
     showError('crypto', err);
     showError('funds', err);
     return;
   }
-  loadCrypto(latest, settings).catch(err => showError('crypto', err));
-  loadFunds(latest, settings).catch(err => showError('funds', err));
+  // Each table loads its own file, so one failing does not blank the other.
+  loadJson('data/latest.json').then(latest => loadCrypto(latest, settings)).catch(err => showError('crypto', err));
+  loadFunds(settings).catch(err => showError('funds', err));
 })();

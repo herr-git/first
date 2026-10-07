@@ -13,10 +13,16 @@ Required by regulation-notes.txt: every data source, its terms link, and how it 
    - Terms status: NOT YET READ IN FULL. The build session could not open the page
      (network blocked). Owner to review: public display, storing data, attribution.
 
-2. Yahoo Finance via yfinance (PLANNED: fund table, story V1-4)
-   - Unofficial access. Owner accepted this for a private demo.
+2. Yahoo Finance via yfinance (IN USE: fund table)
+   - What: price, volume today, total assets (shown as market value), yearly fee,
+     bid and ask (kept only when within 1% of the price) for the 6 funds.
+   - How: a GitHub Actions job (.github/workflows/refresh-funds.yml) runs every
+     15 minutes on weekdays around US market hours and saves data/funds-latest.json.
+     The web page never calls Yahoo.
+   - Unofficial access that can break without warning. Owner accepted this for a
+     private demo and chose Yahoo only, with no backup source.
    - Terms: https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html
-   - Terms status: NOT YET READ. Not used yet.
+   - Terms status: NOT YET READ.
 
 3. Frankfurter exchange rates (PLANNED: Version 2 currency choice)
    - Terms / info: https://www.frankfurter.app/

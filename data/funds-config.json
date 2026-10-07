@@ -1,24 +1,35 @@
 {
-  "_note": "Edit this file to change the fund list. Adding a fund = adding one entry. Shares outstanding and yearly fee are SAMPLE values until looked up on each provider's published page. Use null when a number is not published.",
-  "sample": true,
+  "_note": "The fund list. Adding a fund = adding one entry (ticker, name, type). Prices, total assets and fees come from Yahoo.",
   "funds": [
-    { "ticker": "IBIT", "name": "iShares Bitcoin Trust ETF", "type": "Bitcoin",
-      "shares_outstanding": 1200000000, "shares_as_of": "2026-10-01", "shares_source": null,
-      "yearly_fee_pct": 0.25, "fee_as_of": "2026-10-01", "fee_source": null },
-    { "ticker": "FBTC", "name": "Fidelity Wise Origin Bitcoin Fund", "type": "Bitcoin",
-      "shares_outstanding": 230000000, "shares_as_of": "2026-10-01", "shares_source": null,
-      "yearly_fee_pct": 0.25, "fee_as_of": "2026-10-01", "fee_source": null },
-    { "ticker": "GBTC", "name": "Grayscale Bitcoin Trust ETF", "type": "Bitcoin",
-      "shares_outstanding": 250000000, "shares_as_of": "2026-10-01", "shares_source": null,
-      "yearly_fee_pct": 1.50, "fee_as_of": "2026-10-01", "fee_source": null },
-    { "ticker": "ETHA", "name": "iShares Ethereum Trust ETF", "type": "Ethereum",
-      "shares_outstanding": 400000000, "shares_as_of": "2026-10-01", "shares_source": null,
-      "yearly_fee_pct": 0.25, "fee_as_of": "2026-10-01", "fee_source": null },
-    { "ticker": "ETHE", "name": "Grayscale Ethereum Trust ETF", "type": "Ethereum",
-      "shares_outstanding": 120000000, "shares_as_of": "2026-10-01", "shares_source": null,
-      "yearly_fee_pct": 2.50, "fee_as_of": "2026-10-01", "fee_source": null },
-    { "ticker": "ZCSH", "name": "Grayscale Zcash Trust", "type": "Zcash",
-      "shares_outstanding": null, "shares_as_of": null, "shares_source": null,
-      "yearly_fee_pct": null, "fee_as_of": null, "fee_source": null }
+    {
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust ETF",
+      "type": "Bitcoin"
+    },
+    {
+      "ticker": "FBTC",
+      "name": "Fidelity Wise Origin Bitcoin Fund",
+      "type": "Bitcoin"
+    },
+    {
+      "ticker": "GBTC",
+      "name": "Grayscale Bitcoin Trust ETF",
+      "type": "Bitcoin"
+    },
+    {
+      "ticker": "ETHA",
+      "name": "iShares Ethereum Trust ETF",
+      "type": "Ethereum"
+    },
+    {
+      "ticker": "ETHE",
+      "name": "Grayscale Ethereum Trust ETF",
+      "type": "Ethereum"
+    },
+    {
+      "ticker": "ZCSH",
+      "name": "Grayscale Zcash Trust",
+      "type": "Zcash"
+    }
   ]
 }
