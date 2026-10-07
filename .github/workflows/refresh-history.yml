@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-refresh   # shared with the other data jobs so they never save at the same time
+  group: refresh-history
   cancel-in-progress: false
 
 jobs:

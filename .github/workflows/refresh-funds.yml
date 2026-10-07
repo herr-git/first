@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-refresh   # shared with the crypto job so they never save at the same time
+  group: refresh-funds
   cancel-in-progress: false
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
           git config user.name "crypto-data-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/funds-latest.json
-          [ -f data/fetch-log.txt ] && git add data/fetch-log.txt
+          [ -f data/funds-fetch-log.txt ] && git add data/funds-fetch-log.txt
           if git diff --cached --quiet; then
             echo "Nothing changed."
             exit 0

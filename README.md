@@ -18,7 +18,7 @@ A read-only demo dashboard. Demo only. Not investment advice. No trading happens
 - `scripts/fetch_funds.py` and `.github/workflows/refresh-funds.yml`: the fund job.
 - `scripts/fetch_history.py` and `.github/workflows/refresh-history.yml`: the daily 6-month history job. Problems and missing days go to `data/history-log.txt`.
 - `data/settings.json`: refresh interval, the "data may be old" limit and how many tokens to fetch.
-- `data/fetch-log.txt`: a line for each failed refresh.
+- `data/fetch-log.txt` and `data/funds-fetch-log.txt`: a line for each failed crypto or fund refresh.
 - `scripts/fetch_crypto.py`: fetches CoinGecko data and writes `data/latest.json`.
 - `.github/workflows/refresh-crypto.yml`: runs the script on a 15-minute timer (main branch only).
 - `DATA_SOURCES.txt`: every data source and its terms.
