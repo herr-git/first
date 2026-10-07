@@ -272,3 +272,11 @@ button.link { font: inherit; background: none; border: none; color: var(--accent
   .table-view .data-table thead { display: none; }
 }
 .mix-table .sub { display: block; color: var(--muted); font-size: 0.8rem; }
+
+/* Tokenized funds and exchange-traded products section */
+.section-intro { margin: 8px 0 4px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--group-bg); border-radius: 4px; }
+.sub-title { font-size: 1.05rem; margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.data-table td.tracks { color: var(--muted); font-size: 0.88rem; max-width: 220px; }
+@media (max-width: 680px) {
+  .data-table td.tracks { max-width: none; }
+}

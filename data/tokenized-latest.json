@@ -1,0 +1,5 @@
+{
+  "_note": "Written by scripts/fetch_tokenized.py. Empty until the first fetch has run.",
+  "tokenized": { "sample": false, "source": "CoinGecko free API.", "source_url": "https://www.coingecko.com/", "last_updated": null, "last_error": null, "rows": [] },
+  "exchange_traded": { "sample": false, "source": "Yahoo Finance (unofficial access through the yfinance library).", "source_url": "https://finance.yahoo.com/", "last_updated": null, "last_error": null, "rows": [] }
+}

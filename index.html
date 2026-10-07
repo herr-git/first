@@ -76,6 +76,56 @@
       <p class="note">These funds are listed in the USA. They may not be available to buy in your country.</p>
     </section>
 
+    <section class="panel" aria-labelledby="tok-title">
+      <div class="panel-head">
+        <h2 id="tok-title">Tokenized funds and exchange-traded crypto products</h2>
+      </div>
+      <p class="section-intro">Tokenized funds are ordinary investment funds whose shares are issued as tokens on a blockchain; exchange-traded crypto products are funds or notes that hold crypto and trade on a normal stock exchange. Free data for these is limited: tokenized funds are mostly bought directly from the issuer, so they show little or no trading and no bid/ask.</p>
+
+      <h3 class="sub-title">Tokenized funds <span class="badges" id="tokf-badges"></span></h3>
+      <p class="meta" id="tokf-meta"></p>
+      <div id="tokf-error" class="error" hidden></div>
+      <table class="data-table" id="tokf-table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Type</th>
+            <th scope="col">What it tracks</th>
+            <th scope="col" class="num">Price (USD)</th>
+            <th scope="col" class="num">Market value (USD)</th>
+            <th scope="col" class="num">24-hour volume (USD)</th>
+            <th scope="col" class="num">Bid / ask</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">Bid and ask: not available for tokenized funds. They are mostly bought and sold directly with the issuer, not on an exchange, and no free source publishes these prices.</p>
+      <p class="note">A volume of $0 is what the source reports: little or no trading happened on exchanges in the last 24 hours.</p>
+      <p class="note">"What it tracks" is a short summary written for this demo. Check each issuer's own page for the full details.</p>
+
+      <h3 class="sub-title">Exchange-traded crypto products listed in Europe <span class="badges" id="etp-badges"></span></h3>
+      <p class="meta" id="etp-meta"></p>
+      <div id="etp-error" class="error" hidden></div>
+      <table class="data-table" id="etp-table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Type</th>
+            <th scope="col">What it tracks</th>
+            <th scope="col" class="num">Price</th>
+            <th scope="col" class="num">Market value (total assets)</th>
+            <th scope="col" class="num">Volume today (units)</th>
+            <th scope="col" class="num">Bid / ask</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">Prices are in the currency each product trades in: Swiss francs (CHF) or euros (EUR), not US dollars.</p>
+      <p class="note">In Europe most of these are legally "exchange-traded notes": a kind of bond backed by the crypto. For a buyer they work much like a fund.</p>
+      <p class="note">Bid and ask are shown only when they are within 1% of the price. Market value is the total assets reported by Yahoo, where it has them.</p>
+      <p class="note">The US-listed crypto funds (IBIT, FBTC and others) are in the fund table above.</p>
+    </section>
+
     <p class="panel preview-link">
       <strong>Coming in Version 2:</strong> try a pretend-money portfolio.
       <a href="preview.html">Open the preview</a> (sample data only).
@@ -92,6 +142,10 @@
         <dt>Bid / ask</dt><dd>Bid is the highest price a buyer is offering right now. Ask is the lowest price a seller will accept.</dd>
         <dt>Yearly fee</dt><dd>What the fund charges each year, as a percentage of the money invested.</dd>
         <dt>Delayed 15 minutes</dt><dd>Free data shows prices from about 15 minutes ago, not this second.</dd>
+        <dt>Tokenized fund</dt><dd>A normal investment fund whose shares exist as tokens on a blockchain, so they can be held in a crypto wallet.</dd>
+        <dt>Exchange-traded product</dt><dd>Something that tracks an asset (here, a crypto coin) and is bought and sold on a normal stock exchange, like a share.</dd>
+        <dt>Treasury bills</dt><dd>Short-term loans to the US government. They are seen as very low risk.</dd>
+        <dt>Staking rewards</dt><dd>A payment some crypto networks make to holders who help run the network.</dd>
         <dt>Sample data</dt><dd>Made-up numbers used to show the layout. They are not real prices.</dd>
       </dl>
     </details>
