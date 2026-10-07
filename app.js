@@ -65,10 +65,13 @@ function whenText(iso) {
 function badge(cls, text) { return '<span class="badge ' + cls + '">' + esc(text) + '</span>'; }
 
 // Badges and the "source / last updated" line shared by both tables.
-function renderMeta(prefix, block, settings, extraBadges) {
+function renderMeta(prefix, block, settings, extraBadges, timingLabel) {
   const badges = [];
   if (block.sample) badges.push(badge('sample', 'Sample data'));
-  badges.push(badge('info', 'Delayed 15 minutes'));
+  badges.push(badge('info', timingLabel || 'Delayed 15 minutes'));
+  // The data job could not refresh this table last time, so the numbers shown are older.
+  const failed = block.last_error && !(new Date(block.last_error.time) < new Date(block.last_updated));
+  if (failed) badges.push(badge('warn', 'Latest refresh failed'));
   const ageMin = (Date.now() - new Date(block.last_updated).getTime()) / 60000;
   // The "may be old" check only applies to live data. Sample data is always old by design.
   if (!block.sample && !(ageMin <= settings.stale_after_minutes)) {
@@ -81,7 +84,9 @@ function renderMeta(prefix, block, settings, extraBadges) {
     ? esc(block.source) + ' (<a href="' + esc(block.source_url) + '" target="_blank" rel="noopener">source site</a>)'
     : esc(block.source);
   document.getElementById(prefix + '-meta').innerHTML =
-    '<strong>Where this comes from:</strong> ' + src + '<br><strong>Last updated:</strong> ' + esc(whenText(block.last_updated));
+    '<strong>Where this comes from:</strong> ' + src + '<br><strong>Last updated:</strong> ' + esc(whenText(block.last_updated)) +
+    (failed ? '<br><strong>Problem:</strong> the latest refresh at ' + esc(whenText(block.last_error.time)) +
+      ' failed (' + esc(block.last_error.message) + '). Showing the last good data.' : '');
 }
 
 function showError(prefix, err) {
@@ -108,10 +113,12 @@ function drawCrypto() {
 }
 
 async function loadCrypto(latest, settings) {
-  const config = await loadJson('data/tokens-config.json');
-  const byId = Object.fromEntries(latest.crypto.rows.map(r => [r.id, r]));
-  cryptoRows = config.tokens.map(t => Object.assign({}, t, byId[t.id] || {}));
-  renderMeta('crypto', latest.crypto, settings);
+  const block = latest.crypto;
+  if (!Array.isArray(block.rows) || block.rows.length === 0) throw new Error('The crypto data file has no tokens in it.');
+  cryptoRows = block.rows;
+  const timing = block.sample ? 'Delayed 15 minutes' : 'Refreshed about every ' + settings.refresh_minutes + ' minutes';
+  renderMeta('crypto', block, settings, [], timing);
+  document.getElementById('crypto-title').textContent = 'Top ' + block.rows.length + ' crypto tokens by 24-hour trading volume';
   drawCrypto();
 
   document.querySelectorAll('.sort-bar button').forEach(btn => {

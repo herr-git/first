@@ -1,0 +1,23 @@
+DATA SOURCES
+Required by regulation-notes.txt: every data source, its terms link, and how it is used.
+
+1. CoinGecko free API (IN USE: crypto table)
+   - What: price, market value (market cap) and 24-hour volume for the top 20 tokens
+     by 24-hour trading volume, plus the stablecoin category list.
+   - How: a GitHub Actions job (.github/workflows/refresh-crypto.yml) calls it about
+     every 15 minutes and saves data/latest.json. The web page never calls CoinGecko.
+   - Key: none needed. An optional free "demo" key can be stored in the GitHub secret
+     COINGECKO_DEMO_KEY. It is never written into project files.
+   - Attribution: the page shows "Data from CoinGecko" with a link.
+   - Terms: https://www.coingecko.com/en/api_terms
+   - Terms status: NOT YET READ IN FULL. The build session could not open the page
+     (network blocked). Owner to review: public display, storing data, attribution.
+
+2. Yahoo Finance via yfinance (PLANNED: fund table, story V1-4)
+   - Unofficial access. Owner accepted this for a private demo.
+   - Terms: https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html
+   - Terms status: NOT YET READ. Not used yet.
+
+3. Frankfurter exchange rates (PLANNED: Version 2 currency choice)
+   - Terms / info: https://www.frankfurter.app/
+   - Terms status: NOT YET READ. Not used yet.

@@ -14,7 +14,7 @@
   <header class="page-header">
     <div class="intro">
       <h1>Crypto and crypto fund dashboard</h1>
-      <p class="lead">A read-only demo. It shows prices for the 10 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
+      <p class="lead">A read-only demo. It shows prices for the 20 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
   </header>
@@ -22,7 +22,7 @@
   <main>
     <section class="panel" aria-labelledby="crypto-title">
       <div class="panel-head">
-        <h2 id="crypto-title">Crypto tokens</h2>
+        <h2 id="crypto-title">Crypto tokens by 24-hour trading volume</h2>
         <div class="badges" id="crypto-badges"></div>
       </div>
       <p class="meta" id="crypto-meta"></p>
@@ -45,6 +45,8 @@
       </table>
       <p class="note">Crypto trading volume is not fully reliable. Different data sources often report different numbers.</p>
       <p class="note">Bid and ask are not available for tokens: the free source only gives one summary price.</p>
+      <p class="note">The list is re-ranked on every refresh, so tokens can move in or out of the top 20.</p>
+      <p class="note credit">Data from <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a>.</p>
     </section>
 
     <section class="panel" aria-labelledby="funds-title">

@@ -116,6 +116,7 @@ h2 { font-size: 1.2rem; margin: 0; }
 .meta { color: var(--muted); font-size: 0.9rem; margin: 8px 0; }
 .meta a { color: var(--accent); }
 .note { color: var(--muted); font-size: 0.85rem; margin: 8px 0 0; }
+.note a { color: var(--accent); }
 
 .sort-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 12px; font-size: 0.9rem; }
 .sort-bar button {
