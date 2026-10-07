@@ -52,7 +52,56 @@
       </div>
     </section>
 
-    <p class="note">Buying and selling are not available on this page yet.</p>
+    <section class="panel order" aria-labelledby="order-title">
+      <div class="panel-head">
+        <h2 id="order-title">Place a pretend order</h2>
+        <span class="badge pretend">Pretend money</span>
+      </div>
+      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+      <p class="meta" id="prices-meta"><strong>Where prices come from:</strong> loading&hellip;</p>
+      <p class="loading" id="order-loading" role="status">Loading prices&hellip;</p>
+      <div class="error" id="order-error" role="alert" hidden></div>
+
+      <form id="order-form" hidden novalidate>
+        <fieldset class="side-pick">
+          <legend>Buy or sell</legend>
+          <label><input type="radio" name="side" value="buy" id="side-buy" checked> Buy</label>
+          <label><input type="radio" name="side" value="sell" id="side-sell"> Sell</label>
+        </fieldset>
+
+        <div class="field">
+          <label for="asset">Token or fund</label>
+          <select id="asset"></select>
+          <p class="note" id="asset-empty" hidden>You do not own anything yet, so there is nothing to sell.</p>
+        </div>
+
+        <div class="price-box" id="price-box" aria-live="polite"></div>
+
+        <div class="field">
+          <label for="amount" id="amount-label">Amount to spend, in pretend US dollars</label>
+          <div class="amount-row">
+            <span class="currency" aria-hidden="true">$</span>
+            <input type="text" inputmode="decimal" id="amount" autocomplete="off" placeholder="for example 1000">
+            <label class="sell-all" id="sell-all-wrap" hidden><input type="checkbox" id="sell-all"> Sell all</label>
+          </div>
+          <p class="hint" id="amount-hint" aria-live="polite"></p>
+        </div>
+
+        <button type="submit" class="primary" id="review-btn">Review pretend order</button>
+      </form>
+
+      <div class="review" id="review" hidden>
+        <h3>Check your pretend order</h3>
+        <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+        <dl class="review-list" id="review-list"></dl>
+        <p class="note">Simplified: every pretend order is filled at once at the price shown, with no fees. Real trades usually cost a little more.</p>
+        <div class="error" id="review-error" role="alert" hidden></div>
+        <button type="button" class="primary" id="place-btn">Place pretend order</button>
+        <button type="button" class="secondary" id="change-btn">Change</button>
+      </div>
+
+      <p class="done" id="order-done" role="status" hidden></p>
+    </section>
   </main>
 
   <footer class="site-footer">Demo only. Not investment advice. No trading happens here.</footer>

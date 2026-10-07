@@ -61,5 +61,122 @@ function resetAccount(storage, now) {
   return { account: a, saved: saveAccount(storage, a) };
 }
 
-const PaperAccount = { STARTING_CASH, STORAGE_KEY, newAccount, isValidAccount, loadAccount, saveAccount, resetAccount };
+// ---------- Pretend orders (slice 2b) ----------
+
+const QTY_DECIMALS = 8;   // fractions of a token or fund share are allowed
+const DUST = 1e-8;        // a holding smaller than this counts as sold out
+
+function cents(v) { return Math.round(v * 100) / 100; }
+function roundQty(v) { return Math.round(v * 1e8) / 1e8; }
+
+// Is the US stock market open at this moment? Weekdays 9:30 to 16:00 New York time.
+// US holidays are not known here.
+function usMarketOpen(now) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23',
+  }).formatToParts(now);
+  const get = t => (parts.find(p => p.type === t) || {}).value;
+  if (get('weekday') === 'Sat' || get('weekday') === 'Sun') return false;
+  const mins = Number(get('hour')) * 60 + Number(get('minute'));
+  return mins >= 9 * 60 + 30 && mins < 16 * 60;
+}
+
+// Can this price be used for a pretend order right now?
+// p: { kind: 'crypto' | 'fund', price, priceTime (ISO) }
+// Returns { ok, reason, ageMinutes, marketClosed }.
+const CLOSED_MARKET_MAX_DAYS = 4; // covers a weekend plus a holiday
+function checkPrice(p, now, limitMinutes) {
+  if (!p || typeof p.price !== 'number' || !isFinite(p.price) || p.price <= 0) {
+    return { ok: false, reason: 'There is no current price for this asset.' };
+  }
+  const t = new Date(p.priceTime);
+  if (!p.priceTime || isNaN(t)) return { ok: false, reason: 'The time of this price is unknown.' };
+  const ageMinutes = (now - t) / 60000;
+  if (p.kind === 'fund' && !usMarketOpen(now)) {
+    if (ageMinutes > CLOSED_MARKET_MAX_DAYS * 24 * 60) {
+      return { ok: false, ageMinutes, marketClosed: true, reason: `The US market is closed and the last price collected is more than ${CLOSED_MARKET_MAX_DAYS} days old.` };
+    }
+    return { ok: true, ageMinutes, marketClosed: true };
+  }
+  if (ageMinutes > limitMinutes) {
+    return { ok: false, ageMinutes, reason: `This price is ${ageText(ageMinutes)} old. The limit is ${limitMinutes} minutes.` };
+  }
+  return { ok: true, ageMinutes };
+}
+
+function ageText(minutes) {
+  if (minutes < 120) return Math.round(minutes) + ' minutes';
+  if (minutes < 48 * 60) return Math.round(minutes / 60) + ' hours';
+  return Math.round(minutes / 1440) + ' days';
+}
+
+// Buy: spend `amount` pretend dollars at `price`. Never more than the cash available.
+// asset: { key, name }. Returns { ok, account, order } or { ok: false, reason }. The input account is not changed.
+function buy(account, asset, amount, price, priceTime, now) {
+  amount = cents(Number(amount));
+  if (!(amount > 0)) return { ok: false, reason: 'Enter an amount above $0.' };
+  if (!(price > 0)) return { ok: false, reason: 'There is no current price for this asset.' };
+  if (amount > cents(account.cash) + 1e-9) {
+    return { ok: false, reason: `Not enough pretend cash. You have $${fmt(account.cash)}.` };
+  }
+  const quantity = roundQty(amount / price);
+  if (!(quantity > 0)) return { ok: false, reason: 'This amount is too small to buy any of this asset.' };
+  const a = JSON.parse(JSON.stringify(account));
+  const h = a.holdings[asset.key] || { quantity: 0, cost: 0, name: asset.name };
+  h.quantity = roundQty(h.quantity + quantity);
+  h.cost = cents(h.cost + amount);
+  h.name = asset.name;
+  h.lastPrice = price;
+  h.lastPriceTime = priceTime;
+  a.holdings[asset.key] = h;
+  a.cash = cents(a.cash - amount);
+  return finish(a, { side: 'buy', key: asset.key, name: asset.name, quantity, price, priceTime, amount }, now);
+}
+
+// Sell: get `amount` pretend dollars, or everything owned when sellAll is true. Never more than owned.
+function sell(account, asset, amount, price, priceTime, now, sellAll) {
+  const h = account.holdings[asset.key];
+  if (!h || !(h.quantity > 0)) return { ok: false, reason: 'You do not own any of this asset.' };
+  if (!(price > 0)) return { ok: false, reason: 'There is no current price for this asset.' };
+  let quantity;
+  if (sellAll) {
+    quantity = h.quantity;
+    amount = cents(quantity * price);
+  } else {
+    amount = cents(Number(amount));
+    if (!(amount > 0)) return { ok: false, reason: 'Enter an amount above $0.' };
+    quantity = roundQty(amount / price);
+    if (quantity > h.quantity + DUST) {
+      return { ok: false, reason: `You only own ${fmtQty(h.quantity)}, worth about $${fmt(h.quantity * price)}. Choose a smaller amount or "Sell all".` };
+    }
+    quantity = Math.min(quantity, h.quantity);
+  }
+  const a = JSON.parse(JSON.stringify(account));
+  const left = roundQty(h.quantity - quantity);
+  if (left <= DUST) delete a.holdings[asset.key];
+  else {
+    const nh = a.holdings[asset.key];
+    nh.cost = cents(nh.cost * (left / h.quantity)); // average cost of what is left
+    nh.quantity = left;
+    nh.lastPrice = price;
+    nh.lastPriceTime = priceTime;
+  }
+  a.cash = cents(a.cash + amount);
+  return finish(a, { side: 'sell', key: asset.key, name: asset.name, quantity, price, priceTime, amount }, now);
+}
+
+function finish(a, order, now) {
+  const t = (now || new Date()).toISOString();
+  order.time = t;
+  order.id = a.orders.length + 1;
+  a.orders.push(order);
+  a.updated = t;
+  return { ok: true, account: a, order };
+}
+
+function fmt(v) { return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtQty(q) { return q.toLocaleString('en-US', { maximumFractionDigits: QTY_DECIMALS }); }
+
+const PaperAccount = { STARTING_CASH, STORAGE_KEY, newAccount, isValidAccount, loadAccount, saveAccount, resetAccount,
+  usMarketOpen, checkPrice, ageText, buy, sell, cents, fmt, fmtQty };
 if (typeof module !== 'undefined') module.exports = PaperAccount;

@@ -78,6 +78,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -364,3 +365,49 @@ button.danger { background: var(--danger); border-color: var(--danger); color: v
 .confirm { margin-top: 10px; padding: 12px; border: 1px solid var(--danger); border-radius: 8px; }
 .confirm p { margin: 0 0 10px; }
 .done { color: var(--stable-text); font-weight: 600; margin: 10px 0 0; }
+
+/* Paper trading: order form (slice 2b) */
+#order-form { display: grid; gap: 14px; margin-top: 12px; max-width: 560px; }
+.side-pick { border: none; padding: 0; margin: 0; display: flex; gap: 18px; flex-wrap: wrap; }
+.side-pick legend { font-weight: 600; margin-bottom: 6px; padding: 0; }
+.side-pick label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.field { display: grid; gap: 6px; }
+.field > label { font-weight: 600; }
+.field select { width: 100%; }
+.amount-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.amount-row .currency { font-weight: 600; }
+.amount-row input[type="text"] {
+  font: inherit;
+  width: 12em;
+  max-width: 60%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.amount-row input:disabled { opacity: 0.5; }
+.sell-all { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.hint { margin: 0; color: var(--muted); font-size: 0.9rem; min-height: 1.3em; }
+.hint .bad { color: var(--warn-text); font-weight: 600; }
+.price-box { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.price-box:empty { display: none; }
+.price-box p { margin: 2px 0; }
+.price-big { font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; margin-right: 6px; }
+.price-time { color: var(--muted); font-size: 0.9rem; }
+.price-status { margin-top: 8px !important; padding: 8px 10px; border-radius: 6px; }
+.price-status.blocked { background: var(--warn-bg); color: var(--warn-text); }
+.price-status.closed { background: var(--info-bg); color: var(--info-text); }
+.owned { color: var(--muted); font-size: 0.9rem; }
+.review { margin-top: 12px; max-width: 560px; border: 2px solid var(--paper-text); border-radius: 10px; padding: 14px; }
+.review h3 { margin: 0 0 4px; }
+.review-list { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 12px 0; }
+.review-list dt { color: var(--muted); }
+.review-list dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.review .primary { margin-right: 6px; }
+button.primary:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 680px) {
+  .review-list { grid-template-columns: 1fr; gap: 0; }
+  .review-list dd { margin-bottom: 8px; }
+}
