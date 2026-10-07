@@ -174,9 +174,42 @@ function finish(a, order, now) {
   return { ok: true, account: a, order };
 }
 
+// ---------- Portfolio (slice 2c) ----------
+
+// What the account is worth now.
+// priceFor(key) returns { price, priceTime, ok } from the latest data, or null when the asset has no current price.
+// A holding with no current price is valued at its last known price and marked 'not-updated'.
+// A holding whose current price is older than the limit is marked 'old'.
+function portfolio(account, priceFor) {
+  const rows = Object.entries(account.holdings).map(([key, h]) => {
+    const p = priceFor(key);
+    let price, priceTime, status;
+    if (p && typeof p.price === 'number' && isFinite(p.price) && p.price > 0) {
+      price = p.price; priceTime = p.priceTime; status = p.ok ? 'ok' : 'old';
+    } else {
+      price = h.lastPrice; priceTime = h.lastPriceTime; status = 'not-updated';
+    }
+    const exact = h.quantity * price;
+    return {
+      key, name: h.name, quantity: h.quantity, price, priceTime, status,
+      exact, value: cents(exact), cost: h.cost,
+      gain: cents(exact - h.cost),
+      gainPct: h.cost > 0 ? ((exact - h.cost) / h.cost) * 100 : null,
+    };
+  }).sort((a, b) => b.exact - a.exact);
+  const holdingsValue = cents(rows.reduce((s, r) => s + r.exact, 0));
+  const total = cents(account.cash + holdingsValue);
+  return {
+    cash: account.cash, holdingsValue, total,
+    change: cents(total - STARTING_CASH),
+    changePct: ((total - STARTING_CASH) / STARTING_CASH) * 100,
+    rows,
+  };
+}
+
 function fmt(v) { return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 function fmtQty(q) { return q.toLocaleString('en-US', { maximumFractionDigits: QTY_DECIMALS }); }
 
 const PaperAccount = { STARTING_CASH, STORAGE_KEY, newAccount, isValidAccount, loadAccount, saveAccount, resetAccount,
-  usMarketOpen, checkPrice, ageText, buy, sell, cents, fmt, fmtQty };
+  usMarketOpen, checkPrice, ageText, buy, sell, portfolio, cents, fmt, fmtQty };
 if (typeof module !== 'undefined') module.exports = PaperAccount;

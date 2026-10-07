@@ -411,3 +411,31 @@ button.primary:disabled { opacity: 0.45; cursor: not-allowed; }
   .review-list { grid-template-columns: 1fr; gap: 0; }
   .review-list dd { margin-bottom: 8px; }
 }
+
+/* Paper trading: portfolio and order history (slice 2c) */
+.portfolio .stats { margin-top: 14px; }
+.up { color: var(--stable-text); }
+.down { color: var(--warn-text); }
+.stat .value.up, .stat .value.down { font-weight: 700; }
+.tag-warn {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--warn-bg);
+  color: var(--warn-text);
+}
+.side { font-weight: 600; }
+#holdings-wrap, #history-wrap { margin-top: 12px; }
+.paper-summary .stats { margin: 12px 0; }
+a.button-link {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+a.button-link:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }

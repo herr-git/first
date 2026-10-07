@@ -52,6 +52,41 @@
       </div>
     </section>
 
+    <section class="panel portfolio" aria-labelledby="portfolio-title">
+      <div class="panel-head">
+        <h2 id="portfolio-title">Your portfolio</h2>
+        <span class="badge pretend">Pretend money</span>
+      </div>
+      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+      <p class="loading" id="portfolio-loading" role="status">Loading your portfolio&hellip;</p>
+      <div class="error" id="portfolio-error" role="alert" hidden></div>
+      <div id="portfolio-body" hidden>
+        <div class="stats" id="portfolio-stats"></div>
+        <p class="empty" id="portfolio-empty" hidden>You do not own anything yet. Everything is pretend cash.</p>
+        <div class="table-scroll" id="holdings-wrap" tabindex="0" role="region" aria-label="Your holdings, scrolls sideways">
+          <table class="data-table" id="holdings-table">
+            <thead>
+              <tr>
+                <th scope="col" class="first">Holding</th>
+                <th scope="col" class="num">Quantity</th>
+                <th scope="col" class="num">Latest price</th>
+                <th scope="col" class="num">Value now</th>
+                <th scope="col" class="num">You paid</th>
+                <th scope="col" class="num">Change since you bought</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="swipe-hint" id="holdings-swipe">Swipe sideways to see more columns.</p>
+        <p class="meta" id="portfolio-meta"></p>
+        <ul class="notes">
+          <li>"You paid" is what your pretend orders cost. After a partial sale it is the average cost of what is left.</li>
+          <li>"Price not updated" means there is no current price, so the last known price is used. "Price may be old" means the latest price is older than 45 minutes.</li>
+        </ul>
+      </div>
+    </section>
+
     <section class="panel order" aria-labelledby="order-title">
       <div class="panel-head">
         <h2 id="order-title">Place a pretend order</h2>
@@ -102,12 +137,37 @@
 
       <p class="done" id="order-done" role="status" hidden></p>
     </section>
+
+    <section class="panel history" aria-labelledby="history-title">
+      <div class="panel-head">
+        <h2 id="history-title">Pretend order history</h2>
+        <span class="badge pretend">Pretend money</span>
+      </div>
+      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+      <p class="empty" id="history-empty">No pretend orders yet.</p>
+      <div class="table-scroll" id="history-wrap" tabindex="0" role="region" aria-label="Pretend order history, scrolls sideways" hidden>
+        <table class="data-table" id="history-table">
+          <thead>
+            <tr>
+              <th scope="col" class="first">When</th>
+              <th scope="col">Order</th>
+              <th scope="col" class="num">Quantity</th>
+              <th scope="col" class="num">Price</th>
+              <th scope="col" class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="meta" id="history-meta"><strong>Where this comes from:</strong> your pretend orders, saved in this browser. Each order shows the price it used and when that price was collected.</p>
+    </section>
   </main>
 
   <footer class="site-footer">Demo only. Not investment advice. No trading happens here.</footer>
 
   <script src="theme.js"></script>
   <script src="paper-account.js"></script>
+  <script src="paper-market.js"></script>
   <script src="paper.js"></script>
 </body>
 </html>
