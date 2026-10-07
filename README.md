@@ -4,10 +4,20 @@ A read-only demo dashboard. Demo only. Not investment advice. No trading happens
 
 ## Status
 - Crypto table: **live** data from CoinGecko, top 20 by 24-hour volume, refreshed about every 15 minutes.
-- Fund table: **live** data from Yahoo Finance (unofficial), refreshed every 15 minutes during US market hours.
+- Exchange-traded crypto funds: **live** from Yahoo Finance (unofficial), US and European funds in one table.
 - `preview.html`: Version 2 preview (pretend portfolio). Uses **real** 6-month daily prices from `data/history.json` once the daily job has run; exchange rates are still **Sample data**.
 - Fund data check (V1-1): see `reports/fund-data-check.md`.
 - Tokenized funds and European exchange-traded crypto products: **live**, CoinGecko and Yahoo, every 15 minutes. Product list in `data/tokenized-config.json`; job in `scripts/fetch_tokenized.py` and `.github/workflows/refresh-tokenized.yml`.
+
+## Paper trading (Version 2)
+- `paper.html`: a pretend account with 100,000 pretend US dollars, saved in the visitor's browser only.
+  Buy and sell crypto tokens and US-listed funds by dollar amount at the latest price shown; trades are
+  blocked when a price is older than 45 minutes (US funds use the last price when the market is closed).
+- The dashboard shows a summary box and a "Pretend trade" button on each token and US fund.
+- Files: `paper-account.js` (account and order rules), `paper-market.js` (prices), `paper.js` (page),
+  `dashboard-paper.js` (dashboard box). Tests: `node tests/test_paper_account.js`, `test_paper_orders.js`,
+  `test_paper_portfolio.js`.
+- Paper trading. Pretend money. No real orders.
 
 ## Using the dashboard
 - Search box: filters every table by name or ticker.

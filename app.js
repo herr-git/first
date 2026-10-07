@@ -74,7 +74,6 @@ const SOURCES = {
   crypto: 'CoinGecko',
   funds: 'Yahoo Finance',
   tokf: 'CoinGecko',
-  etp: 'Yahoo Finance',
 };
 
 function renderMeta(prefix, block, settings, opts) {
@@ -209,7 +208,7 @@ document.getElementById('search').addEventListener('input', ev => {
 });
 
 function startLoading() {
-  ['crypto', 'funds', 'tokf', 'etp'].forEach(p => {
+  ['crypto', 'funds', 'tokf'].forEach(p => {
     document.getElementById(p + '-area').innerHTML = '<p class="loading" role="status">Loading prices&hellip;</p>';
   });
 }
@@ -247,36 +246,115 @@ function loadCrypto(latest, settings) {
   });
 }
 
-// ---------- US fund table ----------
+// ---------- Exchange-traded crypto funds: US and Europe in one table ----------
+
+// A compact "as of" time for the fund table, for example "as of Oct 7, 19:54 UTC".
+function asOfShort(iso) {
+  const d = new Date(iso);
+  if (!iso || isNaN(d)) return '';
+  const t = d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZoneName: 'short' });
+  return `<span class="sub">as of ${esc(t)}</span>`;
+}
+
+// The tokenized-funds file also holds the European products, so both tables share one load.
+let tokenizedFiles = null;
+function loadTokenizedFiles() {
+  if (!tokenizedFiles) {
+    tokenizedFiles = Promise.all([loadJson('data/tokenized-config.json'), loadJson('data/tokenized-latest.json')]);
+  }
+  return tokenizedFiles;
+}
+
+// Old or failed status of one part of the table, as short labels.
+function partProblems(name, block, settings, marketClosed) {
+  const labels = [], lines = [];
+  if (!block || !block.last_updated) return { labels, lines };
+  const ageMin = (Date.now() - new Date(block.last_updated).getTime()) / 60000;
+  if (!marketClosed && !(ageMin <= settings.stale_after_minutes)) labels.push(badge('warn', name + ' data may be old'));
+  const failed = block.last_error && !(new Date(block.last_error.time) < new Date(block.last_updated));
+  if (failed) {
+    labels.push(badge('warn', 'Latest ' + name + ' refresh failed'));
+    lines.push('the latest ' + esc(name) + ' refresh at ' + esc(whenText(block.last_error.time)) + ' failed (' +
+      esc(block.last_error.message) + '). Showing the last good data.');
+  }
+  return { labels, lines };
+}
 
 async function loadFunds(settings) {
-  const [config, block] = await Promise.all([loadJson('data/funds-config.json'), loadJson('data/funds-latest.json')]);
-  const byTicker = Object.fromEntries((block.rows || []).map(r => [r.ticker, r]));
+  const [usR, euR] = await Promise.allSettled([
+    Promise.all([loadJson('data/funds-config.json'), loadJson('data/funds-latest.json')]),
+    loadTokenizedFiles(),
+  ]);
+  if (usR.status === 'rejected' && euR.status === 'rejected') throw new Error(usR.reason.message + ' ' + euR.reason.message);
+
+  const rows = [];
+  let us = null, eu = null;
+  if (usR.status === 'fulfilled') {
+    const [config, block] = usR.value;
+    us = block;
+    const byTicker = Object.fromEntries((block.rows || []).map(r => [r.ticker, r]));
+    config.funds.forEach(f => {
+      const d = byTicker[f.ticker] || {};
+      rows.push({
+        search: (f.name + ' ' + f.ticker + ' ' + f.type + ' usa united states').toLowerCase(),
+        name: f.name, ticker: f.ticker, holds: f.type, country: 'USA', exchange: '',
+        currency: 'USD', price: d.price_usd, priceTime: d.price_time, mv: d.total_assets_usd, volume: d.volume,
+        fee: d.yearly_fee_pct, bid: d.bid, ask: d.ask, tradeKey: 'fund:' + f.ticker,
+      });
+    });
+  }
+  if (euR.status === 'fulfilled') {
+    const [config, data] = euR.value;
+    eu = data.exchange_traded;
+    const by = Object.fromEntries((eu.rows || []).map(r => [r.ticker, r]));
+    config.exchange_traded.forEach(p => {
+      const d = by[p.ticker] || {};
+      rows.push({
+        search: (p.name + ' ' + p.ticker + ' ' + p.exchange + ' ' + p.country + ' ' + p.holds + ' europe').toLowerCase(),
+        name: p.name, ticker: p.ticker, holds: p.holds, country: p.country, exchange: p.exchange.replace(/ Swiss Exchange| \(Germany\)/, ''),
+        currency: d.currency, price: d.price, priceTime: d.price_time, mv: d.total_assets, volume: d.volume,
+        fee: d.yearly_fee_pct, bid: d.bid, ask: d.ask, tradeKey: null,
+      });
+    });
+  }
+
+  // Badges and the "where from / last updated" lines, one for each part.
+  const closed = !!us && us.market_status === 'closed';
+  const usP = partProblems('US', us, settings, closed);
+  const euP = partProblems('European', eu, settings, false);
+  document.getElementById('funds-badges').innerHTML = [badge('info', 'Delayed 15 minutes or more')]
+    .concat(closed ? [badge('info', 'US market closed: showing last close')] : [], usP.labels, euP.labels).join('');
+  const problems = usP.lines.concat(euP.lines);
+  if (usR.status === 'rejected') problems.push('US fund data could not be loaded. ' + esc(usR.reason.message));
+  if (euR.status === 'rejected') problems.push('European product data could not be loaded. ' + esc(euR.reason.message));
+  document.getElementById('funds-meta').innerHTML =
+    '<strong>Where this comes from:</strong> Yahoo Finance (unofficial access through the yfinance library). ' +
+    '(<a href="https://finance.yahoo.com/" target="_blank" rel="noopener">source site</a>)' +
+    '<br><strong>Last updated:</strong> US funds ' + (us ? esc(us.last_updated ? whenText(us.last_updated) : 'not yet') : 'unknown') +
+    '; European products ' + (eu ? esc(eu.last_updated ? whenText(eu.last_updated) : 'not yet') : 'unknown') + '.' +
+    problems.map(p => '<br><strong>Problem:</strong> ' + p).join('');
+
   const types = ['Bitcoin', 'Ethereum', 'Zcash'];
-  config.funds.forEach(f => { if (!types.includes(f.type)) types.push(f.type); });
-  const closed = block.market_status === 'closed';
-  renderMeta('funds', block, settings, {
-    marketClosed: closed,
-    extra: closed ? [badge('info', 'Market closed: showing last close')] : [],
-  });
+  rows.forEach(r => { if (!types.includes(r.holds)) types.push(r.holds); });
   makeTable('funds', {
-    label: 'US crypto funds',
-    groups: types.map(t => ({ label: t + ' funds', test: r => r.type === t })),
-    rows: config.funds.map(f => Object.assign({ search: (f.name + ' ' + f.ticker + ' ' + f.type).toLowerCase() }, f, byTicker[f.ticker] || {})),
+    label: 'Exchange-traded crypto funds',
+    groups: types.map(t => ({ label: t + ' funds', test: r => r.holds === t })),
+    rows,
     columns: [
       { key: 'name', label: 'Fund', first: true, html: r => nameCell(r.name, 'Ticker: ' + esc(r.ticker)) },
-      { key: 'price', label: 'Price (USD)', num: true, value: r => r.price_usd, html: r => money(r.price_usd) },
-      { key: 'mv', label: 'Market value (USD)', num: true, value: r => r.total_assets_usd, html: r => bigMoney(r.total_assets_usd) },
-      { key: 'volume', label: 'Volume today (shares)', num: true, value: r => r.volume, html: r => count(r.volume) },
-      { key: 'fee', label: 'Yearly fee', num: true, html: r => percent(r.yearly_fee_pct) },
-      { key: 'bid', label: 'Bid', num: true, html: r => money(r.bid) },
-      { key: 'ask', label: 'Ask', num: true, html: r => money(r.ask) },
-      { key: 'trade', label: 'Paper trading', cls: 'trade', html: r => tradeCell('fund:' + r.ticker, r.name) },
+      { key: 'listed', label: 'Listed in', html: r => esc(r.country) + (r.exchange ? '<span class="sub">' + esc(r.exchange) + '</span>' : '') },
+      // Sorting keeps each currency together (CHF, EUR, USD), so a franc price is never compared with a dollar price.
+      { key: 'price', label: 'Price', num: true, prefix: r => r.currency, value: r => r.price, html: r => money(r.price, r.currency) + asOfShort(r.priceTime) },
+      { key: 'mv', label: 'Market value', num: true, prefix: r => r.currency, value: r => r.mv, html: r => bigMoney(r.mv, r.currency) },
+      { key: 'volume', label: 'Volume today', num: true, value: r => r.volume, html: r => count(r.volume) },
+      { key: 'fee', label: 'Yearly fee', num: true, html: r => percent(r.fee) },
+      { key: 'bidask', label: 'Bid / ask', num: true, html: r => isNum(r.bid) && isNum(r.ask) ? money(r.bid, r.currency) + '<span class="sub">to ' + money(r.ask, r.currency) + '</span>' : NA },
+      { key: 'trade', label: 'Paper trading', cls: 'trade', html: r => r.tradeKey ? tradeCell(r.tradeKey, r.name) : '<span class="na">Not available for paper trading</span>' },
     ],
   });
 }
 
-// ---------- Tokenized funds and European exchange-traded products ----------
+// ---------- Tokenized funds ----------
 
 function notFetchedYet(prefix, block) {
   if (block.last_updated) return false;
@@ -286,48 +364,29 @@ function notFetchedYet(prefix, block) {
 }
 
 async function loadTokenized(settings) {
-  const [config, data] = await Promise.all([loadJson('data/tokenized-config.json'), loadJson('data/tokenized-latest.json')]);
-
+  const [config, data] = await loadTokenizedFiles();
   const tf = data.tokenized;
   renderMeta('tokf', tf, settings, { timing: 'Updated about every ' + settings.refresh_minutes + ' minutes' });
-  if (!notFetchedYet('tokf', tf)) {
-    const by = Object.fromEntries(tf.rows.map(r => [r.symbol, r]));
-    makeTable('tokf', {
-      label: 'Tokenized funds',
-      rows: config.tokenized.map(p => Object.assign({ search: (p.name + ' ' + p.symbol + ' ' + p.issuer).toLowerCase() }, p, by[p.symbol] || {})),
-      columns: [
-        { key: 'name', label: 'Product', first: true, html: r => nameCell(r.name, esc(r.symbol) + ' &middot; ' + esc(r.issuer)) },
-        { key: 'type', label: 'Type', html: () => 'Tokenized fund' },
-        { key: 'tracks', label: 'What it tracks', cls: 'tracks', html: r => esc(r.tracks) },
-        { key: 'price', label: 'Price (USD)', num: true, value: r => r.price_usd, html: r => money(r.price_usd) + asOf(r.price_time) },
-        { key: 'mv', label: 'Market value (USD)', num: true, value: r => r.market_value_usd, html: r => bigMoney(r.market_value_usd) },
-        { key: 'volume', label: '24-hour volume (USD)', num: true, value: r => r.volume_24h_usd, html: r => bigMoney(r.volume_24h_usd) },
-        { key: 'bidask', label: 'Bid / ask', num: true, html: () => NA },
-      ],
-    });
-  }
-
-  const et = data.exchange_traded;
-  renderMeta('etp', et, settings, { timing: 'Delayed 15 minutes or more' });
-  if (!notFetchedYet('etp', et)) {
-    const by = Object.fromEntries(et.rows.map(r => [r.ticker, r]));
-    makeTable('etp', {
-      label: 'European exchange-traded crypto products',
-      rows: config.exchange_traded.map(p => Object.assign({ search: (p.name + ' ' + p.ticker + ' ' + p.exchange).toLowerCase() }, p, by[p.ticker] || {})),
-      columns: [
-        { key: 'name', label: 'Product', first: true, html: r => nameCell(r.name, esc(r.ticker) + ' &middot; ' + esc(r.exchange)) },
-        { key: 'type', label: 'Type', html: () => 'Exchange-traded product' },
-        { key: 'tracks', label: 'What it tracks', cls: 'tracks', html: r => esc(r.tracks) },
-        { key: 'price', label: 'Price', num: true, prefix: r => r.currency, value: r => r.price, html: r => money(r.price, r.currency) + asOf(r.price_time) },
-        { key: 'mv', label: 'Market value', num: true, prefix: r => r.currency, value: r => r.total_assets, html: r => bigMoney(r.total_assets, r.currency) },
-        { key: 'volume', label: 'Volume today (units)', num: true, value: r => r.volume, html: r => count(r.volume) },
-        { key: 'bidask', label: 'Bid / ask', num: true, html: r => isNum(r.bid) && isNum(r.ask) ? money(r.bid, r.currency) + '<span class="sub">to ' + money(r.ask, r.currency) + '</span>' : NA },
-      ],
-    });
-  }
+  if (notFetchedYet('tokf', tf)) return;
+  const by = Object.fromEntries(tf.rows.map(r => [r.symbol, r]));
+  makeTable('tokf', {
+    label: 'Tokenized funds',
+    rows: config.tokenized.map(p => Object.assign({ search: (p.name + ' ' + p.symbol + ' ' + p.issuer).toLowerCase() }, p, by[p.symbol] || {})),
+    columns: [
+      { key: 'name', label: 'Product', first: true, html: r => nameCell(r.name, esc(r.symbol) + ' &middot; ' + esc(r.issuer)) },
+      { key: 'type', label: 'Type', html: () => 'Tokenized fund' },
+      { key: 'tracks', label: 'What it tracks', cls: 'tracks', html: r => esc(r.tracks) },
+      { key: 'price', label: 'Price (USD)', num: true, value: r => r.price_usd, html: r => money(r.price_usd) + asOf(r.price_time) },
+      { key: 'mv', label: 'Market value (USD)', num: true, value: r => r.market_value_usd, html: r => bigMoney(r.market_value_usd) },
+      { key: 'volume', label: '24-hour volume (USD)', num: true, value: r => r.volume_24h_usd, html: r => bigMoney(r.volume_24h_usd) },
+      { key: 'bidask', label: 'Bid / ask', num: true, html: () => NA },
+    ],
+  });
 }
 
 // ---------- Start ----------
+
+const AREAS = ['crypto', 'funds', 'tokf'];
 
 (async function start() {
   startLoading();
@@ -335,15 +394,12 @@ async function loadTokenized(settings) {
   try {
     settings = await loadJson('data/settings.json');
   } catch (err) {
-    ['crypto', 'funds', 'tokf', 'etp'].forEach(p => showError(p, 'This table could not be shown. ' + err.message));
+    AREAS.forEach(p => showError(p, 'This table could not be shown. ' + err.message));
     return;
   }
-  // Each table loads its own file, so one failing does not blank the others.
+  // Each table loads its own files, so one failing does not blank the others.
   loadJson('data/latest.json').then(latest => loadCrypto(latest, settings))
     .catch(err => showError('crypto', 'This table could not be shown. ' + err.message));
   loadFunds(settings).catch(err => showError('funds', 'This table could not be shown. ' + err.message));
-  loadTokenized(settings).catch(err => {
-    showError('tokf', 'This table could not be shown. ' + err.message);
-    showError('etp', 'This table could not be shown. ' + err.message);
-  });
+  loadTokenized(settings).catch(err => showError('tokf', 'This table could not be shown. ' + err.message));
 })();
