@@ -1,5 +1,5 @@
 # Slice 3 source check: raw output
-Run at 2026-10-07 22:20 UTC on GitHub Actions.
+Run at 2026-10-07 22:25 UTC on GitHub Actions.
 
 ## CoinGecko: categories
 - four-meme-tokenized-stocks-4stock: Four.Meme Tokenized Stocks (4Stock)
@@ -40,50 +40,50 @@ Run at 2026-10-07 22:20 UTC on GitHub Actions.
 ### Category four-meme-tokenized-stocks-4stock (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
 |---|---|---|---|---|---|
-| 4Stock | 4stock | 0.00550067 | 5504128 | 4799555 | 2026-10-07T22:16:30.000Z |
-| build | build | 0.00021655 | 216974 | 105801 | 2026-10-07T22:16:30.000Z |
-| 4cat | 4cat | 7.83e-06 | 7876.36 | 214.22 | 2026-10-07T22:16:30.000Z |
+| 4Stock | 4stock | 0.00552901 | 5526185 | 4897320 | 2026-10-07T22:22:50.000Z |
+| build | build | 0.000216 | 215660 | 105600 | 2026-10-07T22:22:50.000Z |
+| 4cat | 4cat | 7.79e-06 | 7909.77 | 213.04 | 2026-10-07T22:22:50.000Z |
 
 ### Category ondo-tokenized-assets (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
 |---|---|---|---|---|---|
-| Circle Internet Group (Ondo Tokenized Stock) | crclon | 80.66 | 97104828 | 1448189 | 2026-10-07T22:17:20.000Z |
-| Strategy Stretch Preferred (Ondo Tokenized) | strcon | 105.27 | 74785874 | 787847 | 2026-10-07T22:17:20.000Z |
-| iShares Core S&P 500 ETF (Ondo Tokenized ETF) | ivvon | 788.08 | 71325992 | 1315.65 | 2026-10-07T22:17:20.000Z |
-| SPDR S&P 500 ETF (Ondo Tokenized ETF) | spyon | 784.24 | 46805013 | 2103045 | 2026-10-07T22:17:20.000Z |
-| Micron Technology (Ondo Tokenized Stock) | muon | 1088.14 | 43356668 | 4897844 | 2026-10-07T22:17:20.000Z |
-| NVIDIA (Ondo Tokenized Stock) | nvdaon | 237.91 | 36305210 | 1391638 | 2026-10-07T22:17:20.000Z |
-| Invesco QQQ ETF (Ondo Tokenized ETF) | qqqon | 761.39 | 34813300 | 1845085 | 2026-10-07T22:17:20.000Z |
-| Hims & Hers Health (Ondo Tokenized Stock) | himson | 29.54 | 31201815 | 1701155 | 2026-10-07T22:17:20.000Z |
-| MicroStrategy (Ondo Tokenized Stock) | mstron | 154.01 | 29304708 | 2989282 | 2026-10-07T22:17:20.000Z |
-| iShares Bitcoin Trust (Ondo Tokenized) | ibiton | 47.02 | 28324102 | 20668 | 2026-10-07T22:17:20.000Z |
-| iShares Silver Trust (Ondo Tokenized Stock) | slvon | 53.95 | 25027232 | 1973956 | 2026-10-07T22:17:20.000Z |
-| Alphabet Class A (Ondo Tokenized Stock) | googlon | 351.1 | 20663142 | 10255892 | 2026-10-07T22:17:20.000Z |
+| Circle Internet Group (Ondo Tokenized Stock) | crclon | 80.63 | 97099224 | 1446530 | 2026-10-07T22:22:50.000Z |
+| Strategy Stretch Preferred (Ondo Tokenized) | strcon | 105.27 | 74796992 | 787055 | 2026-10-07T22:22:50.000Z |
+| iShares Core S&P 500 ETF (Ondo Tokenized ETF) | ivvon | 788.3 | 71387585 | 1316.01 | 2026-10-07T22:22:50.000Z |
+| SPDR S&P 500 ETF (Ondo Tokenized ETF) | spyon | 784.57 | 46824043 | 2103640 | 2026-10-07T22:22:50.000Z |
+| Micron Technology (Ondo Tokenized Stock) | muon | 1088.65 | 43357824 | 4985912 | 2026-10-07T22:22:50.000Z |
+| NVIDIA (Ondo Tokenized Stock) | nvdaon | 237.73 | 36272485 | 1389094 | 2026-10-07T22:22:50.000Z |
+| Invesco QQQ ETF (Ondo Tokenized ETF) | qqqon | 761.54 | 34821278 | 1849257 | 2026-10-07T22:22:50.000Z |
+| Hims & Hers Health (Ondo Tokenized Stock) | himson | 29.56 | 31206092 | 1699984 | 2026-10-07T22:22:50.000Z |
+| MicroStrategy (Ondo Tokenized Stock) | mstron | 154.0 | 29297175 | 2992341 | 2026-10-07T22:22:50.000Z |
+| iShares Bitcoin Trust (Ondo Tokenized) | ibiton | 47.06 | 28369272 | 20689 | 2026-10-07T22:22:50.000Z |
+| iShares Silver Trust (Ondo Tokenized Stock) | slvon | 53.94 | 25028561 | 1970781 | 2026-10-07T22:22:50.000Z |
+| Alphabet Class A (Ondo Tokenized Stock) | googlon | 351.05 | 20660353 | 10249267 | 2026-10-07T22:22:50.000Z |
 
 ### Category pump-fund-portfolio (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
 |---|---|---|---|---|---|
-| PUMPCADE | pumpcade | 0.01349951 | 13467384 | 730756 | 2026-10-07T22:17:20.000Z |
-| clawpump.tech | claw | 0.00891555 | 8803935 | 173964 | 2026-10-07T22:17:20.000Z |
-| Zauthx402 | zauth | 0.00171333 | 1618225 | 46011 | 2026-10-07T22:17:20.000Z |
-| Opal | opal | 0.00055006 | 550014 | 25071 | 2026-10-07T22:17:20.000Z |
-| BloxAPI | bloxx | 1.96e-05 | 19599.91 | 202.67 | 2026-10-07T22:17:20.000Z |
+| PUMPCADE | pumpcade | 0.01359981 | 13569423 | 720842 | 2026-10-07T22:22:50.000Z |
+| clawpump.tech | claw | 0.00896106 | 8848719 | 173729 | 2026-10-07T22:22:50.000Z |
+| Zauthx402 | zauth | 0.00171534 | 1620087 | 43170 | 2026-10-07T22:22:50.000Z |
+| Opal | opal | 0.0005507 | 550647 | 25101 | 2026-10-07T22:22:50.000Z |
+| BloxAPI | bloxx | 1.962e-05 | 19622.47 | 202.91 | 2026-10-07T22:22:50.000Z |
 
 ### Category real-world-assets-rwa (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
 |---|---|---|---|---|---|
-| Figure Heloc | figr_heloc | 1.016 | 24012671021 | 55335481 | 2026-10-07T22:17:20.000Z |
-| Chainlink | link | 13.28 | 9937190043 | 363712130 | 2026-10-07T22:17:20.000Z |
-| Stellar | xlm | 0.199114 | 6977410897 | 193846883 | 2026-10-07T22:17:20.000Z |
-| Quant | qnt | 250.92 | 3647268353 | 248522111 | 2026-10-07T22:17:20.000Z |
-| Tether Gold | xaut | 4108.49 | 3323696364 | 288042098 | 2026-10-07T22:17:20.000Z |
-| Circle USYC | usyc | 1.14 | 2404071311 | 0.0 | 2026-10-07T22:17:20.000Z |
-| Ondo US Dollar Yield | usdy | 1.15 | 2309945371 | 4090504 | 2026-10-07T22:17:20.000Z |
-| Ondo | ondo | 0.467291 | 2275424810 | 190043242 | 2026-10-07T22:17:20.000Z |
-| BlackRock USD Institutional Digital Liquidity Fund | buidl | 1.0 | 2263366465 | 0.0 | 2026-10-07T22:17:20.000Z |
-| PAX Gold | paxg | 4116.52 | 1797480376 | 185340340 | 2026-10-07T22:17:20.000Z |
-| Spiko Amundi Overnight Swap Fund (EUR) | eursafo | 1.14 | 1586439293 | 0.0 | 2026-10-07T22:17:20.000Z |
-| Algorand | algo | 0.117815 | 1067893047 | 53358241 | 2026-10-07T22:17:20.000Z |
+| Figure Heloc | figr_heloc | 1.016 | 24013394377 | 55336164 | 2026-10-07T22:22:50.000Z |
+| Chainlink | link | 13.3 | 9944491713 | 364233457 | 2026-10-07T22:22:50.000Z |
+| Stellar | xlm | 0.199655 | 6990050093 | 194042583 | 2026-10-07T22:22:50.000Z |
+| Quant | qnt | 251.96 | 3663271628 | 247754554 | 2026-10-07T22:22:50.000Z |
+| Tether Gold | xaut | 4107.09 | 3322553210 | 288948307 | 2026-10-07T22:22:50.000Z |
+| Circle USYC | usyc | 1.14 | 2404071311 | 0.0 | 2026-10-07T22:22:50.000Z |
+| Ondo US Dollar Yield | usdy | 1.15 | 2309858346 | 4029902 | 2026-10-07T22:22:50.000Z |
+| Ondo | ondo | 0.468803 | 2280214253 | 191401058 | 2026-10-07T22:22:50.000Z |
+| BlackRock USD Institutional Digital Liquidity Fund | buidl | 1.0 | 2263366465 | 0.0 | 2026-10-07T22:22:50.000Z |
+| PAX Gold | paxg | 4114.97 | 1796748799 | 185650280 | 2026-10-07T22:22:50.000Z |
+| Spiko Amundi Overnight Swap Fund (EUR) | eursafo | 1.14 | 1586528143 | 0.0 | 2026-10-07T22:22:50.000Z |
+| Algorand | algo | 0.118106 | 1069221469 | 53615100 | 2026-10-07T22:22:50.000Z |
 
 ### Category remona-tokenized-stocks (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
@@ -92,18 +92,18 @@ Run at 2026-10-07 22:20 UTC on GitHub Actions.
 ### Category remora-markets-tokenized-rstocks (top 12 by market value)
 | Name | Symbol | Price USD | Market value USD | 24h volume USD | Last updated |
 |---|---|---|---|---|---|
-| Circle Internet Group Tokenized Stock (Reality) | rcrcl | 80.7 | 13214814 | 1198596 | 2026-10-07T22:17:20.000Z |
-| Strategy Tokenized Stock (Reality) | rmstr | 154.0 | 10622843 | 3125130 | 2026-10-07T22:17:20.000Z |
-| Intel Tokenized Stock (Reality) | rintc | 113.08 | 7352816 | 394211 | 2026-10-07T22:17:20.000Z |
-| Micron Technology Tokenized Stock (Reality) | rmu | 1086.25 | 7044801 | 106274 | 2026-10-07T22:17:20.000Z |
-| Alphabet Class A Tokenized Stock (Reality) | rgoogl | 350.13 | 6637696 | 187500 | 2026-10-07T22:17:20.000Z |
-| Moderna Tokenized Stock (Reality) | rmrna | 195.66 | 6426909 | 23470 | 2026-10-07T22:17:20.000Z |
-| Strategy PP Variable Tokenized Stock (Reality) | rstrc | 99.43 | 5653044 | 41900 | 2026-10-07T22:17:20.000Z |
-| SanDisk Tokenized Stock (Reality) | rsndk | 1695.58 | 5124741 | 192024 | 2026-10-07T22:17:20.000Z |
-| Marvell Technology Tokenized Stock (Reality) | rmrvl | 285.38 | 4217541 | 37036 | 2026-10-07T22:17:20.000Z |
-| Oklo Tokenized Stock (Reality) | roklo | 36.8 | 3404236 | 237644 | 2026-10-07T22:17:20.000Z |
-| Tesla Tokenized Stock (Reality) | rtsla | 377.44 | 3297824 | 57200 | 2026-10-07T22:17:20.000Z |
-| Broadcom Tokenized Stock (Reality) | ravgo | 375.55 | 2813975 | 298175 | 2026-10-07T22:17:20.000Z |
+| Circle Internet Group Tokenized Stock (Reality) | rcrcl | 80.7 | 13216414 | 1198581 | 2026-10-07T22:23:50.000Z |
+| Strategy Tokenized Stock (Reality) | rmstr | 154.22 | 10627651 | 3125253 | 2026-10-07T22:23:50.000Z |
+| Intel Tokenized Stock (Reality) | rintc | 113.17 | 7355401 | 394207 | 2026-10-07T22:23:50.000Z |
+| Micron Technology Tokenized Stock (Reality) | rmu | 1087.53 | 7047314 | 106241 | 2026-10-07T22:23:50.000Z |
+| Alphabet Class A Tokenized Stock (Reality) | rgoogl | 350.23 | 6637684 | 187400 | 2026-10-07T22:23:50.000Z |
+| Moderna Tokenized Stock (Reality) | rmrna | 195.87 | 6432806 | 23470 | 2026-10-07T22:23:50.000Z |
+| Strategy PP Variable Tokenized Stock (Reality) | rstrc | 99.42 | 5652465 | 41900 | 2026-10-07T22:23:50.000Z |
+| SanDisk Tokenized Stock (Reality) | rsndk | 1696.98 | 5130019 | 192022 | 2026-10-07T22:23:50.000Z |
+| Marvell Technology Tokenized Stock (Reality) | rmrvl | 285.23 | 4218566 | 37036 | 2026-10-07T22:23:50.000Z |
+| Oklo Tokenized Stock (Reality) | roklo | 36.82 | 3404229 | 237467 | 2026-10-07T22:23:50.000Z |
+| Tesla Tokenized Stock (Reality) | rtsla | 377.42 | 3297992 | 57161 | 2026-10-07T22:23:50.000Z |
+| Broadcom Tokenized Stock (Reality) | ravgo | 375.72 | 2816442 | 298171 | 2026-10-07T22:23:50.000Z |
 
 ## CoinGecko: search for well-known tokenized funds
 - BUIDL: blackrock-usd-institutional-digital-liquidity-fund (BUIDL, rank 50); buidl (BUIDL, rank 7112); hodlbuidl (HODLBD, rank None)
