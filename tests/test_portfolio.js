@@ -8,7 +8,7 @@
 //   Total change: 10,500 / 10,000 - 1 = +5.00%
 //   Biggest drop: from 11,000 (day 2) to 9,500 (day 3) = 1,500 / 11,000 = 13.64%
 const assert = require('assert');
-const { computeResult } = require('../preview.js');
+const { computeResult, evenSplit, balanceLast } = require('../preview.js');
 
 const prices = { A: [100, 120, 90, 110], B: [50, 50, 50, 50] };
 const r = computeResult([{ key: 'A', pct: 50 }, { key: 'B', pct: 50 }], prices, 10000);
@@ -26,5 +26,14 @@ assert.strictEqual(Math.round(r2.end), 9000);
 // A month with only rises has no drop.
 const r3 = computeResult([{ key: 'A', pct: 100 }], { A: [1, 2, 3] }, 100);
 assert.strictEqual(r3.dropPct, 0);
+
+// Automatic fill to 100%.
+assert.deepStrictEqual(evenSplit(1), [100]);
+assert.deepStrictEqual(evenSplit(2), [50, 50]);
+assert.deepStrictEqual(evenSplit(3), [33.3, 33.3, 33.4]);
+assert.strictEqual(evenSplit(6).reduce((a, b) => a + b, 0).toFixed(1), '100.0');
+assert.deepStrictEqual(balanceLast([60, 33.3, 33.4]), [60, 33.3, 6.7]); // last fills the gap
+assert.deepStrictEqual(balanceLast([80, 40, 10]), [80, 40, 0]);         // never below 0
+assert.deepStrictEqual(balanceLast([20]), [100]);                       // one asset is always 100
 
 console.log('All portfolio tests passed.');

@@ -1,8 +1,8 @@
-// Version 2 preview: build a pretend mix and see a made-up 30-day result.
+// Version 2 preview: build a pretend mix and see a made-up 6-month result.
 // All prices and exchange rates here are SAMPLE DATA generated below.
 
 const START_USD = 10000;              // pretend starting amount
-const DAYS = 30;
+const DAYS = 182;                     // about 6 months of daily prices
 const SAMPLE_RATES = { USD: 1, EUR: 0.92, GBP: 0.79 }; // sample, not real rates
 const TOLERANCE = 0.1;                // 33.3 x 3 = 99.9 counts as 100
 
@@ -88,6 +88,26 @@ function money(usdValue) {
 }
 function signedPct(v) { return (v >= 0 ? '+' : '') + v.toFixed(2) + '%'; }
 function dayText(d) { return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'UTC' }); }
+
+// ---------- Automatic fill to 100% ----------
+
+function round1(v) { return Math.round(v * 10) / 10; }
+
+// Even split with one decimal; the last asset takes the rounding remainder (3 assets: 33.3, 33.3, 33.4).
+function evenSplit(n) {
+  if (n <= 0) return [];
+  const each = round1(100 / n);
+  const out = Array(n).fill(each);
+  out[n - 1] = round1(100 - each * (n - 1));
+  return out;
+}
+
+// The last asset fills whatever is left so the total is 100. It never goes below 0.
+function balanceLast(pcts) {
+  if (pcts.length < 2) return pcts.length ? [100] : [];
+  const others = pcts.slice(0, -1).reduce((s, v) => s + (isFinite(v) ? v : 0), 0);
+  return pcts.slice(0, -1).concat([Math.max(0, round1(100 - others))]);
+}
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 // ---------- Mix builder ----------
@@ -113,7 +133,7 @@ function drawMix() {
   body.innerHTML = mix.map((r, i) => {
     const a = assets.find(x => x.key === r.key);
     return `<tr>
-      <td>${esc(a.label)}</td>
+      <td>${esc(a.label)}${mix.length > 1 && i === mix.length - 1 ? '<span class="sub">Adjusts automatically to make 100%</span>' : ''}</td>
       <td class="num"><input type="number" inputmode="decimal" min="0" max="100" step="0.1" value="${isFinite(r.pct) ? r.pct : ''}" data-i="${i}" aria-label="Percentage for ${esc(a.label)}"> %</td>
       <td><button type="button" class="link" data-remove="${i}">Remove</button></td>
     </tr>`;
@@ -130,6 +150,7 @@ function drawTotal() {
   const ok = mixValid();
   let msg = `Total: ${t.toFixed(1)}%`;
   if (mix.length === 0) msg = '';
+  else if (t > 100 + TOLERANCE) msg += `. Lower one of the percentages by ${(t - 100).toFixed(1)}% to get back to 100%.`;
   else if (mix.some(r => !(r.pct > 0))) msg += '. Every asset needs a percentage above 0.';
   else if (ok && t !== 100) msg += ' (counts as 100%: small rounding).';
   else if (!ok && t < 100) msg += `. Add ${(100 - t).toFixed(1)}% more to reach 100%.`;
@@ -159,7 +180,7 @@ function drawResult() {
   document.getElementById('stats').innerHTML = `
     <div class="stat"><span class="label">Start value</span><span class="value">${money(r.start)}</span><span class="sub">${dayText(r.dates[0])}</span></div>
     <div class="stat"><span class="label">End value</span><span class="value">${money(r.end)}</span><span class="sub">${dayText(r.dates[r.dates.length - 1])}</span></div>
-    <div class="stat"><span class="label">Total change</span><span class="value">${signedPct(r.changePct)}</span><span class="sub">${changeWord} over 30 days</span></div>
+    <div class="stat"><span class="label">Total change</span><span class="value">${signedPct(r.changePct)}</span><span class="sub">${changeWord} over 6 months</span></div>
     <div class="stat"><span class="label">Biggest drop</span><span class="value">${r.dropPct > 0 ? '-' + r.dropPct.toFixed(2) + '%' : 'none'}</span><span class="sub">${r.dropPct > 0 ? dayText(r.dates[r.dropFrom]) + ' to ' + dayText(r.dates[r.dropTo]) : 'no fall from a high point'}</span></div>`;
   document.getElementById('chart-title').textContent = `Value of the pretend portfolio, day by day (${ccy})`;
   drawChart(r);
@@ -185,12 +206,13 @@ function drawChart(r) {
   const ticks = [0, 1, 2, 3].map(k => lo + ((hi - lo) * k) / 3);
   const grid = ticks.map(t => `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}"/>
     <text class="axis" x="${L - 8}" y="${y(t) + 4}" text-anchor="end">${fmt(t)}</text>`).join('');
-  const xIdx = (narrow ? [0, 14, 29] : [0, 7, 14, 21, 29]).filter(i => i < vals.length);
+  const parts = narrow ? 2 : 5;
+  const xIdx = Array.from({ length: parts + 1 }, (_, k) => Math.round((k * (vals.length - 1)) / parts));
   const xl = xIdx.map(i => `<text class="axis" x="${x(i)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : i === vals.length - 1 ? 'end' : 'middle'}">${dayText(r.dates[i])}</text>`).join('');
   const path = vals.map((v, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1)).join(' ');
 
   box.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Line chart of the pretend portfolio value over 30 days, sample data">
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Line chart of the pretend portfolio value over 6 months, sample data">
       ${grid}${xl}
       <path class="line" d="${path}"/>
       <circle class="end-dot" cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1])}" r="4"/>
@@ -255,19 +277,29 @@ async function loadAssets() {
     const key = document.getElementById('asset-pick').value;
     if (!key) return;
     mix.push({ key, pct: NaN });
+    evenSplit(mix.length).forEach((v, i) => { mix[i].pct = v; });
     drawMix();
     const inputs = document.querySelectorAll('#mix-table input');
     inputs[inputs.length - 1].focus();
   });
   document.querySelector('#mix-table tbody').addEventListener('input', ev => {
     if (!ev.target.matches('input')) return;
-    mix[+ev.target.dataset.i].pct = parseFloat(ev.target.value);
+    const i = +ev.target.dataset.i;
+    mix[i].pct = parseFloat(ev.target.value);
+    if (i < mix.length - 1) {
+      // Editing any row except the last: the last row fills the gap.
+      const last = balanceLast(mix.map(r => r.pct)).pop();
+      mix[mix.length - 1].pct = last;
+      const lastInput = document.querySelector(`#mix-table input[data-i="${mix.length - 1}"]`);
+      if (lastInput) lastInput.value = last;
+    }
     drawTotal();
   });
   document.querySelector('#mix-table tbody').addEventListener('click', ev => {
     const i = ev.target.dataset.remove;
     if (i === undefined) return;
     mix.splice(+i, 1);
+    balanceLast(mix.map(r => r.pct)).forEach((v, k) => { mix[k].pct = v; });
     drawMix();
   });
   document.getElementById('show-result').addEventListener('click', showResult);
@@ -277,4 +309,4 @@ async function loadAssets() {
 })();
 
 // For the automated test.
-if (typeof module !== 'undefined') module.exports = { computeResult };
+if (typeof module !== 'undefined') module.exports = { computeResult, evenSplit, balanceLast };

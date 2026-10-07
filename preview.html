@@ -14,7 +14,7 @@
     <div class="intro">
       <p class="back"><a href="index.html">&larr; Back to the dashboard</a></p>
       <h1>Pretend portfolio (preview)</h1>
-      <p class="lead">A preview of Version 2. Split 100% across tokens and funds and see how that mix would have done over 30 days. Nothing is bought and no real money is involved.</p>
+      <p class="lead">A preview of Version 2. Split 100% across tokens and funds and see how that mix would have done over the last 6 months. Nothing is bought and no real money is involved.</p>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
   </header>
@@ -23,7 +23,7 @@
     <div class="panel notice">
       <span class="badge sample">Sample data</span>
       <span class="badge info">Pretend money</span>
-      <p><strong>Every number on this page is made up.</strong> The 30 days of prices and the exchange rates are invented to show how the page will work. Real past prices come in Version 2.</p>
+      <p><strong>Every number on this page is made up.</strong> The 6 months of prices and the exchange rates are invented to show how the page will work. Real past prices come in Version 2.</p>
       <p class="meta"><strong>Where this comes from:</strong> sample prices made up for this preview. Planned live sources: CoinGecko (tokens), Yahoo Finance (funds), Frankfurter (exchange rates).<br>
       <strong>Last updated:</strong> <span id="sample-date"></span> (sample data, not refreshed)</p>
     </div>
@@ -33,7 +33,7 @@
         <h2 id="mix-title">1. Build your mix</h2>
         <span class="badge info">Pretend money</span>
       </div>
-      <p class="meta">Pick assets and give each a percentage. The total must be exactly 100%. Tiny rounding is fine: 33.3% three times counts as 100%.</p>
+      <p class="meta">Pick assets. New assets split 100% evenly. Change any percentage and the last asset in the list adjusts so the total stays at 100%.</p>
       <div class="add-row">
         <label for="asset-pick">Asset</label>
         <select id="asset-pick"></select>
@@ -83,7 +83,7 @@
 
       <ul class="notes">
         <li>The mix is fixed: it starts with the percentages you chose and is never adjusted afterwards (no "rebalancing").</li>
-        <li>Biggest drop means the largest fall from a high point to a later low point during the 30 days.</li>
+        <li>Biggest drop means the largest fall from a high point to a later low point during the 6 months.</li>
         <li>A calm month may show little or no drop. That does not mean the mix is safe.</li>
         <li>Funds do not trade at weekends or on US holidays. On those days the last closing price is carried forward.</li>
         <li>Your mix is not saved in this preview. It is gone when you leave the page.</li>
