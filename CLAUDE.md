@@ -5,11 +5,35 @@
 - Audience: me, and people I choose to show it to.
 
 ## Hard rules
-- Version 1 only: read-only dashboard. No buying, selling, logins or real money.
+- Version 1 (the dashboard): read-only. No buying, selling, logins or real money.
 - Static site: plain files that run in a browser. No server, no database.
 - Free data sources only. No paid keys, no card details.
 - Never put secret keys or passwords in the code.
 - Do not add features I did not ask for.
+
+## Hard rules (Version 2: paper trading)
+- Paper trading only. Pretend money, pretend orders. Nothing is ever sent to a real broker, exchange or bank.
+- Every screen with trading must say: "Paper trading. Pretend money. No real orders."
+- Static site: plain files in a browser. No server, no database, no logins.
+- Save the paper account in the visitor's browser only. Do not collect personal data.
+- Free data sources only. No keys or secrets in the code.
+- Trades use the latest price shown on the page, and the screen must show when that price was last updated.
+- If the price is older than a set limit, block the trade and say why.
+- Only buy what cash allows. Only sell what is owned. No borrowing.
+- Never use wording that urges action ("invest now", "best", "top pick") or gives advice.
+- No links to real brokers or exchanges for buying.
+- Do not add features I did not ask for.
+
+## Version 2 decisions (agreed)
+- Start with 100,000 pretend US dollars. Tokens and US-listed funds can be traded. Tokenized funds are view only.
+- No fees, no short selling, no borrowing.
+- Orders are entered as a dollar amount; fractions of a token or fund share are allowed.
+- Paper trading is its own page. The pretend portfolio page stays as it is.
+- Too-old limit for prices: 45 minutes (set in data/settings.json).
+- US funds can also be traded when the market is closed, at the last closing price.
+- A held token that drops out of the top 20 keeps its last known price, marked "price not updated"; selling it is paused until it is back.
+- A "Start over" (reset) button with a confirm step.
+- Work on branch version-2-paper-trading; copy to main only when slices 2a to 2e are finished.
 
 ## Data rules
 - Show on every screen: where the data came from and when it was last updated.

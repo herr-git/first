@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper Trading</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body class="paper-page">
+  <div class="paper-banner" role="note">Paper trading. Pretend money. No real orders.</div>
+
+  <header class="page-header">
+    <div class="intro">
+      <p class="back"><a href="index.html">&larr; Back to the dashboard</a></p>
+      <h1>Paper trading</h1>
+      <p class="lead">A pretend account for practice. The money is not real and no order ever reaches a real broker, exchange or bank.</p>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
+  </header>
+
+  <main>
+    <section class="panel account" aria-labelledby="account-title">
+      <div class="panel-head">
+        <h2 id="account-title">Your paper account</h2>
+        <span class="badge pretend">Pretend money</span>
+      </div>
+      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+
+      <p class="loading" id="account-loading" role="status">Loading your paper account&hellip;</p>
+      <div class="error" id="account-error" role="alert" hidden></div>
+
+      <div id="account-body" hidden>
+        <p class="balance-label">Pretend cash</p>
+        <p class="balance" id="cash"></p>
+        <p class="balance-sub">pretend US dollars</p>
+
+        <p class="meta" id="account-meta"></p>
+        <p class="note" id="storage-note"></p>
+
+        <div class="reset-area">
+          <button type="button" class="secondary" id="reset-start">Start over</button>
+          <div class="confirm" id="reset-confirm" hidden>
+            <p><strong>Start over?</strong> This deletes your paper account in this browser and starts a new one with 100,000 pretend US dollars. It cannot be undone.</p>
+            <button type="button" class="danger" id="reset-yes">Yes, start over</button>
+            <button type="button" class="secondary" id="reset-no">Cancel</button>
+          </div>
+          <p class="done" id="reset-done" role="status" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <p class="note">Buying and selling are not available on this page yet.</p>
+  </main>
+
+  <footer class="site-footer">Demo only. Not investment advice. No trading happens here.</footer>
+
+  <script src="theme.js"></script>
+  <script src="paper-account.js"></script>
+  <script src="paper.js"></script>
+</body>
+</html>
