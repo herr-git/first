@@ -1,11 +1,11 @@
 # Fetches live crypto data from CoinGecko and saves it into data/latest.json.
-# Timer: every 15 minutes (GitHub may start it a few minutes late).
+# Timer: every 15 minutes at :07, :22, :37, :52 (GitHub may start it late or skip one when busy).
 # Timed runs only happen from the main branch.
 name: Refresh crypto data
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"   # every 15 minutes, off the busy :00/:15/:30/:45 marks
   workflow_dispatch: {}   # "Run workflow" button on the Actions tab
   push:
     branches: [main]
