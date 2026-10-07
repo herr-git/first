@@ -20,8 +20,8 @@
   </header>
 
   <main>
-    <section class="panel about" aria-labelledby="about-title">
-      <h2 id="about-title">About this demo</h2>
+    <details class="panel about" id="about" open>
+      <summary><h2 id="about-title">About this demo</h2><span class="about-hint">Tap to read</span></summary>
       <dl class="about-list">
         <dt>What it is</dt>
         <dd>A private demo that collects prices for crypto tokens and crypto funds from free public sources and shows them in one place.</dd>
@@ -32,7 +32,11 @@
         <dt>What is sample data</dt>
         <dd>Nothing on this page, as long as no table shows a yellow "Sample data" label. On the pretend portfolio page, the euro and pound exchange rates are sample data (made up) and are labelled.</dd>
       </dl>
-    </section>
+    </details>
+    <script>
+      // On a phone the About box starts closed (tap to open). On bigger screens it starts open.
+      if (window.matchMedia && window.matchMedia('(max-width: 680px)').matches) document.getElementById('about').open = false;
+    </script>
 
     <div class="search-bar">
       <label for="search">Find a token or fund</label>
