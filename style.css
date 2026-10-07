@@ -167,7 +167,13 @@ h2 { font-size: 1.2rem; margin: 0; }
 
 /* ---------- Dashboard: about box, search, tables ---------- */
 h3 { font-size: 1.05rem; margin: 0; }
-.about h2 { margin-bottom: 8px; }
+.about summary { cursor: pointer; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; list-style: none; }
+.about summary::-webkit-details-marker { display: none; }
+.about summary h2 { display: inline; }
+.about summary h2::before { content: "\25B8"; display: inline-block; margin-right: 8px; font-size: 0.85em; transition: transform 0.15s; }
+.about[open] summary h2::before { transform: rotate(90deg); }
+.about[open] summary { margin-bottom: 10px; }
+.about-hint { display: none; color: var(--accent); font-size: 0.9rem; white-space: nowrap; }
 .about-list { margin: 0; display: grid; grid-template-columns: 200px 1fr; gap: 6px 16px; }
 .about-list dt { font-weight: 600; }
 .about-list dd { margin: 0; color: var(--muted); }
@@ -225,6 +231,7 @@ h3 { font-size: 1.05rem; margin: 0; }
 
 @media (max-width: 680px) {
   .about-list { grid-template-columns: 1fr; gap: 2px; }
+  .about:not([open]) .about-hint { display: inline; }
   .about-list dd { margin-bottom: 8px; }
   .swipe-hint { display: block; }
   .data-table { font-size: 0.9rem; }
