@@ -271,3 +271,4 @@ button.link { font: inherit; background: none; border: none; color: var(--accent
 @media (max-width: 680px) {
   .table-view .data-table thead { display: none; }
 }
+.mix-table .sub { display: block; color: var(--muted); font-size: 0.8rem; }
