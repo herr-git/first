@@ -18,6 +18,10 @@
   --footer-text: #ffffff;
   --footer-border: transparent;
   --on-accent: #ffffff;
+  --paper-bg: #efe9ff;
+  --paper-text: #3b2a7a;
+  --paper-page: #f7f4ff;
+  --danger: #b42318;
 }
 /* Dark display: follows the device setting unless the visitor picks Light or Dark with the button. */
 @media (prefers-color-scheme: dark) {
@@ -41,6 +45,10 @@
     --footer-text: #ffffff;
     --footer-border: #2a2f36;
     --on-accent: #000000;
+    --paper-bg: #2a2150;
+    --paper-text: #ddd3ff;
+    --paper-page: #07050f;
+    --danger: #ff8a80;
   }
 }
 :root[data-theme="dark"] {
@@ -63,6 +71,10 @@
   --footer-text: #ffffff;
   --footer-border: #2a2f36;
   --on-accent: #000000;
+  --paper-bg: #2a2150;
+  --paper-text: #ddd3ff;
+  --paper-page: #07050f;
+  --danger: #ff8a80;
 }
 
 * { box-sizing: border-box; }
@@ -319,3 +331,36 @@ button.link { font: inherit; background: none; border: none; color: var(--accent
 .section-intro { margin: 10px 0 4px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--group-bg); border-radius: 4px; }
 .data-table td.tracks { color: var(--muted); font-size: 0.88rem; min-width: 150px; max-width: 200px; }
 .data-table th.num { white-space: normal; }
+
+/* ---------- Paper trading page ---------- */
+body.paper-page { background: var(--paper-page); }
+.paper-banner {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper-bg);
+  color: var(--paper-text);
+  text-align: center;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.badge.pretend { background: var(--paper-bg); color: var(--paper-text); }
+.paper-line { margin: 10px 0 0; padding: 8px 12px; border-radius: 6px; background: var(--paper-bg); color: var(--paper-text); font-weight: 600; }
+.balance-label { margin: 18px 0 0; color: var(--muted); font-size: 0.9rem; }
+.balance { margin: 2px 0 0; font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.balance-sub { margin: 0 0 8px; color: var(--muted); font-size: 0.9rem; }
+.reset-area { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 14px; }
+button.secondary, button.danger {
+  font: inherit;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+}
+button.danger { background: var(--danger); border-color: var(--danger); color: var(--on-accent); font-weight: 600; margin-right: 6px; }
+.confirm { margin-top: 10px; padding: 12px; border: 1px solid var(--danger); border-radius: 8px; }
+.confirm p { margin: 0 0 10px; }
+.done { color: var(--stable-text); font-weight: 600; margin: 10px 0 0; }
