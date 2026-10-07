@@ -14,7 +14,7 @@
   <header class="page-header">
     <div class="intro">
       <h1>Crypto and crypto fund dashboard</h1>
-      <p class="lead">Prices for the most traded crypto tokens and for funds that hold crypto. Read-only: nothing can be bought or sold here.</p>
+      <p class="lead">Prices for the most traded crypto tokens and for funds that hold crypto. Nothing real can be bought or sold here. Paper trading uses pretend money only.</p>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
   </header>
@@ -26,7 +26,7 @@
         <dt>What it is</dt>
         <dd>A private demo that collects prices for crypto tokens and crypto funds from free public sources and shows them in one place.</dd>
         <dt>What it is not</dt>
-        <dd>Not a trading app and not investment advice. There is no login, no buying or selling, and no real money.</dd>
+        <dd>Not a real trading app and not investment advice. There is no login and no real money. The paper trading part uses pretend money, and no order ever leaves this site.</dd>
         <dt>Where the data comes from</dt>
         <dd>CoinGecko (crypto tokens and tokenized funds) and Yahoo Finance (stock market funds). An automatic job collects new numbers regularly. Each table says exactly when it was last updated.</dd>
         <dt>What is sample data</dt>
@@ -37,6 +37,19 @@
       // On a phone the About box starts closed (tap to open). On bigger screens it starts open.
       if (window.matchMedia && window.matchMedia('(max-width: 680px)').matches) document.getElementById('about').open = false;
     </script>
+
+    <section class="panel paper-summary" aria-labelledby="paper-title">
+      <div class="panel-head">
+        <h2 id="paper-title">Paper trading</h2>
+        <span class="badge pretend">Pretend money</span>
+      </div>
+      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
+      <p>A practice area with 100,000 pretend US dollars for the crypto tokens and US funds below. Use "Pretend trade" next to any of them. Nothing is real and no order leaves this site.</p>
+      <p class="loading" id="paper-loading" role="status">Loading your paper account&hellip;</p>
+      <div id="paper-area"></div>
+      <p class="meta" id="paper-meta"></p>
+      <p><a class="button-link" href="paper.html">Open paper trading</a></p>
+    </section>
 
     <div class="search-bar">
       <label for="search">Find a token or fund</label>
@@ -56,6 +69,7 @@
         <li>Trading volume for crypto is not exact. Different sources often report different numbers.</li>
         <li>Bid and ask: not available for tokens. The free source only gives one price.</li>
         <li>Data from <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a>.</li>
+        <li>"Pretend trade" opens the paper trading page. Paper trading. Pretend money. No real orders.</li>
       </ul>
     </section>
 
@@ -70,6 +84,7 @@
         <li>Market value is the fund's total size as reported by Yahoo. It can be a few days behind the price.</li>
         <li>Bid and ask are shown only when they are within 1% of the price. Otherwise they say "not available".</li>
         <li>These funds are listed in the USA and may not be available to buy in your country.</li>
+        <li>"Pretend trade" opens the paper trading page. Paper trading. Pretend money. No real orders.</li>
       </ul>
     </section>
 
@@ -103,19 +118,6 @@
         <li>Bid and ask are shown only when they are within 1% of the price.</li>
         <li>The US-listed crypto funds are in the table above.</li>
       </ul>
-    </section>
-
-    <section class="panel paper-summary" aria-labelledby="paper-title">
-      <div class="panel-head">
-        <h2 id="paper-title">Paper trading</h2>
-        <span class="badge pretend">Pretend money</span>
-      </div>
-      <p class="paper-line">Paper trading. Pretend money. No real orders.</p>
-      <p>A practice area with 100,000 pretend US dollars for the tokens and US funds above. Nothing is real and no order leaves this site.</p>
-      <p class="loading" id="paper-loading" role="status">Loading your paper account&hellip;</p>
-      <div id="paper-area"></div>
-      <p class="meta" id="paper-meta"></p>
-      <p><a class="button-link" href="paper.html">Open paper trading</a></p>
     </section>
 
     <section class="panel preview-link" aria-labelledby="preview-title">

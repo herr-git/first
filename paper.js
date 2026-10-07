@@ -7,7 +7,8 @@ let canSave = true;
 let storage = null;
 let market = null;      // { settings, assets: {key: asset}, cryptoUpdated, fundsUpdated }
 let pending = null;     // the order waiting for "Place pretend order"
-let reloadProblem = null; // time of the last failed quiet re-read of the price files
+let reloadProblem = null;
+let chosenHandled = false; // the asset chosen with "Pretend trade" on the dashboard is applied once // time of the last failed quiet re-read of the price files
 const RECHECK_MS = 60 * 1000;       // re-check the age of the prices shown
 const RELOAD_MS = 5 * 60 * 1000;    // quietly re-read our own price files
 
@@ -415,6 +416,30 @@ async function startOrders() {
   $('order-form').hidden = false;
   fillAssetList();
   showPrice();
+  applyChosenAsset();
+}
+
+// The dashboard's "Pretend trade" button opens this page as paper.html?asset=token:bitcoin (or fund:IBIT).
+function applyChosenAsset() {
+  if (chosenHandled) return;
+  let key = null;
+  try { key = new URLSearchParams(window.location.search).get('asset'); } catch (e) { /* no address bar access */ }
+  if (!key) return;
+  chosenHandled = true;
+  const note = $('chosen-note');
+  note.hidden = false;
+  const a = market.assets[key];
+  if (!a) {
+    note.textContent = 'The token or fund you chose on the dashboard cannot be traded right now: its price could not be loaded, or it is no longer in the top 20. You can choose another one below.';
+    return;
+  }
+  $('side-buy').checked = true;
+  onSideChange();
+  $('asset').value = key;
+  showPrice();
+  note.textContent = 'Chosen on the dashboard: ' + a.name + '. Enter an amount to review a pretend order, or choose Sell if you own some.';
+  $('order-title').closest('section').scrollIntoView({ block: 'start' });
+  $('amount').focus({ preventScroll: true });
 }
 
 // ---------- Keeping prices current while the page is open (2d) ----------

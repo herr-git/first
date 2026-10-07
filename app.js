@@ -214,6 +214,13 @@ function startLoading() {
   });
 }
 
+// ---------- Pretend trade buttons (paper trading) ----------
+
+// Opens the paper trading page with this token or US fund already chosen. Nothing is bought here.
+function tradeCell(key, name) {
+  return `<a class="trade-btn" href="paper.html?asset=${encodeURIComponent(key)}" aria-label="Pretend trade: ${esc(name)}">Pretend trade</a>`;
+}
+
 // ---------- Crypto table ----------
 
 function nameCell(name, sub, extra) {
@@ -235,6 +242,7 @@ function loadCrypto(latest, settings) {
       { key: 'price', label: 'Price (USD)', num: true, value: r => r.price_usd, html: r => money(r.price_usd) },
       { key: 'mv', label: 'Market value (USD)', num: true, value: r => r.market_value_usd, html: r => bigMoney(r.market_value_usd) },
       { key: 'volume', label: '24-hour volume (USD)', num: true, value: r => r.volume_24h_usd, html: r => bigMoney(r.volume_24h_usd) },
+      { key: 'trade', label: 'Paper trading', cls: 'trade', html: r => tradeCell('token:' + r.id, r.name) },
     ],
   });
 }
@@ -263,6 +271,7 @@ async function loadFunds(settings) {
       { key: 'fee', label: 'Yearly fee', num: true, html: r => percent(r.yearly_fee_pct) },
       { key: 'bid', label: 'Bid', num: true, html: r => money(r.bid) },
       { key: 'ask', label: 'Ask', num: true, html: r => money(r.ask) },
+      { key: 'trade', label: 'Paper trading', cls: 'trade', html: r => tradeCell('fund:' + r.ticker, r.name) },
     ],
   });
 }

@@ -33,7 +33,9 @@
 - US funds can also be traded when the market is closed, at the last closing price.
 - A held token that drops out of the top 20 keeps its last known price, marked "price not updated"; selling it is paused until it is back.
 - A "Start over" (reset) button with a confirm step.
-- Work on branch version-2-paper-trading; copy to main only when slices 2a to 2e are finished.
+- The dashboard has a "Pretend trade" button on each crypto token and US fund row. It opens the paper trading page with that asset chosen. No button on tokenized funds or European products.
+- The paper trading summary box sits near the top of the dashboard.
+- Work on branch version-2-paper-trading; copy to main only when slices 2a to 2f are finished (2f is the final check).
 
 ## Data rules
 - Show on every screen: where the data came from and when it was last updated.
