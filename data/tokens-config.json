@@ -1,0 +1,16 @@
+{
+  "_note": "The frozen top 10 tokens. SAMPLE list until the first live run picks the real top 10 by 24-hour volume from CoinGecko.",
+  "sample": true,
+  "tokens": [
+    { "id": "tether", "name": "Tether", "symbol": "USDT", "stablecoin": true },
+    { "id": "bitcoin", "name": "Bitcoin", "symbol": "BTC", "stablecoin": false },
+    { "id": "ethereum", "name": "Ethereum", "symbol": "ETH", "stablecoin": false },
+    { "id": "usd-coin", "name": "USD Coin", "symbol": "USDC", "stablecoin": true },
+    { "id": "solana", "name": "Solana", "symbol": "SOL", "stablecoin": false },
+    { "id": "ripple", "name": "XRP", "symbol": "XRP", "stablecoin": false },
+    { "id": "binancecoin", "name": "BNB", "symbol": "BNB", "stablecoin": false },
+    { "id": "dogecoin", "name": "Dogecoin", "symbol": "DOGE", "stablecoin": false },
+    { "id": "cardano", "name": "Cardano", "symbol": "ADA", "stablecoin": false },
+    { "id": "tron", "name": "TRON", "symbol": "TRX", "stablecoin": false }
+  ]
+}
