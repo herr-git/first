@@ -14,66 +14,59 @@
   <header class="page-header">
     <div class="intro">
       <h1>Crypto and crypto fund dashboard</h1>
-      <p class="lead">A read-only demo. It shows prices for the 20 most traded crypto tokens and 6 stock market funds that hold crypto.</p>
+      <p class="lead">Prices for the most traded crypto tokens and for funds that hold crypto. Read-only: nothing can be bought or sold here.</p>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle">Dark display</button>
   </header>
 
   <main>
+    <section class="panel about" aria-labelledby="about-title">
+      <h2 id="about-title">About this demo</h2>
+      <dl class="about-list">
+        <dt>What it is</dt>
+        <dd>A private demo that collects prices for crypto tokens and crypto funds from free public sources and shows them in one place.</dd>
+        <dt>What it is not</dt>
+        <dd>Not a trading app and not investment advice. There is no login, no buying or selling, and no real money.</dd>
+        <dt>Where the data comes from</dt>
+        <dd>CoinGecko (crypto tokens and tokenized funds) and Yahoo Finance (stock market funds). An automatic job collects new numbers regularly. Each table says exactly when it was last updated.</dd>
+        <dt>What is sample data</dt>
+        <dd>Nothing on this page, as long as no table shows a yellow "Sample data" label. On the pretend portfolio page, the euro and pound exchange rates are sample data (made up) and are labelled.</dd>
+      </dl>
+    </section>
+
+    <div class="search-bar">
+      <label for="search">Find a token or fund</label>
+      <input type="search" id="search" placeholder="Type a name or ticker, for example Bitcoin or IBIT" autocomplete="off">
+      <p class="search-status" id="search-status" aria-live="polite"></p>
+    </div>
+
     <section class="panel" aria-labelledby="crypto-title">
       <div class="panel-head">
-        <h2 id="crypto-title">Crypto tokens by 24-hour trading volume</h2>
+        <h2 id="crypto-title">Crypto tokens</h2>
         <div class="badges" id="crypto-badges"></div>
       </div>
       <p class="meta" id="crypto-meta"></p>
-      <div class="sort-bar" role="group" aria-label="Sort crypto table">
-        <span>Sort by:</span>
-        <button type="button" data-sort="volume_24h_usd" aria-pressed="true">24-hour volume</button>
-        <button type="button" data-sort="market_value_usd" aria-pressed="false">Market value</button>
-      </div>
-      <div id="crypto-error" class="error" hidden></div>
-      <table class="data-table" id="crypto-table">
-        <thead>
-          <tr>
-            <th scope="col">Token</th>
-            <th scope="col" class="num">Price (USD)</th>
-            <th scope="col" class="num">Market value (USD)</th>
-            <th scope="col" class="num">24-hour volume (USD)</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p class="note">Crypto trading volume is not fully reliable. Different data sources often report different numbers.</p>
-      <p class="note">Bid and ask are not available for tokens: the free source only gives one summary price.</p>
-      <p class="note">The list is re-ranked on every refresh, so tokens can move in or out of the top 20.</p>
-      <p class="note credit">Data from <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a>.</p>
+      <div class="table-area" id="crypto-area"></div>
+      <ul class="notes">
+        <li>The 20 tokens with the most trading in the last 24 hours. The list is updated on every refresh.</li>
+        <li>Trading volume for crypto is not exact. Different sources often report different numbers.</li>
+        <li>Bid and ask: not available for tokens. The free source only gives one price.</li>
+        <li>Data from <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a>.</li>
+      </ul>
     </section>
 
     <section class="panel" aria-labelledby="funds-title">
       <div class="panel-head">
-        <h2 id="funds-title">Crypto funds (US stock market)</h2>
+        <h2 id="funds-title">Crypto funds on the US stock market</h2>
         <div class="badges" id="funds-badges"></div>
       </div>
       <p class="meta" id="funds-meta"></p>
-      <div id="funds-error" class="error" hidden></div>
-      <table class="data-table" id="funds-table">
-        <thead>
-          <tr>
-            <th scope="col">Fund</th>
-            <th scope="col" class="num">Price (USD)</th>
-            <th scope="col" class="num">Market value (USD, total assets)</th>
-            <th scope="col" class="num">Volume today (shares)</th>
-            <th scope="col" class="num">Yearly fee</th>
-            <th scope="col" class="num">Bid</th>
-            <th scope="col" class="num">Ask</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p class="note">Market value is the fund's total assets as reported by Yahoo. It can lag a few days behind the price.</p>
-      <p class="note">Bid and ask are shown only when they are within 1% of the price. Otherwise they say "not available", because the free source sometimes sends out-of-date quotes.</p>
-      <p class="note">Yearly fee is the figure reported by Yahoo.</p>
-      <p class="note">These funds are listed in the USA. They may not be available to buy in your country.</p>
+      <div class="table-area" id="funds-area"></div>
+      <ul class="notes">
+        <li>Market value is the fund's total size as reported by Yahoo. It can be a few days behind the price.</li>
+        <li>Bid and ask are shown only when they are within 1% of the price. Otherwise they say "not available".</li>
+        <li>These funds are listed in the USA and may not be available to buy in your country.</li>
+      </ul>
     </section>
 
     <section class="panel" aria-labelledby="tok-title">
@@ -82,71 +75,54 @@
       </div>
       <p class="section-intro">Tokenized funds are ordinary investment funds whose shares are issued as tokens on a blockchain; exchange-traded crypto products are funds or notes that hold crypto and trade on a normal stock exchange. Free data for these is limited: tokenized funds are mostly bought directly from the issuer, so they show little or no trading and no bid/ask.</p>
 
-      <h3 class="sub-title">Tokenized funds <span class="badges" id="tokf-badges"></span></h3>
+      <div class="panel-head sub-head">
+        <h3 id="tokf-title">Tokenized funds</h3>
+        <div class="badges" id="tokf-badges"></div>
+      </div>
       <p class="meta" id="tokf-meta"></p>
-      <div id="tokf-error" class="error" hidden></div>
-      <table class="data-table" id="tokf-table">
-        <thead>
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Type</th>
-            <th scope="col">What it tracks</th>
-            <th scope="col" class="num">Price (USD)</th>
-            <th scope="col" class="num">Market value (USD)</th>
-            <th scope="col" class="num">24-hour volume (USD)</th>
-            <th scope="col" class="num">Bid / ask</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p class="note">Bid and ask: not available for tokenized funds. They are mostly bought and sold directly with the issuer, not on an exchange, and no free source publishes these prices.</p>
-      <p class="note">A volume of $0 is what the source reports: little or no trading happened on exchanges in the last 24 hours.</p>
-      <p class="note">"What it tracks" is a short summary written for this demo. Check each issuer's own page for the full details.</p>
+      <div class="table-area" id="tokf-area"></div>
+      <ul class="notes">
+        <li>Bid and ask: not available. These funds are bought and sold directly with the issuer, and no free source publishes these prices.</li>
+        <li>A volume of $0 is what the source reports: little or no trading on exchanges in the last 24 hours.</li>
+        <li>"What it tracks" is a short summary written for this demo. The issuer's own page has the full details.</li>
+      </ul>
 
-      <h3 class="sub-title">Exchange-traded crypto products listed in Europe <span class="badges" id="etp-badges"></span></h3>
+      <div class="panel-head sub-head">
+        <h3 id="etp-title">Exchange-traded crypto products listed in Europe</h3>
+        <div class="badges" id="etp-badges"></div>
+      </div>
       <p class="meta" id="etp-meta"></p>
-      <div id="etp-error" class="error" hidden></div>
-      <table class="data-table" id="etp-table">
-        <thead>
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Type</th>
-            <th scope="col">What it tracks</th>
-            <th scope="col" class="num">Price</th>
-            <th scope="col" class="num">Market value (total assets)</th>
-            <th scope="col" class="num">Volume today (units)</th>
-            <th scope="col" class="num">Bid / ask</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p class="note">Prices are in the currency each product trades in: Swiss francs (CHF) or euros (EUR), not US dollars.</p>
-      <p class="note">In Europe most of these are legally "exchange-traded notes": a kind of bond backed by the crypto. For a buyer they work much like a fund.</p>
-      <p class="note">Bid and ask are shown only when they are within 1% of the price. Market value is the total assets reported by Yahoo, where it has them.</p>
-      <p class="note">The US-listed crypto funds (IBIT, FBTC and others) are in the fund table above.</p>
+      <div class="table-area" id="etp-area"></div>
+      <ul class="notes">
+        <li>Prices are in the currency each product trades in: Swiss francs (CHF) or euros (EUR). Sorting by price or market value puts the CHF products first, then the EUR products.</li>
+        <li>In Europe most of these are legally "exchange-traded notes": a kind of bond backed by the crypto. For a buyer they work much like a fund.</li>
+        <li>Bid and ask are shown only when they are within 1% of the price.</li>
+        <li>The US-listed crypto funds are in the table above.</li>
+      </ul>
     </section>
 
-    <p class="panel preview-link">
-      <strong>Coming in Version 2:</strong> try a pretend-money portfolio.
-      <a href="preview.html">Open the preview</a> (sample data only).
-    </p>
+    <section class="panel preview-link" aria-labelledby="preview-title">
+      <h2 id="preview-title">Try a pretend portfolio</h2>
+      <p>Split 100% across these tokens and funds and see how that mix would have done over the last 6 months, with pretend money. <a href="preview.html">Open the pretend portfolio</a></p>
+    </section>
 
     <details class="panel glossary">
       <summary>What do these words mean?</summary>
       <dl>
-        <dt>Price</dt><dd>The cost of one token or one fund share, in US dollars.</dd>
-        <dt>Market value</dt><dd>For a token: price times the number of tokens in circulation. For a fund: the total value of everything the fund holds (its total assets).</dd>
+        <dt>Price</dt><dd>The cost of one token, fund share or product unit.</dd>
+        <dt>Market value</dt><dd>For a token: price times the number of tokens in circulation. For a fund: the total value of everything the fund holds.</dd>
         <dt>24-hour volume</dt><dd>How much was traded in the last 24 hours. Crypto trades all day, every day.</dd>
-        <dt>Volume today</dt><dd>How many fund shares changed hands today. Funds only trade during US stock market hours (9:30 to 16:00 New York time, weekdays).</dd>
+        <dt>Volume today</dt><dd>How many fund shares or product units changed hands today on the stock exchange.</dd>
         <dt>Stablecoin</dt><dd>A token designed to stay at a fixed price, usually 1 US dollar.</dd>
         <dt>Bid / ask</dt><dd>Bid is the highest price a buyer is offering right now. Ask is the lowest price a seller will accept.</dd>
         <dt>Yearly fee</dt><dd>What the fund charges each year, as a percentage of the money invested.</dd>
-        <dt>Delayed 15 minutes</dt><dd>Free data shows prices from about 15 minutes ago, not this second.</dd>
+        <dt>Delayed 15 minutes</dt><dd>Free stock market data shows prices from about 15 minutes ago, not this second.</dd>
+        <dt>Ticker</dt><dd>The short code a fund or product trades under, for example IBIT.</dd>
         <dt>Tokenized fund</dt><dd>A normal investment fund whose shares exist as tokens on a blockchain, so they can be held in a crypto wallet.</dd>
         <dt>Exchange-traded product</dt><dd>Something that tracks an asset (here, a crypto coin) and is bought and sold on a normal stock exchange, like a share.</dd>
         <dt>Treasury bills</dt><dd>Short-term loans to the US government. They are seen as very low risk.</dd>
         <dt>Staking rewards</dt><dd>A payment some crypto networks make to holders who help run the network.</dd>
-        <dt>Sample data</dt><dd>Made-up numbers used to show the layout. They are not real prices.</dd>
+        <dt>Sample data</dt><dd>Made-up numbers used to show how the page works. They are not real prices and always carry a yellow "Sample data" label.</dd>
       </dl>
     </details>
   </main>
