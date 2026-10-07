@@ -2,7 +2,7 @@
 and save it into data/funds-latest.json.
 
 Runs on GitHub Actions on a timer during US market hours. If anything fails,
-the last good data is kept, the failure is written to data/fetch-log.txt, and
+the last good data is kept, the failure is written to data/funds-fetch-log.txt, and
 "last_error" is set so the page can say the latest refresh failed.
 
 Rules agreed with the owner:
