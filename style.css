@@ -439,3 +439,4 @@ a.button-link {
   text-decoration: none;
 }
 a.button-link:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.notice-box { background: var(--info-bg); color: var(--info-text); border-radius: 8px; padding: 12px; margin: 8px 0; }

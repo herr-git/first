@@ -1,7 +1,7 @@
 // Dashboard: a read-only summary of the visitor's paper account (saved in this browser).
 // It never creates or changes the account; trading happens on paper.html.
 
-(async function paperSummary() {
+async function paperSummary() {
   const area = document.getElementById('paper-area');
   const meta = document.getElementById('paper-meta');
   const loading = document.getElementById('paper-loading');
@@ -51,4 +51,10 @@
     ? '<strong>Where this comes from:</strong> your paper account saved in this browser, valued with CoinGecko (crypto) and Yahoo Finance (US funds) prices.' +
       '<br><strong>Last updated:</strong> account ' + when(account.updated) + '; prices: crypto ' + when(market.cryptoUpdated) + ', US funds ' + when(market.fundsUpdated) + '.'
     : '<strong>Where this comes from:</strong> your paper account saved in this browser.<br><strong>Last updated:</strong> account ' + when(account.updated) + '; current prices unknown.';
-})();
+}
+
+paperSummary();
+// Another tab or window changed the paper account: show the latest version here too.
+window.addEventListener('storage', ev => {
+  if (ev.key === PaperAccount.STORAGE_KEY || ev.key === null) paperSummary();
+});
