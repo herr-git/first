@@ -20,12 +20,12 @@
   </header>
 
   <main>
-    <div class="panel notice">
-      <span class="badge sample">Sample data</span>
+    <div class="panel notice" id="notice">
+      <span class="badge sample" id="notice-sample">Sample data</span>
       <span class="badge info">Pretend money</span>
-      <p><strong>Every number on this page is made up.</strong> The 6 months of prices and the exchange rates are invented to show how the page will work. Real past prices come in Version 2.</p>
-      <p class="meta"><strong>Where this comes from:</strong> sample prices made up for this preview. Planned live sources: CoinGecko (tokens), Yahoo Finance (funds), Frankfurter (exchange rates).<br>
-      <strong>Last updated:</strong> <span id="sample-date"></span> (sample data, not refreshed)</p>
+      <p id="notice-text"><strong>Every number on this page is made up.</strong> The 6 months of prices and the exchange rates are invented to show how the page will work.</p>
+      <p class="meta"><strong>Where this comes from:</strong> <span id="notice-source">sample prices made up for this preview.</span><br>
+      <strong>Last updated:</strong> <span id="sample-date"></span></p>
     </div>
 
     <section class="panel" aria-labelledby="mix-title">
@@ -44,6 +44,7 @@
         <thead><tr><th scope="col">Asset</th><th scope="col" class="num">Share of the mix</th><th scope="col"><span class="sr-only">Remove</span></th></tr></thead>
         <tbody></tbody>
       </table>
+      <p class="note" id="excluded-note" hidden></p>
       <p class="empty" id="mix-empty">No assets yet. Pick one above and click Add.</p>
       <p class="total" id="mix-total" aria-live="polite"></p>
       <button type="button" class="primary" id="show-result" disabled>Show result</button>
@@ -52,7 +53,7 @@
     <section class="panel" aria-labelledby="result-title" id="result-panel" hidden>
       <div class="panel-head">
         <h2 id="result-title">2. How this mix would have done</h2>
-        <div class="badges"><span class="badge sample">Sample data</span><span class="badge info">Pretend money</span></div>
+        <div class="badges"><span class="badge sample" id="result-sample">Sample data</span><span class="badge info">Pretend money</span></div>
       </div>
       <p class="warn-line"><strong>Illustration only, based on past prices, does not predict the future.</strong></p>
 
@@ -86,6 +87,7 @@
         <li>Biggest drop means the largest fall from a high point to a later low point during the 6 months.</li>
         <li>A calm month may show little or no drop. That does not mean the mix is safe.</li>
         <li>Funds do not trade at weekends or on US holidays. On those days the last closing price is carried forward.</li>
+        <li id="timing-note" hidden>Token prices are CoinGecko's daily price at midnight UTC. Fund prices are the US closing price (4 pm New York time). So token and fund prices for the same day are taken a few hours apart.</li>
         <li>Your mix is not saved in this preview. It is gone when you leave the page.</li>
       </ul>
     </section>
