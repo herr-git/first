@@ -1,0 +1,37 @@
+# Slice 3: one-off check of free sources for tokenized funds and non-US
+# exchange-traded crypto products. Saves reports/tokenized-raw.md. Changes nothing on the site.
+name: Tokenized fund source check
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "scripts/tokenized_check.py"
+      - ".github/workflows/tokenized-check.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet yfinance
+      - run: python scripts/tokenized_check.py
+      - name: Save the report
+        run: |
+          git config user.name "crypto-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/tokenized-raw.md
+          git diff --cached --quiet && exit 0
+          git commit -m "Tokenized fund source check: raw output"
+          for i in 1 2 3; do
+            git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          exit 1
