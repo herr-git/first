@@ -75,7 +75,7 @@ function renderMeta(prefix, block, settings, extraBadges, timingLabel, marketClo
   const ageMin = (Date.now() - new Date(block.last_updated).getTime()) / 60000;
   // The "may be old" check only applies to live data while the market is open.
   // Sample data is always old by design, and fund data is not refreshed when the market is closed.
-  if (!block.sample && !marketClosed && !(ageMin <= settings.stale_after_minutes)) {
+  if (!block.sample && block.last_updated && !marketClosed && !(ageMin <= settings.stale_after_minutes)) {
     badges.push(badge('warn', 'Data may be old'));
   }
   (extraBadges || []).forEach(b => badges.push(b));
@@ -85,7 +85,7 @@ function renderMeta(prefix, block, settings, extraBadges, timingLabel, marketClo
     ? esc(block.source) + ' (<a href="' + esc(block.source_url) + '" target="_blank" rel="noopener">source site</a>)'
     : esc(block.source);
   document.getElementById(prefix + '-meta').innerHTML =
-    '<strong>Where this comes from:</strong> ' + src + '<br><strong>Last updated:</strong> ' + esc(whenText(block.last_updated)) +
+    '<strong>Where this comes from:</strong> ' + src + '<br><strong>Last updated:</strong> ' + (block.last_updated ? esc(whenText(block.last_updated)) : 'not yet') +
     (failed ? '<br><strong>Problem:</strong> the latest refresh at ' + esc(whenText(block.last_error.time)) +
       ' failed (' + esc(block.last_error.message) + '). Showing the last good data.' : '');
 }
@@ -167,6 +167,76 @@ async function loadFunds(settings) {
   renderMeta('funds', block, settings, extra, 'Delayed 15 minutes', closed);
 }
 
+// ---------- Tokenized funds and exchange-traded products ----------
+
+function money(v, ccy) {
+  if (!isNum(v)) return NA;
+  const digits = v >= 1 ? 2 : 4;
+  return esc(ccy || '') + ' ' + v.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+function bigMoney(v, ccy) {
+  if (!isNum(v)) return NA;
+  const steps = [[1e12, 'trillion'], [1e9, 'billion'], [1e6, 'million']];
+  for (const [size, word] of steps) if (v >= size) return esc(ccy || '') + ' ' + (v / size).toFixed(2) + ' ' + word;
+  return money(v, ccy);
+}
+
+function asOf(iso) {
+  return iso ? `<span class="sub">as of ${esc(whenText(iso))}</span>` : '';
+}
+
+// A part that has never been fetched shows a clear message instead of an empty table.
+function notFetchedYet(prefix, block) {
+  if (block.last_updated) return false;
+  const box = document.getElementById(prefix + '-error');
+  box.hidden = false;
+  box.textContent = 'No data yet: the first fetch has not run. Check again in a few minutes.';
+  document.getElementById(prefix + '-table').hidden = true;
+  return true;
+}
+
+async function loadTokenized(settings) {
+  const [config, data] = await Promise.all([loadJson('data/tokenized-config.json'), loadJson('data/tokenized-latest.json')]);
+
+  const tf = data.tokenized;
+  renderMeta('tokf', tf, settings, [], 'Refreshed about every ' + settings.refresh_minutes + ' minutes');
+  if (!notFetchedYet('tokf', tf)) {
+    const by = Object.fromEntries(tf.rows.map(r => [r.symbol, r]));
+    document.querySelector('#tokf-table tbody').innerHTML = config.tokenized.map(p => {
+      const d = by[p.symbol] || {};
+      return `<tr>
+        <td class="name">${esc(p.name)} <span class="sub">${esc(p.symbol)} &middot; ${esc(p.issuer)}</span></td>
+        <td data-label="Type">Tokenized fund</td>
+        <td data-label="What it tracks" class="tracks">${esc(p.tracks)}</td>
+        <td class="num" data-label="Price (USD)">${usd(d.price_usd)}${asOf(d.price_time)}</td>
+        <td class="num" data-label="Market value (USD)">${bigUsd(d.market_value_usd)}</td>
+        <td class="num" data-label="24-hour volume (USD)">${isNum(d.volume_24h_usd) ? (d.volume_24h_usd === 0 ? '$0' : bigUsd(d.volume_24h_usd)) : NA}</td>
+        <td class="num" data-label="Bid / ask">${NA}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  const et = data.exchange_traded;
+  renderMeta('etp', et, settings, [], 'Delayed 15 minutes or more');
+  if (!notFetchedYet('etp', et)) {
+    const by = Object.fromEntries(et.rows.map(r => [r.ticker, r]));
+    document.querySelector('#etp-table tbody').innerHTML = config.exchange_traded.map(p => {
+      const d = by[p.ticker] || {};
+      const bidAsk = isNum(d.bid) && isNum(d.ask) ? `${money(d.bid, d.currency)} / ${money(d.ask, d.currency)}` : NA;
+      return `<tr>
+        <td class="name">${esc(p.name)} <span class="sub">${esc(p.ticker)} &middot; ${esc(p.exchange)}</span></td>
+        <td data-label="Type">Exchange-traded product</td>
+        <td data-label="What it tracks" class="tracks">${esc(p.tracks)}</td>
+        <td class="num" data-label="Price">${money(d.price, d.currency)}${asOf(d.price_time)}</td>
+        <td class="num" data-label="Market value">${bigMoney(d.total_assets, d.currency)}</td>
+        <td class="num" data-label="Volume today (units)">${count(d.volume)}</td>
+        <td class="num" data-label="Bid / ask">${bidAsk}</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
 // ---------- Start ----------
 
 (async function start() {
@@ -174,11 +244,11 @@ async function loadFunds(settings) {
   try {
     settings = await loadJson('data/settings.json');
   } catch (err) {
-    showError('crypto', err);
-    showError('funds', err);
+    ['crypto', 'funds', 'tokf', 'etp'].forEach(p => showError(p, err));
     return;
   }
   // Each table loads its own file, so one failing does not blank the other.
   loadJson('data/latest.json').then(latest => loadCrypto(latest, settings)).catch(err => showError('crypto', err));
   loadFunds(settings).catch(err => showError('funds', err));
+  loadTokenized(settings).catch(err => { showError('tokf', err); showError('etp', err); });
 })();

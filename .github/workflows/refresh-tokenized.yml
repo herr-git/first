@@ -1,0 +1,58 @@
+# Fetches tokenized fund data (CoinGecko) and European exchange-traded crypto product data (Yahoo)
+# and saves it into data/tokenized-latest.json.
+# Timer: every 15 minutes at :07, :22, :37, :52 (GitHub may start it late or skip one when busy).
+# Timed runs only happen from the main branch.
+name: Refresh tokenized and exchange-traded products
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"   # every 15 minutes, off the busy :00/:15/:30/:45 marks
+  workflow_dispatch: {}   # "Run workflow" button on the Actions tab
+  push:
+    branches: [main]
+    paths:
+      - "scripts/fetch_tokenized.py"
+      - ".github/workflows/refresh-tokenized.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-tokenized
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet yfinance
+
+      - name: Fetch from CoinGecko and Yahoo
+        env:
+          COINGECKO_DEMO_KEY: ${{ secrets.COINGECKO_DEMO_KEY }}
+        run: python scripts/fetch_tokenized.py
+
+      - name: Save the new data
+        run: |
+          git config user.name "crypto-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tokenized-latest.json
+          [ -f data/tokenized-fetch-log.txt ] && git add data/tokenized-fetch-log.txt
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git commit -m "Refresh tokenized and exchange-traded products"
+          for i in 1 2 3; do
+            git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep 5
+          done
+          echo "Could not save the data after 3 tries."
+          exit 1

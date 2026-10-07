@@ -7,6 +7,7 @@ A read-only demo dashboard. Demo only. Not investment advice. No trading happens
 - Fund table: **live** data from Yahoo Finance (unofficial), refreshed every 15 minutes during US market hours.
 - `preview.html`: Version 2 preview (pretend portfolio). Uses **real** 6-month daily prices from `data/history.json` once the daily job has run; exchange rates are still **Sample data**.
 - Fund data check (V1-1): see `reports/fund-data-check.md`.
+- Tokenized funds and European exchange-traded crypto products: **live**, CoinGecko and Yahoo, every 15 minutes. Product list in `data/tokenized-config.json`; job in `scripts/fetch_tokenized.py` and `.github/workflows/refresh-tokenized.yml`.
 
 ## Files
 - `index.html`, `style.css`, `app.js`, `theme.js`: the dashboard page.

@@ -9,6 +9,8 @@ Required by regulation-notes.txt: every data source, its terms link, and how it 
    - Key: none needed. An optional free "demo" key can be stored in the GitHub secret
      COINGECKO_DEMO_KEY. It is never written into project files.
    - Also used once a day for about 6 months of daily prices (data/history.json).
+   - Also used every 15 minutes for 5 tokenized funds (data/tokenized-latest.json):
+     price, market value, 24-hour volume. No bid/ask available.
    - Attribution: the page shows "Data from CoinGecko" with a link.
    - Terms: https://www.coingecko.com/en/api_terms
    - Terms status: NOT YET READ IN FULL. The build session could not open the page
@@ -23,6 +25,8 @@ Required by regulation-notes.txt: every data source, its terms link, and how it 
    - Unofficial access that can break without warning. Owner accepted this for a
      private demo and chose Yahoo only, with no backup source.
    - Also used once a day for about 6 months of daily closing prices (data/history.json).
+   - Also used every 15 minutes for 6 European exchange-traded crypto products
+     (data/tokenized-latest.json): price in CHF/EUR, volume, bid/ask (1% rule), total assets.
    - Terms: https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html
    - Terms status: NOT YET READ.
 
