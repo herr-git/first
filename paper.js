@@ -63,47 +63,79 @@ function showDamaged() {
     '<strong>Where this comes from:</strong> the paper account saved in this browser.<br><strong>Last updated:</strong> unknown, because it could not be read.';
 }
 
-// ---------- Prices ----------
-
-async function getJson(path) {
-  let res;
-  try { res = await fetch(path, { cache: 'no-store' }); }
-  catch (e) { throw new Error(path + ' could not be loaded. If you opened this file straight from your computer, open the web link instead.'); }
-  if (!res.ok) throw new Error(path + ' could not be loaded (the server answered ' + res.status + ').');
-  try { return await res.json(); }
-  catch (e) { throw new Error(path + ' could not be read: the file is damaged or incomplete.'); }
-}
-
-// Tokens and US-listed funds that can be traded. Tokenized funds are view only, so they are not here.
-async function loadMarket() {
-  const [settings, latest, funds, fundsConfig] = await Promise.all([
-    getJson('data/settings.json'), getJson('data/latest.json'),
-    getJson('data/funds-latest.json'), getJson('data/funds-config.json'),
-  ]);
-  const assets = {};
-  (latest.crypto.rows || []).forEach(t => {
-    assets['token:' + t.id] = {
-      key: 'token:' + t.id, kind: 'crypto', group: 'Crypto tokens',
-      name: `${t.name} (${t.symbol})`, unit: t.symbol, unitOne: t.symbol,
-      price: t.price_usd, priceTime: latest.crypto.last_updated, source: 'CoinGecko',
-    };
-  });
-  const byTicker = Object.fromEntries((funds.rows || []).map(r => [r.ticker, r]));
-  fundsConfig.funds.forEach(f => {
-    const r = byTicker[f.ticker] || {};
-    assets['fund:' + f.ticker] = {
-      key: 'fund:' + f.ticker, kind: 'fund', group: 'US crypto funds',
-      name: `${f.name} (${f.ticker})`, unit: f.ticker + ' shares', unitOne: f.ticker + ' share',
-      price: r.price_usd, priceTime: r.price_time || funds.last_updated, source: 'Yahoo Finance',
-    };
-  });
-  return { settings, assets, cryptoUpdated: latest.crypto.last_updated, fundsUpdated: funds.last_updated };
-}
+// ---------- Prices (loading is in paper-market.js) ----------
 
 function showPricesMeta() {
   $('prices-meta').innerHTML =
     '<strong>Where prices come from:</strong> CoinGecko (crypto tokens) and Yahoo Finance (US funds, delayed 15 minutes).' +
     '<br><strong>Last updated:</strong> crypto ' + esc(when(market.cryptoUpdated)) + '; US funds ' + esc(when(market.fundsUpdated)) + '.';
+}
+
+// ---------- Portfolio and order history (2c) ----------
+
+function signedDollars(v) { return (v > 0 ? '+' : v < 0 ? '-' : '') + dollars(Math.abs(v)); }
+function signedPct(v) {
+  if (v === null) return '';
+  const r = Math.round(v * 100) / 100; // so a tiny rounding difference shows as 0.00%, not -0.00%
+  return (r > 0 ? '+' : r < 0 ? '-' : '') + Math.abs(r).toFixed(2) + '%';
+}
+function changeClass(v) { return v > 0 ? 'up' : v < 0 ? 'down' : ''; }
+
+// pricesFailed: true when the price files could not be loaded, so last known prices are used.
+function showPortfolio(pricesFailed) {
+  if (!account) {
+    $('portfolio-loading').hidden = true;
+    $('portfolio-error').hidden = false;
+    $('portfolio-error').textContent = 'Your portfolio cannot be shown until your paper account can be read. Choose "Start over" above.';
+    return;
+  }
+  const now = new Date();
+  const pf = PaperAccount.portfolio(account, key => (market ? priceFor(market, key, now) : null));
+  $('portfolio-loading').hidden = true;
+  $('portfolio-body').hidden = false;
+  $('portfolio-error').hidden = !pricesFailed;
+  if (pricesFailed) $('portfolio-error').textContent = 'Prices could not be loaded, so holdings are valued at the last price you traded at.';
+  $('portfolio-stats').innerHTML =
+    `<div class="stat"><span class="label">Total value</span><span class="value">${dollars(pf.total)}</span><span class="sub">pretend US dollars</span></div>` +
+    `<div class="stat"><span class="label">Pretend cash</span><span class="value">${dollars(pf.cash)}</span><span class="sub">not invested</span></div>` +
+    `<div class="stat"><span class="label">Holdings</span><span class="value">${dollars(pf.holdingsValue)}</span><span class="sub">${pf.rows.length} ${pf.rows.length === 1 ? 'holding' : 'holdings'}</span></div>` +
+    `<div class="stat"><span class="label">Change since you started</span><span class="value ${changeClass(pf.change)}">${signedDollars(pf.change)}</span><span class="sub">${signedPct(pf.changePct)} from $100,000.00</span></div>`;
+  $('portfolio-empty').hidden = pf.rows.length > 0;
+  $('holdings-wrap').hidden = pf.rows.length === 0;
+  $('holdings-swipe').hidden = pf.rows.length === 0;
+  $('holdings-table').querySelector('tbody').innerHTML = pf.rows.map(r => {
+    const a = market && market.assets[r.key];
+    const unit = a ? a.unit : (r.key.startsWith('fund:') ? 'shares' : '');
+    const tag = r.status === 'not-updated' ? '<span class="tag-warn">Price not updated</span>'
+      : r.status === 'old' ? '<span class="tag-warn">Price may be old</span>' : '';
+    return `<tr>
+      <td class="first"><span class="name">${esc(r.name)}</span>${tag ? '<span class="sub">' + tag + '</span>' : ''}</td>
+      <td class="num">${esc(PaperAccount.fmtQty(r.quantity))}<span class="sub">${esc(unit)}</span></td>
+      <td class="num">${priceText(r.price)}<span class="sub">as of ${esc(when(r.priceTime))}</span></td>
+      <td class="num">${dollars(r.value)}</td>
+      <td class="num">${dollars(r.cost)}</td>
+      <td class="num ${changeClass(r.gain)}">${signedDollars(r.gain)}<span class="sub">${signedPct(r.gainPct)}</span></td>
+    </tr>`;
+  }).join('');
+  $('portfolio-meta').innerHTML = market
+    ? '<strong>Where prices come from:</strong> CoinGecko (crypto tokens) and Yahoo Finance (US funds). Each holding shows the time of its price.' +
+      '<br><strong>Last updated:</strong> crypto ' + esc(when(market.cryptoUpdated)) + '; US funds ' + esc(when(market.fundsUpdated)) + '.'
+    : '<strong>Where prices come from:</strong> the last price of each of your pretend orders, because current prices could not be loaded.' +
+      '<br><strong>Last updated:</strong> shown next to each holding.';
+  showHistory();
+}
+
+function showHistory() {
+  const orders = account ? account.orders.slice().reverse() : [];
+  $('history-empty').hidden = orders.length > 0;
+  $('history-wrap').hidden = orders.length === 0;
+  $('history-table').querySelector('tbody').innerHTML = orders.map(o => `<tr>
+      <td class="first">${esc(when(o.time))}</td>
+      <td><span class="side ${o.side}">${o.side === 'buy' ? 'Bought' : 'Sold'}</span> ${esc(o.name)}</td>
+      <td class="num">${esc(PaperAccount.fmtQty(o.quantity))}</td>
+      <td class="num">${priceText(o.price)}<span class="sub">as of ${esc(when(o.priceTime))}</span></td>
+      <td class="num">${dollars(o.amount)}</td>
+    </tr>`).join('');
 }
 
 // ---------- Order form (2b) ----------
@@ -219,6 +251,7 @@ async function review(ev) {
   try {
     market = await loadMarket();
     showPricesMeta();
+    showPortfolio(false);
   } catch (err) {
     showOrderError('Prices could not be loaded, so no pretend order can be placed. ' + err.message);
     return;
@@ -269,6 +302,7 @@ function place() {
   $('amount').value = '';
   $('sell-all').checked = false;
   showAccount();
+  showPortfolio(false);
   fillAssetList();
   showPrice();
   $('order-done').hidden = false;
@@ -298,10 +332,12 @@ async function startOrders() {
     market = await loadMarket();
   } catch (err) {
     showOrderError('Prices could not be loaded, so no pretend order can be placed. ' + err.message);
+    showPortfolio(true);
     return;
   }
   $('order-loading').hidden = true;
   showPricesMeta();
+  showPortfolio(false);
   if (!account) {
     $('order-error').hidden = false;
     $('order-error').textContent = 'Pretend orders are paused until your paper account can be read. Choose "Start over" above.';
@@ -345,6 +381,7 @@ async function startOrders() {
     showAccount();
     done.hidden = false;
     done.textContent = 'Done. You have a new paper account with 100,000 pretend US dollars.';
+    showPortfolio(!market);
     if (market) {
       $('order-error').hidden = true;
       $('order-done').hidden = true;
