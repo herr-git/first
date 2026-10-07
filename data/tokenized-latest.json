@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-10-07T22:20:04Z",
+    "last_updated": "2026-10-07T22:20:51Z",
     "last_error": null,
     "rows": [
       {
@@ -48,7 +48,7 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-10-07T22:20:06Z",
+    "last_updated": "2026-10-07T22:20:52Z",
     "last_error": null,
     "rows": [
       {
