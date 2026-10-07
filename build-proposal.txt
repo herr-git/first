@@ -1,0 +1,166 @@
+BUILD PROPOSAL: CRYPTO AND CRYPTO-FUND DEMO
+For: Claude Code
+Purpose: proof of concept to show capability. Private demo, not a product.
+
+HOW TO USE THIS FILE
+- Read the whole file before writing code.
+- Work in phases, in order. Stop at the end of each phase and show the result.
+- Explain technical terms in plain words when you report back.
+- Do not use em dashes in any text you write for the site or for reports.
+- If something is unknown or fails, say so plainly. Do not guess silently.
+
+----------------------------------------------------------------------
+1. DECISIONS ALREADY MADE (do not reopen)
+----------------------------------------------------------------------
+- Static site (plain web pages, no server), hosted free on GitHub Pages.
+- A scheduled script on GitHub Actions fetches data every 15 minutes and saves it as data files. The site only reads those files.
+- The browser must NEVER call data providers directly (providers block this, and it would expose limits).
+- No database, no login, no accounts, no paid services. Monthly cost must be zero.
+- Fund list: 6 funds, kept in one editable text/JSON file:
+  - Bitcoin: IBIT, FBTC, GBTC
+  - Ethereum: ETHA, ETHE
+  - Zcash: ZCSH (Grayscale Zcash trust)
+  (The original backlog says 8 funds. Only 6 were provided. Build for 6. Adding more must be a one-line edit to the fund file.)
+- Tokens: top 10 by 24-hour trading volume, stablecoins included. Pick them once on first run from CoinGecko, then FREEZE the list in a file. Do not re-rank automatically.
+- Fund prices may be delayed 15 minutes. Show a "delayed 15 minutes" label.
+- Fund market value = price times shares outstanding. Shares outstanding is typed by hand into the fund file with an "as of" date and a source link. Label fund market value "approximate".
+- Yearly fee is also typed by hand into the fund file with source link and "as of" date. Look the numbers up on each fund provider's page. Do not use numbers from memory. The owner will verify them.
+- Bid and ask (highest buyer price and lowest seller price): show for funds when available, otherwise show "not available". Missing bid or ask must never cause an error. For tokens, show price only (free summary sources have no bid/ask).
+- Display currencies: euro (EUR), US dollar (USD), pound (GBP), Australian dollar (AUD), yen (JPY). No tokens as display units.
+- Saving a mock portfolio: browser storage (localStorage) only. No IP address storage, no privacy notice needed.
+- Legal review is assumed done. Still show the "not financial advice" banner on every page without scrolling.
+- Real trading inside the product is out of scope.
+
+----------------------------------------------------------------------
+2. DATA SOURCES (free only)
+----------------------------------------------------------------------
+- Tokens: CoinGecko free API. One request returns top coins sorted by volume with price, market value, volume. History: CoinGecko daily history for the last 30 days.
+- Funds: Yahoo Finance through the yfinance Python library (unofficial, may break; acceptable for a private demo). Fund history: same source, daily closing prices.
+- Fallbacks if Yahoo fails for a fund: Stooq (end-of-day only) or Twelve Data / Finnhub / Alpha Vantage free plans. Note their request limits before using them.
+- Exchange rates: Frankfurter (European Central Bank rates, free, no key). Current and historical.
+- Google Finance: do NOT use. It has no official access for outside apps.
+- Known free-data limits:
+  - Fund prices are delayed about 15 minutes.
+  - Fund bid/ask is often empty or zero outside market hours.
+  - Shares outstanding and yearly fee are not in price feeds (hand-typed).
+  - ZCSH likely trades over the counter and may have patchy or no data. If it fails, show "not available" and move on. It must not block the demo.
+  - Crypto volume is not fully reliable and sources disagree. Add a short note on the page.
+
+----------------------------------------------------------------------
+3. DATA FILE RULES
+----------------------------------------------------------------------
+- Keep ALL sample and live data in files under /data, in the SAME shape, so going live means replacing file contents, not rebuilding pages.
+- Files (suggested):
+  - data/funds-config.json: ticker, name, type (Bitcoin/Ethereum/Zcash), shares outstanding, shares as-of date, yearly fee, fee as-of date, source links. Editable without changing code.
+  - data/tokens-config.json: the frozen top 10 tokens and a stablecoin flag for each.
+  - data/latest.json: latest prices, market value, volume, bid, ask, plus a "last updated" time per table.
+  - data/history.json: 30 days of daily closing prices for all assets.
+  - data/fx.json: exchange rates.
+  - data/country-platforms.json: which trading platform serves which country (hand-edited).
+- If a source fails: keep the last good data, record the failure in a log file, and show a "delayed" or "data may be old" label if data is older than a set limit. The refresh interval and the "too old" limit are set in one config place.
+- Fund refresh only during US market hours (9:30 to 16:00 New York time, weekdays, skip holidays). Outside hours show the last close and say so.
+
+----------------------------------------------------------------------
+4. PHASES AND STORIES
+----------------------------------------------------------------------
+
+PHASE 0: MOCK DASHBOARD WITH SAMPLE DATA (target: same day)
+Goal: something to show quickly. No data providers connected.
+- Project setup, GitHub repository, GitHub Pages switched on. Confirm you can save a file to a new repository first. If Pages or Actions need a manual switch, tell the owner the exact steps.
+- Two tables on one page:
+  - Crypto: 10 rows, name, price, market value, 24-hour volume, stablecoin tag. Sortable by volume and by market value. Stablecoins visible and distinguishable.
+  - Funds: 6 rows, name, ticker, price, market value, volume, yearly fee, bid, ask. Grouped by Bitcoin, Ethereum, Zcash. "not available" where bid or ask is missing (include at least one such row in the sample data).
+- Visible on every page without scrolling: "not financial advice" banner and a clear "Sample data" label.
+- Each table shows "delayed 15 minutes" and a "last updated" time.
+- Works on a phone screen and a laptop screen.
+- Optional if time allows: clickable preview screens for Phase 2 (mock mix builder, result chart, currency picker) using fake results, clearly labelled "Sample data".
+- Done when: site is live on a free GitHub Pages address and the owner can open it.
+
+PHASE 1: LIVE DATA, READ-ONLY DASHBOARD (Version 1)
+Do in this order.
+V1-1 Fund data check (do first, biggest risk)
+- Write a small test script that, for IBIT, FBTC, GBTC, ETHA, ETHE, ZCSH, tries to fetch price, volume, bid, ask, shares outstanding, and prints a table of what is returned and what is missing.
+- Also state in one page: Google Finance cannot be used (reason above); which free source is recommended; fallback tested on at least 3 funds if Yahoo is weak.
+- STOP and show the output to the owner before building further.
+V1-2 Crypto data and refresh
+- On first run, pick the top 10 by 24-hour volume from CoinGecko (stablecoins included) and freeze them in tokens-config.json.
+- Store price, market value, volume per token. Refresh every 15 minutes (interval set in one place). On failure keep last good data and log the failure.
+V1-3 Crypto table: replace sample data with live data. Same rules as Phase 0.
+V1-4 Fund data and refresh
+- Use the source chosen in V1-1. Store price, volume, market value (price times shares), yearly fee, bid and ask when available. Missing bid/ask stored as "not available".
+- Refresh every 15 minutes during US market hours.
+V1-5 Fund table: live data. Outside market hours show the last close and say so.
+V1-6 Warning and labels
+- "not financial advice" on every page, "last updated" per table, "delayed" label when data is older than the set limit.
+- Remove the "Sample data" label only on tables that are really live.
+
+PHASE 2: PAPER TRADING WITH A FAKE PORTFOLIO (Version 2)
+Start only after Phase 1 works.
+V2-1 One month of history
+- Daily closing prices for the last 30 days for all 10 tokens and 6 funds. Load the 30 days in one go from the source, do not wait to collect it.
+- Funds do not trade on weekends and holidays. Rule: carry the last close forward. Document this on the page and in a note.
+- Daily update once a day. Log missing days.
+- Token list is frozen, so tokens do not drop out.
+V2-2 Mock mix builder
+- User adds any listed asset and gives it a percentage. Show running total. Block saving unless it equals exactly 100% (handle rounding such as 33.3 three times). Edit and remove assets. Label every portfolio "pretend money".
+V2-3 Result
+- Show start value, end value, total change in percent, and biggest drop (largest fall from a high point to a later low point) over the 30 days.
+- Line chart of value day by day. Mix is fixed, no rebalancing, and the page says so.
+- Say clearly: based on past prices, not a prediction. A calm month may show no real drop; note this.
+- Add an automated test using a made-up portfolio with known prices and a known answer. Also check one real result by hand and show the owner the calculation.
+V2-4 Display currency
+- Selector for EUR, USD, GBP, AUD, JPY. Applies to tables, mock portfolios and charts. Fund prices arrive in US dollars, so others are conversions. History charts need historical rates (Frankfurter). The choice resets on the next visit.
+V2-5 Save portfolio
+- Save in the browser (localStorage). No account. Show a short note: the portfolio stays only in this browser and device and can be lost if browser data is cleared.
+
+PHASE 3: LINKS TO TRADING PLATFORMS (Version 3, small)
+V3-1
+- Next to each crypto token, show links to Coinbase, Binance, Kraken.
+- Hide a platform not available in the visitor's country (EU, UK, USA). Let the visitor PICK their country (more reliable than guessing from the network). List kept in data/country-platforms.json, editable by hand.
+- If no platform serves the country, show a clear message, not empty space.
+- Note on the page: these platforms mainly sell crypto, not the funds. Funds are normally bought through a stock broker. Do not build real trading.
+
+----------------------------------------------------------------------
+5. TESTS AND QUALITY CHECKS
+----------------------------------------------------------------------
+- Fund test script output reviewed by the owner before Phase 1 building.
+- Automated test for the mock portfolio result (known answer).
+- Test that missing bid/ask shows "not available" and does not crash.
+- Test that a failed data fetch keeps old data and writes a log line.
+- Check layout on a phone-sized screen.
+- Show numbers to the owner and ask them to spot-check a few against a public price page.
+
+----------------------------------------------------------------------
+6. KNOWN RISKS (report on these, do not hide them)
+----------------------------------------------------------------------
+- Free fund data may break or be blocked (Yahoo is unofficial). Report immediately if it happens.
+- ZCSH may have no usable data.
+- Bid/ask for funds may stay empty.
+- Hand-typed shares outstanding and fees go stale. Show the "as of" date next to each.
+- Date mismatch (crypto trades daily, funds do not) is the most likely source of wrong numbers in V2-3.
+- GitHub timers can run a few minutes late, and GitHub may pause timers on projects with no activity for 60 days. Fine for a demo.
+- A private GitHub repository may not host Pages for free. Ask the owner whether the demo must be private. A public repository with an unlisted address means anyone with the link can open it.
+- Some exchange or data servers block US-based servers. If a request fails for this reason, say so.
+
+----------------------------------------------------------------------
+7. OUT OF SCOPE
+----------------------------------------------------------------------
+- Real trading, accounts, logins, tax reports, news, tokens outside the frozen top 10, live to-the-second data, strategy suggestions or any real-money advice, token display units, rebalancing, saving by IP address.
+
+----------------------------------------------------------------------
+8. EFFORT GUIDE (rough guess, low confidence, one developer using Claude Code)
+----------------------------------------------------------------------
+- Phase 0 mock, online: 0.5 to 1 day (the owner expects the mock display within a day)
+- Phase 1 live data: 2 to 4 days likely, up to 7 if fund data is hard
+- Phase 2: 3 to 5 days likely, up to 9
+- Phase 3: about half a day
+- All: about 6 to 18 days, most likely about 10
+
+----------------------------------------------------------------------
+9. FIRST TASK
+----------------------------------------------------------------------
+1. Confirm you can create a repository on the owner's connected GitHub account and save a file to it.
+2. Build Phase 0 (mock dashboard with sample data in the data files, clearly labelled "Sample data") and put it online with GitHub Pages.
+3. Do not connect to any data provider yet.
+4. Report back with the live link and a short list of anything that needed a manual switch.
+5. Then run the V1-1 fund data test and show the output before building anything else.

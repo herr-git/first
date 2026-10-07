@@ -1,0 +1,128 @@
+REGULATION NOTES FOR THE CRYPTO AND CRYPTO-FUND DEMO
+Purpose: guardrails for Claude Code while building. Read this before each build step.
+Status: general analysis, not legal advice. Confidence is shown as (high), (medium) or (low).
+Assumed visitors: EU (including Denmark), UK and USA.
+Danish regulator: Finanstilsynet (the Danish Financial Supervisory Authority).
+
+======================================================================
+1. PLAIN-LANGUAGE KEY
+======================================================================
+- MiCA: the EU Markets in Crypto-Assets Regulation. Firms offering crypto custody, exchange, trade execution or advice need authorisation.
+- MiFID II: the EU Markets in Financial Instruments Directive. Covers investment advice and trade execution for funds and other financial instruments.
+- GDPR: the EU General Data Protection Regulation. Covers personal data. An internet address (IP address) counts as personal data.
+- PRIIPs: EU rules that require a key information document before retail customers can be sold investment products. Most US-listed funds do not have one.
+- FCA: the UK Financial Conduct Authority. It controls who may promote crypto to UK users.
+- Custody: holding customer assets for them.
+- Paper trading: practice with pretend money. It is not trading.
+
+======================================================================
+2. RULES CLAUDE CODE MUST FOLLOW WHILE BUILDING
+======================================================================
+Scope limits (do not cross without a human decision):
+- Build display and pretend-money features only through Version 2.
+- Do NOT add real trading, order buttons, deposits, withdrawals, wallets, or any holding or moving of customer money or assets.
+- Do NOT add identity checks or sign-up flows that collect identity documents.
+- Do NOT add suggested mixes, "best mix", "top pick", "recommended", or any wording that nudges people to buy something. This keeps the product away from investment advice.
+- Do NOT add affiliate links, referral codes or commissions to platform links.
+
+Wording rules:
+- Keep all labels neutral and factual, for example "sorted by volume".
+- Show "not financial advice" on every page without scrolling. (This label helps but does not by itself decide whether something counts as advice. The content decides.)
+- Label every mock portfolio "pretend money".
+- Label every past-results view "illustration only, based on past prices, does not predict the future". Do not call any result "best".
+- Show "last updated" on every table, and a "delayed" label when data is older than the set limit. Never present data as live.
+- Show a note that some funds may not be available in the visitor's country.
+
+Data rules:
+- Do not use Google Finance data in an outside app without confirming its terms allow it. Its terms generally do not. (medium)
+- Check the terms of every data source before use, including: commercial use, public display, storing history, redistribution, and attribution.
+- If the fund data test fails, fall back to crypto only, or fund prices without bid and ask.
+- Log the source and terms link for every data source in a file called DATA_SOURCES.txt.
+
+Privacy rules:
+- Do NOT store IP addresses. Save mock portfolios in the visitor's own browser instead, so no personal data is held on the server. (medium)
+- If any personal data is ever stored, stop and ask for a privacy review first. GDPR then requires a lawful basis, a privacy notice, a set retention time, and a way to delete data on request.
+- Browser storage may still fall under EU cookie and similar-storage rules. Storage needed for a feature the visitor asked for is often exempt. Do not add tracking, analytics or advertising scripts without asking.
+
+Security rules:
+- Never put passwords or API keys (private access codes for data sources) in project files. Use GitHub's secrets settings.
+- Test the GitHub connection with a new empty project first.
+- Treat Claude Code write access to GitHub like a colleague with edit rights. Confirm the access level granted.
+
+Hosting rules:
+- GitHub Pages terms say it is not meant for running an online business or a site mainly built to enable commercial transactions. A free educational demo is probably fine. Ask before adding paid features or commissions. (medium)
+- Scheduled jobs on GitHub Actions can run late, and in public projects they may switch off after about 60 days without activity. The "refresh every few minutes" goal may not hold. Always show "last updated" and "delayed" labels. (medium, check GitHub's current documentation)
+- An unlisted web address is NOT private. Anyone with the link can open it, and public project files expose code, the fund list and notes. If the demo must be private, use hosting with a login. Decide this before building.
+
+======================================================================
+3. STORY-BY-STORY REVIEW
+======================================================================
+Question asked for each: does it involve trading, custody, money movement or advice?
+
+VERSION 1
+- V1-1 Check where fund prices can come from: NO (high). Risk is the data provider's terms, not financial law. Safer path: a licensed market data feed, or crypto only.
+- V1-2 Pull crypto data and refresh it: NO (high). Check the free source's commercial use terms and attribution.
+- V1-3 Show the crypto table: NO (high). Keep wording neutral. A ranked list can look like a recommendation if the wording nudges. (medium)
+- V1-4 Pull fund data and refresh it: NO (high). Exchange data licensing is the main risk, since some exchanges charge for redistributing prices. Delayed prices or last close may have lighter terms. (low)
+- V1-5 Show the fund table: NO (high). Showing US-listed funds to EU and UK visitors is a grey area, because most cannot be sold to EU retail customers (PRIIPs). It could look like a promotion. Add a country availability note, or show EU-listed equivalents. (medium)
+- V1-6 Warning and last updated labels: NO (high). The warning helps but does not decide the advice question.
+
+VERSION 2
+- V2-1 Store one month of past prices: NO (high). Some data licences limit storing or reusing history. (medium)
+- V2-2 Build a mock mix: NO (high). Paper trading is not trading. Rules could start to apply if the app suggests mixes. (medium)
+- V2-3 See how the mix would have done: NO (high). One month of results can mislead and can look like a performance claim. Use "illustration only", show longer periods if available, never show a "best mix". (medium)
+- V2-4 Choose display currency or token: NO (high). Exchange rate data has its own licence terms. (medium)
+- V2-5 Save a mock portfolio: NO (high). The original plan stored IP addresses, which triggers GDPR duties. The safer plan is saving in the visitor's own browser. (medium)
+
+VERSION 3
+- V3-1 Country-aware links to trading platforms: NO for plain links, but borderline if a commission is earned or one platform is highlighted. (medium)
+  - Under MiCA, providers without authorisation can no longer serve EU customers after the transition period, which ended by 1 July 2026 at the latest. Linking to an unauthorised provider is risky. (medium)
+  - UK promotion rules may treat links to crypto platforms as a promotion. (medium)
+  - Commission or referral fees may need disclosure and may trigger extra rules. (low)
+  - Safer path: link only to platforms checked in the official register of authorised crypto firms kept by the European Securities and Markets Authority, with a neutral "find a broker" page and no commissions. (medium)
+  - Funds are normally bought through a stock broker, not through crypto platforms. Open question.
+- Real trading inside the product (no story yet): needs a licensed partner that holds the licence, or a registered agent arrangement under that partner. Customer identity checks and anti-money-laundering duties would sit with the partner. (medium)
+
+======================================================================
+4. SUMMARY
+======================================================================
+Safe to build alone (small checks noted):
+- V1-1 to V1-6 and V2-1 to V2-4.
+- Main risks: data source terms (V1-1, V1-2, V1-4, V2-1, V2-4), US fund visibility for EU and UK visitors (V1-5), wording (V1-3, V1-6, V2-3).
+
+Safe to build alone, with privacy care:
+- V2-5, using browser storage and no IP address storage.
+
+Needs a decision or review before building:
+- Public versus private hosting.
+- Data source terms for the fund half of the dashboard.
+- Browser storage notice rules in the EU.
+
+Needs a partner or a lawyer:
+- V3-1: check platform authorisation per country, avoid commissions at first.
+- Real trading inside the product: needs a licensed partner.
+
+Nothing in the backlog yet involves holding customer assets, moving customer money, or identity checks. That changes only if Version 3 grows beyond links.
+
+======================================================================
+5. QUESTIONS TO VERIFY WITH A LAWYER
+======================================================================
+- Do the data source terms allow public display, storage of history, and a free demo?
+- Is the "not financial advice" wording enough for the EU, UK and USA, and does the content stay neutral enough?
+- Do links to named crypto platforms count as a promotion in the UK or EU, with or without commission?
+- Does a public demo with no platform links need any extra notice in the EU, UK or USA?
+- Does saving in the visitor's browser need consent or a notice in the EU?
+- Would GitHub's terms still fit if the demo becomes commercial?
+- Is showing US-listed funds to EU and UK visitors acceptable with a country availability note?
+- Authorisation status changes often. Check the official registers directly before linking to any platform.
+
+======================================================================
+6. WHEN TO STOP AND ASK A HUMAN
+======================================================================
+Stop and ask before doing any of these:
+- Adding any link to a trading platform.
+- Adding any account, login, or storage of personal data.
+- Adding any suggestion, ranking labelled "best", or recommendation wording.
+- Adding paid features, commissions, advertising or tracking scripts.
+- Using a data source whose terms you have not read.
+- Anything that holds or moves money or assets.

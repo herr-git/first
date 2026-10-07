@@ -1,0 +1,222 @@
+BACKLOG: CRYPTO AND CRYPTO-FUND DEMO
+Last updated: 2026-10-07
+
+PROJECT RULES FOR CLAUDE CODE
+- This is a private demo to show what is possible. No budget, no real users.
+- Hosting is a free static site. That means no server, no database and no login. Anything that needs a server is out unless a story says otherwise.
+- Information only. The site never touches user money.
+- Build Version 1 first. Start Version 2 only after Version 1 works.
+- One story at a time, in the build order at the bottom. Each story should take one person a few days or less.
+- Plain language in the page text. No em dashes anywhere.
+- Open questions do not block work. Use the stated default, and note what you chose.
+
+VERSIONS
+- Version 1: read-only dashboard
+- Version 2: paper trading with a fake portfolio (pretend money)
+- Version 3: real trading through a licensed partner (only links for now)
+
+SCOPE FROM DISCOVERY
+- Top 10 crypto tokens by trading volume, stablecoins included (tokens pegged to a currency such as the dollar).
+- Fixed list of 8 funds that hold crypto directly and trade on a stock exchange like a normal share:
+  - Bitcoin: IBIT, FBTC, BTC (Grayscale Mini), ARKB
+  - Ethereum: ETHA, FETH, ETH (Grayscale)
+  - Zcash: ZCSH
+- Crypto data from free sources such as CoinMarketCap and CoinGecko.
+- Fund data from Google Finance, if usable (see V1-1).
+- Data refreshed every few minutes. Missing or delayed fund bid and ask prices are accepted.
+- Users in the EU, UK and USA.
+- Success test: one full walkthrough, from viewing prices to building a mock mix and seeing the result.
+
+==================================================
+VERSION 1: READ-ONLY DASHBOARD
+==================================================
+
+V1-1: Check where fund prices can come from
+- As a product owner, I want a short research result on fund data sources, so that we know the fund half of the dashboard is possible before we build it.
+- Acceptance criteria:
+  1. The result says whether Google Finance data can be used in an outside app, yes or no, with the reason.
+  2. For each of the 8 funds, the result says whether price, market value, volume and bid/ask are available.
+  3. If Google Finance does not work, at least one free fallback source is named and tested on 3 funds.
+  4. The source must work from a free static site (for example, allowed to be called from a browser, or fetched by a scheduled job). The result says which.
+  5. The result is one page and ends with a clear recommendation.
+- Dependencies: none
+- Version: 1
+- Open questions:
+  - Fallback if no free source works: show crypto only, or show fund prices without bid/ask? Default: show fund prices without bid/ask.
+  - Are the tickers, fees and fund types correct? They have not been checked.
+
+V1-2: Pull crypto data and refresh it
+- As a visitor, I want the crypto numbers to stay current, so that I can trust what I see.
+- Acceptance criteria:
+  1. The system gets the top 10 tokens by trading volume from a free source.
+  2. Stablecoins are included in the ranking.
+  3. For each token it stores price, market value and trading volume.
+  4. Data refreshes every few minutes, with the interval set in one place.
+  5. If the source fails, the last good data is kept and the failure is recorded.
+- Dependencies: none
+- Version: 1
+- Open questions:
+  - Do free sources give bid and ask prices for tokens? Default: show price only.
+  - Free static hosting may limit how often data can refresh. Default: refresh as often as the free tools allow, and show the real refresh time on the page.
+
+V1-3: Show the crypto table
+- As an everyday investor, I want to see the top 10 tokens in one table, so that I can compare them quickly.
+- Acceptance criteria:
+  1. The page shows 10 rows with name, price, market value and volume.
+  2. The table can be sorted by volume and by market value.
+  3. Stablecoins are visible and can be told apart from other tokens.
+  4. The page works on a phone screen and a laptop screen.
+- Dependencies: V1-2
+- Version: 1
+- Open questions: none
+
+V1-4: Pull fund data and refresh it
+- As a visitor, I want fund numbers kept current, so that I can see what the crypto funds are worth.
+- Acceptance criteria:
+  1. The system gets data for the fixed list of 8 funds using the source chosen in V1-1.
+  2. For each fund it stores market value, volume and yearly fee, plus bid and ask when available.
+  3. Missing bid or ask is stored as "not available" and does not cause an error.
+  4. Data refreshes every few minutes during stock market hours.
+  5. The fund list is kept in one simple file that can be edited without changing code.
+- Dependencies: V1-1
+- Version: 1
+- Open questions:
+  - Should the fund list stay fixed, or be reviewed on a schedule? Default: fixed.
+
+V1-5: Show the fund table
+- As an everyday investor, I want to see crypto funds next to crypto tokens, so that I do not need two apps.
+- Acceptance criteria:
+  1. The page shows one row per fund with name, ticker, market value, volume and yearly fee.
+  2. Bid and ask are shown when available, and "not available" otherwise.
+  3. Funds are grouped by type (Bitcoin, Ethereum, Zcash).
+  4. Outside market hours, the table shows the last close and says so.
+- Dependencies: V1-4, V1-3 (same page)
+- Version: 1
+- Open questions:
+  - Is it fine to show US-listed funds to EU and UK visitors who may not be able to buy them? Default: yes, with a short note on the page.
+
+V1-6: Warning and "last updated" labels
+- As a visitor, I want a clear warning and a data time stamp, so that I do not mistake this for advice or live prices.
+- Acceptance criteria:
+  1. A "not financial advice" message is visible on every page without scrolling.
+  2. Each table shows when its data was last refreshed.
+  3. If data is older than a set limit, the table shows a "delayed" label.
+- Dependencies: V1-3, V1-5
+- Version: 1
+- Open questions:
+  - Does the warning need legal review for the EU, UK and USA? Default: no review for the private demo, but needed before any public launch.
+
+==================================================
+VERSION 2: PAPER TRADING WITH A FAKE PORTFOLIO
+(Start only after Version 1 works.)
+==================================================
+
+V2-1: Store one month of past prices
+- As a developer, I want one month of price history for every asset, so that mock results can be calculated.
+- Acceptance criteria:
+  1. Daily prices for the last 30 days are stored for all 10 tokens and 8 funds.
+  2. Days when funds do not trade (weekends, holidays) are handled and documented.
+  3. History updates once a day.
+  4. Missing days are listed in a log.
+- Dependencies: V1-2, V1-4
+- Version: 2
+- Open questions:
+  - If the top 10 list changes during the month, how do we treat tokens that drop out? Default: keep history for any token the user can still pick.
+
+V2-2: Build a mock mix
+- As a curious learner, I want to split 100% across funds, crypto and stablecoins, so that I can practise without real money.
+- Acceptance criteria:
+  1. The user can add any listed asset and give it a percentage.
+  2. The page shows the running total and blocks saving unless it equals 100%.
+  3. The user can edit or remove assets.
+  4. Each mock portfolio shows a "pretend money" label.
+- Dependencies: V1-3, V1-5
+- Version: 2
+- Open questions: none
+
+V2-3: See how the mix would have done
+- As a more experienced investor, I want to see how my mix would have held up over the past month, so that I can compare different mixes.
+- Acceptance criteria:
+  1. The result shows start value, end value, total change in percent and the biggest drop during the month.
+  2. A line chart shows the value day by day.
+  3. The mix is treated as fixed with no rebalancing, and the page says so.
+  4. The result says it is based on past prices and does not predict the future.
+  5. A test mix with known prices gives the expected result.
+- Dependencies: V2-1, V2-2
+- Version: 2
+- Open questions:
+  - Fixed mix, or reset on a schedule (called rebalancing)? Default: fixed.
+  - A month may not include a real price drop. Is that acceptable for the demo? Default: yes.
+
+V2-4: Choose the display currency or token
+- As a visitor, I want to see values in a currency or token I pick, so that numbers make sense to me.
+- Acceptance criteria:
+  1. A selector changes all values on the page to the chosen unit.
+  2. The selector offers the agreed list of units.
+  3. The choice applies to tables, mock portfolios and charts.
+  4. The choice resets on the next visit.
+- Dependencies: V1-3, V2-3
+- Version: 2
+- Open questions:
+  - Which currencies and tokens can the user pick from? Default: US dollar, euro, British pound, Bitcoin, Ether.
+
+V2-5: Save a mock portfolio in the visitor's own browser
+- As a curious learner, I want my mock portfolio to be there when I return, so that I do not rebuild it each time.
+- Acceptance criteria:
+  1. A saved portfolio reloads when the same visitor returns on the same browser.
+  2. No account, login, server or database is used.
+  3. A short note says the portfolio is stored only in this browser and is lost if the browser data is cleared or another device is used.
+  4. The visitor can delete the saved portfolio with one click.
+- Dependencies: V2-2
+- Version: 2
+- Open questions:
+  - CHANGE FROM DISCOVERY: discovery asked for saving by internet address (IP address). A free static site cannot see or store IP addresses, so this story saves in the browser instead. This also avoids the privacy duties that come with storing IP addresses. Confirm or change.
+
+==================================================
+VERSION 3: REAL TRADING THROUGH A LICENSED PARTNER
+(Not started. Only links are planned.)
+==================================================
+
+V3-1: Country-aware links to trading platforms
+- As an everyday investor, I want links to platforms that serve my country, so that I know where to make a real trade.
+- Acceptance criteria:
+  1. Links to Coinbase, Binance and Kraken appear next to crypto tokens.
+  2. A platform is hidden for any country (EU, UK, USA) it does not serve.
+  3. The country-to-platform list is kept in one editable file.
+  4. If no platform serves the visitor's country, a clear message appears instead of an empty space.
+- Dependencies: V1-3
+- Version: 3
+- Open questions:
+  - Who decides and maintains which platform serves which country?
+  - How does a static site know the visitor's country? Default: the visitor picks it from a list.
+  - Where should users buy the funds? These three platforms mainly sell crypto, and funds are normally bought through a stock broker.
+  - Real trading inside the product through a licensed partner was not covered in discovery, so no story exists for it yet.
+
+==================================================
+SUGGESTED BUILD ORDER
+==================================================
+1. V1-1  Check where fund prices can come from (biggest risk, do first)
+2. V1-2  Pull crypto data and refresh it
+3. V1-3  Show the crypto table
+4. V1-6  Warning and "last updated" labels
+5. V1-4  Pull fund data and refresh it
+6. V1-5  Show the fund table
+   (Stop here. Confirm Version 1 works before continuing.)
+7. V2-1  Store one month of past prices
+8. V2-2  Build a mock mix
+9. V2-3  See how the mix would have done
+10. V2-4 Choose the display currency or token
+11. V2-5 Save a mock portfolio in the visitor's own browser
+12. V3-1 Country-aware links to trading platforms
+
+==================================================
+LEFT OUT OF VERSION 1 ON PURPOSE
+==================================================
+- Mock portfolios and results: they need price history and a percentage builder, so they are Version 2.
+- Display currency or token choice: one default unit (US dollar) is enough to prove the data works.
+- Saving portfolios: nothing is saved in a read-only dashboard.
+- Links to Coinbase, Binance and Kraken: they point toward trading (Version 3), and the fund-buying question is unresolved.
+- Past prices: only needed for mock results.
+- Fund bid and ask as a must-have: shown when available, never required.
+- Tokens outside the top 10, news, accounts, tax reports, live-to-the-second data: out of scope in discovery.
+- Strategy suggestions and real-money advice: out of scope, and they raise the risk of looking like financial advice.
