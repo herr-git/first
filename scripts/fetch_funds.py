@@ -20,7 +20,7 @@ from zoneinfo import ZoneInfo
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "funds-latest.json")
 CONFIG = os.path.join(ROOT, "data", "funds-config.json")
-LOG = os.path.join(ROOT, "data", "fetch-log.txt")
+LOG = os.path.join(ROOT, "data", "funds-fetch-log.txt")
 NY = ZoneInfo("America/New_York")
 BID_ASK_LIMIT = 0.01  # 1%
 
