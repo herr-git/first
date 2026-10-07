@@ -34,6 +34,8 @@
 ## Files in this folder
 - backlog.txt: the user stories from my planning
 - build-proposal.txt: the suggested build and data sources
+- regulation-notes.txt: regulation guardrails
+- These three are private: they are listed in .gitignore and must never be published. In a new session, ask me to paste them if they are missing.
 
 ## Done means
 - I can open the site on my computer and see it working.
