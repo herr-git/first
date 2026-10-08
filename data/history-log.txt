@@ -1,3 +1,6 @@
 2026-10-07T19:53:28Z history refresh: 26 assets, 0 fetch problem(s), 0 asset(s) with missing days.
 2026-10-07T19:58:59Z history refresh: 26 assets, 0 fetch problem(s), 0 asset(s) with missing days.
 2026-10-07T22:25:08Z history refresh: 26 assets, 0 fetch problem(s), 0 asset(s) with missing days.
+2026-10-08T13:42:11Z history refresh: 27 assets, 0 fetch problem(s), 2 asset(s) with missing days.
+  missing: token:ethena: 1 missing day(s), first 2026-10-07, last 2026-10-07
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-09, last 2026-07-09
