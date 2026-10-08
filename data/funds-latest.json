@@ -2,16 +2,16 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-10-07T23:47:13Z",
-  "market_status": "closed",
+  "last_updated": "2026-10-08T19:14:47Z",
+  "market_status": "open",
   "last_error": null,
   "partial_problems": [],
   "rows": [
     {
       "ticker": "IBIT",
-      "price_usd": 47.21,
-      "price_time": "2026-10-07T20:00:01Z",
-      "volume": 46059179,
+      "price_usd": 46.105,
+      "price_time": "2026-10-08T19:14:45Z",
+      "volume": 47793337,
       "total_assets_usd": 67060465664,
       "yearly_fee_pct": 0.25,
       "bid": null,
@@ -19,29 +19,29 @@
     },
     {
       "ticker": "FBTC",
-      "price_usd": 72.5,
-      "price_time": "2026-10-07T20:00:00Z",
-      "volume": 3941422,
+      "price_usd": 70.8201,
+      "price_time": "2026-10-08T19:14:00Z",
+      "volume": 3212971,
       "total_assets_usd": 15454059520,
       "yearly_fee_pct": 0.25,
-      "bid": 72.32,
-      "ask": 72.45
+      "bid": 70.83,
+      "ask": 70.84
     },
     {
       "ticker": "GBTC",
-      "price_usd": 64.39,
-      "price_time": "2026-10-07T20:00:00Z",
-      "volume": 1950819,
+      "price_usd": 62.91,
+      "price_time": "2026-10-08T19:14:36Z",
+      "volume": 1372374,
       "total_assets_usd": 10610214912,
       "yearly_fee_pct": 1.5,
-      "bid": 64.39,
-      "ask": 64.42
+      "bid": 62.91,
+      "ask": 62.92
     },
     {
       "ticker": "ETHA",
-      "price_usd": 58.1,
-      "price_time": "2026-10-07T20:00:01Z",
-      "volume": 19792482,
+      "price_usd": 55.42,
+      "price_time": "2026-10-08T19:14:46Z",
+      "volume": 25719712,
       "total_assets_usd": 9825040384,
       "yearly_fee_pct": 0.25,
       "bid": null,
@@ -49,23 +49,23 @@
     },
     {
       "ticker": "ETHE",
-      "price_usd": 20.62,
-      "price_time": "2026-10-07T20:00:00Z",
-      "volume": 3265532,
+      "price_usd": 19.64,
+      "price_time": "2026-10-08T19:14:02Z",
+      "volume": 4060153,
       "total_assets_usd": 1953242368,
       "yearly_fee_pct": 2.5,
-      "bid": 20.6,
-      "ask": 20.71
+      "bid": 19.61,
+      "ask": 19.62
     },
     {
       "ticker": "ZCSH",
-      "price_usd": 35.35,
-      "price_time": "2026-10-07T20:00:00Z",
-      "volume": 1015446,
+      "price_usd": 30.3352,
+      "price_time": "2026-10-08T19:14:42Z",
+      "volume": 2089560,
       "total_assets_usd": 906162688,
       "yearly_fee_pct": 2.5,
-      "bid": null,
-      "ask": null
+      "bid": 30.45,
+      "ask": 30.5
     }
   ]
 }
