@@ -99,7 +99,7 @@ function checkPrice(p, now, limitMinutes) {
     return { ok: true, ageMinutes, marketClosed: true };
   }
   if (ageMinutes > limitMinutes) {
-    return { ok: false, ageMinutes, reason: `This price is ${ageText(ageMinutes)} old. The limit is ${limitMinutes} minutes.` };
+    return { ok: false, ageMinutes, reason: `This price is ${ageText(ageMinutes)} old. The limit is ${ageText(limitMinutes)}.` };
   }
   return { ok: true, ageMinutes };
 }

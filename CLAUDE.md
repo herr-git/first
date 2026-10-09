@@ -29,7 +29,7 @@
 - No fees, no short selling, no borrowing.
 - Orders are entered as a dollar amount; fractions of a token or fund share are allowed.
 - Paper trading is its own page. The pretend portfolio page stays as it is.
-- Too-old limit for prices: 45 minutes (set in data/settings.json).
+- Too-old limit for prices: 24 hours (paper_max_price_age_minutes in data/settings.json). The dashboard still marks data older than 45 minutes as "may be old", but that never blocks a trade.
 - US funds can also be traded when the market is closed, at the last closing price.
 - A held token that drops out of the top 20 keeps its last known price, marked "price not updated"; selling it is paused until it is back.
 - A "Start over" (reset) button with a confirm step.

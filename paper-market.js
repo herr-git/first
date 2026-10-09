@@ -66,6 +66,6 @@ function missingReason(market, key) {
 function priceFor(market, key, now) {
   const a = market.assets[key];
   if (!a || typeof a.price !== 'number') return null;
-  const check = PaperAccount.checkPrice(a, now || new Date(), market.settings.stale_after_minutes);
+  const check = PaperAccount.checkPrice(a, now || new Date(), market.settings.paper_max_price_age_minutes);
   return { price: a.price, priceTime: a.priceTime, ok: check.ok };
 }

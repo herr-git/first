@@ -1,6 +1,7 @@
 {
-  "_note": "One place for settings. refresh_minutes: how often the data job runs (also set in .github/workflows/refresh-crypto.yml). stale_after_minutes: when the page shows 'Data may be old'. crypto_token_count: how many tokens the job fetches.",
+  "_note": "One place for settings. refresh_minutes: how often the data job runs (also set in .github/workflows/refresh-crypto.yml). stale_after_minutes: when the dashboard shows 'Data may be old'. paper_max_price_age_minutes: the oldest price a pretend trade may use (1440 = 24 hours). crypto_token_count: how many tokens the job fetches.",
   "refresh_minutes": 15,
   "stale_after_minutes": 45,
+  "paper_max_price_age_minutes": 1440,
   "crypto_token_count": 20
 }

@@ -12,7 +12,7 @@ A read-only demo dashboard. Demo only. Not investment advice. No trading happens
 ## Paper trading (Version 2)
 - `paper.html`: a pretend account with 100,000 pretend US dollars, saved in the visitor's browser only.
   Buy and sell crypto tokens and US-listed funds by dollar amount at the latest price shown; trades are
-  blocked when a price is older than 45 minutes (US funds use the last price when the market is closed).
+  blocked when a price is older than 24 hours (US funds use the last price when the market is closed).
 - The dashboard shows a summary box and a "Pretend trade" button on each token and US fund.
 - Files: `paper-account.js` (account and order rules), `paper-market.js` (prices), `paper.js` (page),
   `dashboard-paper.js` (dashboard box). Tests: `node tests/test_paper_account.js`, `test_paper_orders.js`,

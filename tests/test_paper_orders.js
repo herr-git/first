@@ -64,24 +64,24 @@ for (let i = 0; i < 30; i++) b = P.buy(b, btc, 33.33, 81234.56, T.toISOString(),
 assert.strictEqual(b.cash, 99000.1);
 assert.strictEqual(String(b.cash).split('.')[1].length <= 2, true);
 
-// ---- Price age rules (limit 45 minutes) ----
+// ---- Price age rules (limit 24 hours) ----
 const at = mins => new Date(T.getTime() - mins * 60000).toISOString();
-assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(10) }, T, 45).ok, true);
-assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(45) }, T, 45).ok, true);
-let c = P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(46) }, T, 45);
+assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(10) }, T, 1440).ok, true);
+assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(1440) }, T, 1440).ok, true);
+let c = P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(1441) }, T, 1440);
 assert.strictEqual(c.ok, false);
-assert.match(c.reason, /46 minutes old\. The limit is 45 minutes/);
-assert.match(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(180) }, T, 45).reason, /3 hours old/);
-assert.strictEqual(P.checkPrice({ kind: 'crypto', price: null, priceTime: at(1) }, T, 45).ok, false);
-assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 5, priceTime: null }, T, 45).ok, false);
-// Fund, market open: same 45-minute limit.
-assert.strictEqual(P.checkPrice({ kind: 'fund', price: 47, priceTime: at(60) }, T, 45).ok, false);
+assert.match(c.reason, /1 day old|24 hours old|25 hours old/);
+assert.match(P.checkPrice({ kind: 'crypto', price: 1, priceTime: at(3000) }, T, 1440).reason, /2 days old/);
+assert.strictEqual(P.checkPrice({ kind: 'crypto', price: null, priceTime: at(1) }, T, 1440).ok, false);
+assert.strictEqual(P.checkPrice({ kind: 'crypto', price: 5, priceTime: null }, T, 1440).ok, false);
+// Fund, market open: same limit.
+assert.strictEqual(P.checkPrice({ kind: 'fund', price: 47, priceTime: at(1500) }, T, 1440).ok, false);
 // Fund, market closed (Saturday): last price allowed, up to 4 days old.
 const SAT = new Date('2026-10-10T15:00:00Z');
-c = P.checkPrice({ kind: 'fund', price: 47, priceTime: '2026-10-09T19:59:00Z' }, SAT, 45);
+c = P.checkPrice({ kind: 'fund', price: 47, priceTime: '2026-10-09T19:59:00Z' }, SAT, 1440);
 assert.strictEqual(c.ok, true);
 assert.strictEqual(c.marketClosed, true);
-assert.strictEqual(P.checkPrice({ kind: 'fund', price: 47, priceTime: '2026-10-01T19:59:00Z' }, SAT, 45).ok, false);
+assert.strictEqual(P.checkPrice({ kind: 'fund', price: 47, priceTime: '2026-10-01T19:59:00Z' }, SAT, 1440).ok, false);
 // Market hours in New York time.
 assert.strictEqual(P.usMarketOpen(new Date('2026-10-07T13:29:00Z')), false); // 9:29 AM
 assert.strictEqual(P.usMarketOpen(new Date('2026-10-07T13:30:00Z')), true);  // 9:30 AM

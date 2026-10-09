@@ -226,7 +226,7 @@ function current(key) {
   const h = account.holdings[key];
   const base = a || (h ? { key, kind: key.startsWith('fund:') ? 'fund' : 'crypto', name: h.name, price: null, priceTime: null } : null);
   if (!base) return null;
-  const check = PaperAccount.checkPrice(base, new Date(), market.settings.stale_after_minutes);
+  const check = PaperAccount.checkPrice(base, new Date(), market.settings.paper_max_price_age_minutes);
   if (!a && h) {
     check.reason = missingReason(market, key) ||
       'This token is no longer in the top 20, so there is no current price. Trading it is paused until it is back in the list.';
