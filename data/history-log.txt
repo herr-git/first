@@ -4,3 +4,7 @@
 2026-10-08T13:42:11Z history refresh: 27 assets, 0 fetch problem(s), 2 asset(s) with missing days.
   missing: token:ethena: 1 missing day(s), first 2026-10-07, last 2026-10-07
   missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-09, last 2026-07-09
+2026-10-09T13:28:09Z history refresh: 29 assets, 0 fetch problem(s), 3 asset(s) with missing days.
+  missing: token:pump-fun: 1 missing day(s), first 2026-10-08, last 2026-10-08
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-10, last 2026-10-08
+  missing: token:tron: 1 missing day(s), first 2026-10-08, last 2026-10-08
