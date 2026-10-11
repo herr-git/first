@@ -16,3 +16,13 @@
   missing: token:pump-fun: 2 missing day(s), first 2026-10-08, last 2026-10-09
   missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-11, last 2026-10-09
   missing: token:starknet: 1 missing day(s), first 2026-10-09, last 2026-10-09
+2026-10-11T13:03:40Z history refresh: 34 assets, 0 fetch problem(s), 9 asset(s) with missing days.
+  missing: token:avalanche-2: 2 missing day(s), first 2026-10-09, last 2026-10-10
+  missing: token:chainlink: 2 missing day(s), first 2026-10-09, last 2026-10-10
+  missing: token:doppler-finance: 170 missing day(s), first 2026-04-12, last 2026-09-28
+  missing: token:figure-heloc: 20 missing day(s), first 2026-04-12, last 2026-10-10
+  missing: token:global-dollar: 1 missing day(s), first 2026-10-10, last 2026-10-10
+  missing: token:kaia: 1 missing day(s), first 2026-10-10, last 2026-10-10
+  missing: token:magic: 1 missing day(s), first 2026-10-10, last 2026-10-10
+  missing: token:pump-fun: 3 missing day(s), first 2026-10-08, last 2026-10-10
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-12, last 2026-10-10
