@@ -2,7 +2,7 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-10-12T21:42:11Z",
+  "last_updated": "2026-10-13T02:44:20Z",
   "market_status": "closed",
   "last_error": null,
   "partial_problems": [],
@@ -24,8 +24,8 @@
       "volume": 1243242,
       "total_assets_usd": 15454059520,
       "yearly_fee_pct": 0.25,
-      "bid": 72.16,
-      "ask": 72.2
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "GBTC",
@@ -54,8 +54,8 @@
       "volume": 1382105,
       "total_assets_usd": 1953242368,
       "yearly_fee_pct": 2.5,
-      "bid": 20.19,
-      "ask": 20.18
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "ZCSH",
