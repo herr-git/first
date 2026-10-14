@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-10-14T05:22:40Z",
+    "last_updated": "2026-10-14T10:34:18Z",
     "last_error": null,
     "rows": [
       {
@@ -12,35 +12,35 @@
         "price_usd": 1.0,
         "market_value_usd": 2177966774,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-14T05:21:55.000Z"
+        "price_time": "2026-10-14T10:33:52.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
         "market_value_usd": 2386096485,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-14T05:21:55.000Z"
+        "price_time": "2026-10-14T10:33:52.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2344227340,
-        "volume_24h_usd": 4620459,
-        "price_time": "2026-10-14T05:21:55.000Z"
+        "market_value_usd": 2344933702,
+        "volume_24h_usd": 4347502,
+        "price_time": "2026-10-14T10:33:52.000Z"
       },
       {
         "symbol": "OUSG",
         "price_usd": 116.89,
         "market_value_usd": 319385825,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-14T05:21:55.000Z"
+        "price_time": "2026-10-14T10:33:52.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.24,
-        "market_value_usd": 823827926,
+        "market_value_usd": 824027537,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-14T05:21:55.000Z"
+        "price_time": "2026-10-14T10:33:52.000Z"
       }
     ]
   },
@@ -48,19 +48,19 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-10-14T05:22:42Z",
+    "last_updated": "2026-10-14T10:34:21Z",
     "last_error": null,
     "rows": [
       {
         "ticker": "ABTC.SW",
         "currency": "CHF",
-        "price": 22.765,
-        "price_time": "2026-10-13T12:21:59Z",
-        "volume": 1330,
+        "price": 22.82,
+        "price_time": "2026-10-14T09:24:43Z",
+        "volume": 700,
         "total_assets": 674951360,
         "yearly_fee_pct": null,
-        "bid": 22.835,
-        "ask": 22.87
+        "bid": 22.815,
+        "ask": 22.84
       },
       {
         "ticker": "BITC.SW",
@@ -70,41 +70,41 @@
         "volume": 302,
         "total_assets": 1766304256,
         "yearly_fee_pct": 0.98,
-        "bid": 66.85,
-        "ask": 66.94
+        "bid": 66.77,
+        "ask": 66.83
       },
       {
         "ticker": "BTCE.DE",
         "currency": "EUR",
-        "price": 65.555,
-        "price_time": "2026-10-13T15:35:52Z",
-        "volume": 16471,
+        "price": 65.435,
+        "price_time": "2026-10-14T09:28:46Z",
+        "volume": 1287,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 65.52,
-        "ask": 65.585
+        "bid": 65.3,
+        "ask": 65.48
       },
       {
         "ticker": "VBTC.DE",
         "currency": "EUR",
-        "price": 39.154,
-        "price_time": "2026-10-13T15:36:04Z",
-        "volume": 18732,
+        "price": 39.1,
+        "price_time": "2026-10-14T10:17:59Z",
+        "volume": 3081,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 39.154,
-        "ask": 39.248
+        "bid": 39.084,
+        "ask": 39.108
       },
       {
         "ticker": "ZETH.DE",
         "currency": "EUR",
-        "price": 20.604,
-        "price_time": "2026-10-13T15:35:58Z",
-        "volume": 12600,
+        "price": 20.428,
+        "price_time": "2026-10-14T10:10:44Z",
+        "volume": 470,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 20.634,
-        "ask": 20.656
+        "bid": 20.484,
+        "ask": 20.534
       },
       {
         "ticker": "AETH.SW",
@@ -114,8 +114,8 @@
         "volume": 480,
         "total_assets": 327172672,
         "yearly_fee_pct": null,
-        "bid": 23.05,
-        "ask": 23.075
+        "bid": 22.92,
+        "ask": 22.985
       }
     ]
   }
