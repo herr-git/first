@@ -47,3 +47,16 @@
   missing: token:tron: 2 missing day(s), first 2026-10-11, last 2026-10-12
   missing: token:worldcoin-wld: 2 missing day(s), first 2026-10-11, last 2026-10-12
   missing: token:wormhole: 1 missing day(s), first 2026-10-12, last 2026-10-12
+2026-10-14T12:04:19Z history refresh: 37 assets, 0 fetch problem(s), 12 asset(s) with missing days.
+  missing: token:avalanche-2: 1 missing day(s), first 2026-10-13, last 2026-10-13
+  missing: token:boomer-3: 182 missing day(s), first 2026-04-15, last 2026-10-13
+  missing: token:dai: 1 missing day(s), first 2026-10-13, last 2026-10-13
+  missing: token:doppler-finance: 170 missing day(s), first 2026-04-15, last 2026-10-13
+  missing: token:figure-heloc: 22 missing day(s), first 2026-04-19, last 2026-10-13
+  missing: token:kaia: 4 missing day(s), first 2026-10-10, last 2026-10-13
+  missing: token:magic: 4 missing day(s), first 2026-10-10, last 2026-10-13
+  missing: token:pump-fun: 6 missing day(s), first 2026-10-08, last 2026-10-13
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-15, last 2026-10-13
+  missing: token:starknet: 2 missing day(s), first 2026-10-12, last 2026-10-13
+  missing: token:worldcoin-wld: 3 missing day(s), first 2026-10-11, last 2026-10-13
+  missing: token:wormhole: 2 missing day(s), first 2026-10-12, last 2026-10-13
