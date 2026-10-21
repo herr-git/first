@@ -2,7 +2,7 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-10-20T21:32:11Z",
+  "last_updated": "2026-10-21T00:05:20Z",
   "market_status": "closed",
   "last_error": null,
   "partial_problems": [],
@@ -35,7 +35,7 @@
       "total_assets_usd": 10610214912,
       "yearly_fee_pct": 1.5,
       "bid": 63.87,
-      "ask": 63.68
+      "ask": 64.05
     },
     {
       "ticker": "ETHA",
@@ -54,8 +54,8 @@
       "volume": 1498757,
       "total_assets_usd": 1953242368,
       "yearly_fee_pct": 2.5,
-      "bid": 19.51,
-      "ask": 19.52
+      "bid": 19.68,
+      "ask": 19.65
     },
     {
       "ticker": "ZCSH",
