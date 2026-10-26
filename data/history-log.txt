@@ -230,3 +230,25 @@
   missing: token:tether-gold: 2 missing day(s), first 2026-10-23, last 2026-10-24
   missing: token:tron: 1 missing day(s), first 2026-10-24, last 2026-10-24
   missing: token:wormhole: 13 missing day(s), first 2026-10-12, last 2026-10-24
+2026-10-26T13:17:18Z history refresh: 46 assets, 0 fetch problem(s), 21 asset(s) with missing days.
+  missing: token:avalanche-2: 4 missing day(s), first 2026-10-22, last 2026-10-25
+  missing: token:axis-robotics: 177 missing day(s), first 2026-04-27, last 2026-10-20
+  missing: token:boomer-3: 182 missing day(s), first 2026-04-27, last 2026-10-25
+  missing: token:cardano: 8 missing day(s), first 2026-10-18, last 2026-10-25
+  missing: token:celestia: 9 missing day(s), first 2026-10-17, last 2026-10-25
+  missing: token:chainlink: 7 missing day(s), first 2026-10-19, last 2026-10-25
+  missing: token:dai: 6 missing day(s), first 2026-10-20, last 2026-10-25
+  missing: token:doppler-finance: 170 missing day(s), first 2026-04-27, last 2026-10-25
+  missing: token:figure-heloc: 32 missing day(s), first 2026-05-03, last 2026-10-25
+  missing: token:irys: 1 missing day(s), first 2026-10-25, last 2026-10-25
+  missing: token:kaia: 16 missing day(s), first 2026-10-10, last 2026-10-25
+  missing: token:litecoin: 5 missing day(s), first 2026-10-21, last 2026-10-25
+  missing: token:magic: 16 missing day(s), first 2026-10-10, last 2026-10-25
+  missing: token:moonbirds: 2 missing day(s), first 2026-10-24, last 2026-10-25
+  missing: token:pump-fun: 18 missing day(s), first 2026-10-08, last 2026-10-25
+  missing: token:sleepless-ai: 1 missing day(s), first 2026-10-25, last 2026-10-25
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-04-27, last 2026-10-25
+  missing: token:starknet: 10 missing day(s), first 2026-10-16, last 2026-10-25
+  missing: token:tether-gold: 3 missing day(s), first 2026-10-23, last 2026-10-25
+  missing: token:worldcoin-wld: 1 missing day(s), first 2026-10-25, last 2026-10-25
+  missing: token:wormhole: 14 missing day(s), first 2026-10-12, last 2026-10-25
