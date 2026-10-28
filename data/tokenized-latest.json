@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-10-28T07:33:41Z",
+    "last_updated": "2026-10-28T14:28:56Z",
     "last_error": null,
     "rows": [
       {
@@ -12,35 +12,35 @@
         "price_usd": 1.0,
         "market_value_usd": 2199623954,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-28T07:32:58.000Z"
+        "price_time": "2026-10-28T14:27:53.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
-        "market_value_usd": 2375824291,
+        "market_value_usd": 2376075060,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-28T07:32:58.000Z"
+        "price_time": "2026-10-28T14:27:53.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2375170474,
-        "volume_24h_usd": 4428157,
-        "price_time": "2026-10-28T07:32:58.000Z"
+        "market_value_usd": 2377217633,
+        "volume_24h_usd": 4711522,
+        "price_time": "2026-10-28T14:27:53.000Z"
       },
       {
         "symbol": "OUSG",
         "price_usd": 117.06,
         "market_value_usd": 320500112,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-28T07:32:58.000Z"
+        "price_time": "2026-10-28T14:27:53.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.26,
-        "market_value_usd": 720439173,
+        "market_value_usd": 687895689,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-28T07:32:58.000Z"
+        "price_time": "2026-10-28T14:27:53.000Z"
       }
     ]
   },
@@ -48,7 +48,7 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-10-28T07:33:44Z",
+    "last_updated": "2026-10-28T14:28:59Z",
     "last_error": null,
     "rows": [
       {
@@ -59,59 +59,59 @@
         "volume": 230,
         "total_assets": 674951360,
         "yearly_fee_pct": null,
-        "bid": 21.9,
-        "ask": 21.93
+        "bid": 21.96,
+        "ask": 21.99
       },
       {
         "ticker": "BITC.SW",
         "currency": "CHF",
-        "price": 63.96,
-        "price_time": "2026-10-27T12:43:10Z",
-        "volume": 280,
+        "price": 65.03,
+        "price_time": "2026-10-28T09:04:28Z",
+        "volume": 330,
         "total_assets": 1766304256,
         "yearly_fee_pct": 0.98,
-        "bid": 64.13,
-        "ask": 64.19
+        "bid": null,
+        "ask": null
       },
       {
         "ticker": "BTCE.DE",
         "currency": "EUR",
-        "price": 63.48,
-        "price_time": "2026-10-27T16:35:52Z",
-        "volume": 3099,
+        "price": 63.405,
+        "price_time": "2026-10-28T13:51:08Z",
+        "volume": 6889,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 63.46,
-        "ask": 63.43
+        "bid": 63.5,
+        "ask": 63.63
       },
       {
         "ticker": "VBTC.DE",
         "currency": "EUR",
-        "price": 37.932,
-        "price_time": "2026-10-27T16:36:02Z",
-        "volume": 17717,
+        "price": 38.086,
+        "price_time": "2026-10-28T14:06:27Z",
+        "volume": 14838,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 37.876,
-        "ask": 37.898
+        "bid": 37.998,
+        "ask": 38.026
       },
       {
         "ticker": "ZETH.DE",
         "currency": "EUR",
-        "price": 19.349,
-        "price_time": "2026-10-27T16:35:51Z",
-        "volume": 3270,
+        "price": 19.317,
+        "price_time": "2026-10-28T12:31:38Z",
+        "volume": 213,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 19.342,
-        "ask": 19.355
+        "bid": 19.197,
+        "ask": 19.223
       },
       {
         "ticker": "AETH.SW",
         "currency": "CHF",
-        "price": 21.13,
-        "price_time": "2026-10-27T08:21:41Z",
-        "volume": 300,
+        "price": 21.575,
+        "price_time": "2026-10-28T08:00:55Z",
+        "volume": 30,
         "total_assets": 327172672,
         "yearly_fee_pct": null,
         "bid": null,
