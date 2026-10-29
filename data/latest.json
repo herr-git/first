@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API (top tokens by 24-hour trading volume, re-ranked on every refresh).",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-10-29T02:56:38Z",
+    "last_updated": "2026-10-29T09:49:38Z",
     "last_error": null,
     "rows": [
       {
@@ -12,45 +12,45 @@
         "name": "Tether",
         "symbol": "USDT",
         "stablecoin": true,
-        "price_usd": 0.998958,
-        "market_value_usd": 180837963269,
-        "volume_24h_usd": 46175001459
+        "price_usd": 0.998944,
+        "market_value_usd": 180837776324,
+        "volume_24h_usd": 47251927592
       },
       {
         "id": "bitcoin",
         "name": "Bitcoin",
         "symbol": "BTC",
         "stablecoin": false,
-        "price_usd": 79845,
-        "market_value_usd": 1605217141683,
-        "volume_24h_usd": 25929479816
+        "price_usd": 80104,
+        "market_value_usd": 1610561669471,
+        "volume_24h_usd": 27276168246
       },
       {
         "id": "usd-coin",
         "name": "USDC",
         "symbol": "USDC",
         "stablecoin": true,
-        "price_usd": 0.999474,
-        "market_value_usd": 71216281695,
-        "volume_24h_usd": 13205351113
+        "price_usd": 0.999428,
+        "market_value_usd": 71198927598,
+        "volume_24h_usd": 12918431775
       },
       {
         "id": "ethereum",
         "name": "Ethereum",
         "symbol": "ETH",
         "stablecoin": false,
-        "price_usd": 2306.09,
-        "market_value_usd": 281681035525,
-        "volume_24h_usd": 10362591578
+        "price_usd": 2317.98,
+        "market_value_usd": 283202226683,
+        "volume_24h_usd": 10648241674
       },
       {
         "id": "solana",
         "name": "Solana",
         "symbol": "SOL",
         "stablecoin": false,
-        "price_usd": 99.89,
-        "market_value_usd": 58921708807,
-        "volume_24h_usd": 2835387207
+        "price_usd": 100.06,
+        "market_value_usd": 59036448234,
+        "volume_24h_usd": 2637455597
       },
       {
         "id": "ripple",
@@ -58,134 +58,134 @@
         "symbol": "XRP",
         "stablecoin": false,
         "price_usd": 1.29,
-        "market_value_usd": 81953449529,
-        "volume_24h_usd": 1807387353
+        "market_value_usd": 81668429890,
+        "volume_24h_usd": 1849523554
       },
       {
         "id": "binancecoin",
         "name": "BNB",
         "symbol": "BNB",
         "stablecoin": false,
-        "price_usd": 747.76,
-        "market_value_usd": 98311163657,
-        "volume_24h_usd": 1024312195
+        "price_usd": 747.92,
+        "market_value_usd": 98358295123,
+        "volume_24h_usd": 1397896228
       },
       {
         "id": "usd1-wlfi",
         "name": "USD1",
         "symbol": "USD1",
         "stablecoin": true,
-        "price_usd": 0.998753,
-        "market_value_usd": 3887395465,
-        "volume_24h_usd": 904542845
-      },
-      {
-        "id": "zcash",
-        "name": "Zcash",
-        "symbol": "ZEC",
-        "stablecoin": false,
-        "price_usd": 1245.61,
-        "market_value_usd": 21161730397,
-        "volume_24h_usd": 799445760
-      },
-      {
-        "id": "hyperliquid",
-        "name": "Hyperliquid",
-        "symbol": "HYPE",
-        "stablecoin": false,
-        "price_usd": 78.44,
-        "market_value_usd": 18769103456,
-        "volume_24h_usd": 797100562
+        "price_usd": 0.998941,
+        "market_value_usd": 3888228626,
+        "volume_24h_usd": 985759507
       },
       {
         "id": "pepe",
         "name": "Pepe",
         "symbol": "PEPE",
         "stablecoin": false,
-        "price_usd": 5.03e-06,
-        "market_value_usd": 2114590251,
-        "volume_24h_usd": 749492776
+        "price_usd": 4.98e-06,
+        "market_value_usd": 2097997782,
+        "volume_24h_usd": 821735148
       },
       {
-        "id": "ethena",
-        "name": "Ethena",
-        "symbol": "ENA",
+        "id": "zcash",
+        "name": "Zcash",
+        "symbol": "ZEC",
         "stablecoin": false,
-        "price_usd": 0.195756,
-        "market_value_usd": 2622050799,
-        "volume_24h_usd": 611006299
+        "price_usd": 1247.08,
+        "market_value_usd": 21211151158,
+        "volume_24h_usd": 812528339
       },
       {
-        "id": "global-dollar",
-        "name": "Global Dollar",
-        "symbol": "USDG",
-        "stablecoin": true,
-        "price_usd": 0.999832,
-        "market_value_usd": 3135572942,
-        "volume_24h_usd": 561205561
+        "id": "hyperliquid",
+        "name": "Hyperliquid",
+        "symbol": "HYPE",
+        "stablecoin": false,
+        "price_usd": 79.15,
+        "market_value_usd": 18949587033,
+        "volume_24h_usd": 801026457
       },
       {
         "id": "near",
         "name": "NEAR Protocol",
         "symbol": "NEAR",
         "stablecoin": false,
-        "price_usd": 4.45,
-        "market_value_usd": 5827075879,
-        "volume_24h_usd": 495195849
+        "price_usd": 4.36,
+        "market_value_usd": 5705877815,
+        "volume_24h_usd": 689910959
+      },
+      {
+        "id": "global-dollar",
+        "name": "Global Dollar",
+        "symbol": "USDG",
+        "stablecoin": true,
+        "price_usd": 0.99981,
+        "market_value_usd": 3134574954,
+        "volume_24h_usd": 599251936
       },
       {
         "id": "dogecoin",
         "name": "Dogecoin",
         "symbol": "DOGE",
         "stablecoin": false,
-        "price_usd": 0.077901,
-        "market_value_usd": 12190047770,
-        "volume_24h_usd": 486397517
+        "price_usd": 0.07807,
+        "market_value_usd": 12219105493,
+        "volume_24h_usd": 456253300
       },
       {
-        "id": "tron",
-        "name": "TRON",
-        "symbol": "TRX",
+        "id": "ethena",
+        "name": "Ethena",
+        "symbol": "ENA",
         "stablecoin": false,
-        "price_usd": 0.33008,
-        "market_value_usd": 31357264085,
-        "volume_24h_usd": 366674273
+        "price_usd": 0.196568,
+        "market_value_usd": 2636007854,
+        "volume_24h_usd": 446553407
       },
       {
         "id": "sui",
         "name": "Sui",
         "symbol": "SUI",
         "stablecoin": false,
-        "price_usd": 0.906578,
-        "market_value_usd": 3730886821,
-        "volume_24h_usd": 355973684
+        "price_usd": 0.913113,
+        "market_value_usd": 3760390198,
+        "volume_24h_usd": 380207129
       },
       {
         "id": "litecoin",
         "name": "Litecoin",
         "symbol": "LTC",
         "stablecoin": false,
-        "price_usd": 58.02,
-        "market_value_usd": 4510737402,
-        "volume_24h_usd": 340796813
+        "price_usd": 57.28,
+        "market_value_usd": 4453707393,
+        "volume_24h_usd": 363996825
       },
       {
-        "id": "uniswap",
-        "name": "Uniswap",
-        "symbol": "UNI",
+        "id": "tron",
+        "name": "TRON",
+        "symbol": "TRX",
         "stablecoin": false,
-        "price_usd": 6.97,
-        "market_value_usd": 4353072031,
-        "volume_24h_usd": 311956725
+        "price_usd": 0.331188,
+        "market_value_usd": 31468916618,
+        "volume_24h_usd": 337656039
+      },
+      {
+        "id": "cardano",
+        "name": "Cardano",
+        "symbol": "ADA",
+        "stablecoin": false,
+        "price_usd": 0.199379,
+        "market_value_usd": 7490679086,
+        "volume_24h_usd": 328173485
       },
       {
         "id": "chainlink",
         "name": "Chainlink",
         "symbol": "LINK",
         "stablecoin": false,
-        "price_usd": 11.37,
-        "market_value_usd": 8713244099,
-        "volume_24h_usd": 305230637
+        "price_usd": 11.47,
+        "market_value_usd": 8796906730,
+        "volume_24h_usd": 315173178
       }
     ]
   }
