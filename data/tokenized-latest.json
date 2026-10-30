@@ -4,43 +4,43 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-10-30T19:39:43Z",
+    "last_updated": "2026-10-30T23:18:20Z",
     "last_error": null,
     "rows": [
       {
         "symbol": "BUIDL",
         "price_usd": 1.0,
-        "market_value_usd": 2114965279,
+        "market_value_usd": 2024692361,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-30T19:38:54.000Z"
+        "price_time": "2026-10-30T23:17:56.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
         "market_value_usd": 2359932884,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-30T19:38:54.000Z"
+        "price_time": "2026-10-30T23:17:56.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2401337707,
-        "volume_24h_usd": 5182941,
-        "price_time": "2026-10-30T19:38:54.000Z"
+        "market_value_usd": 2396900651,
+        "volume_24h_usd": 9006196,
+        "price_time": "2026-10-30T23:17:56.000Z"
       },
       {
         "symbol": "OUSG",
-        "price_usd": 117.08,
-        "market_value_usd": 315033580,
+        "price_usd": 117.11,
+        "market_value_usd": 315099979,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-30T19:38:54.000Z"
+        "price_time": "2026-10-30T23:17:56.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.26,
-        "market_value_usd": 640766261,
+        "market_value_usd": 635962079,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-10-30T19:38:54.000Z"
+        "price_time": "2026-10-30T23:17:56.000Z"
       }
     ]
   },
@@ -48,7 +48,7 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-10-30T19:39:46Z",
+    "last_updated": "2026-10-30T23:18:22Z",
     "last_error": null,
     "rows": [
       {
@@ -56,7 +56,7 @@
         "currency": "CHF",
         "price": 21.1,
         "price_time": "2026-10-30T15:19:45Z",
-        "volume": 2111,
+        "volume": 2511,
         "total_assets": 674951360,
         "yearly_fee_pct": null,
         "bid": null,
@@ -67,7 +67,7 @@
         "currency": "CHF",
         "price": 61.29,
         "price_time": "2026-10-30T16:11:17Z",
-        "volume": 870,
+        "volume": 863,
         "total_assets": 1766304256,
         "yearly_fee_pct": 0.98,
         "bid": 61.39,
@@ -111,11 +111,11 @@
         "currency": "CHF",
         "price": 20.275,
         "price_time": "2026-10-30T14:40:31Z",
-        "volume": 2540,
+        "volume": 1540,
         "total_assets": 327172672,
         "yearly_fee_pct": null,
-        "bid": 20.27,
-        "ask": 20.315
+        "bid": null,
+        "ask": null
       }
     ]
   }
