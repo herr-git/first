@@ -343,3 +343,27 @@
   missing: token:tether-gold: 7 missing day(s), first 2026-10-23, last 2026-10-29
   missing: token:worldcoin-wld: 5 missing day(s), first 2026-10-25, last 2026-10-29
   missing: token:wormhole: 18 missing day(s), first 2026-10-12, last 2026-10-29
+2026-10-31T12:46:37Z history refresh: 49 assets, 0 fetch problem(s), 23 asset(s) with missing days.
+  missing: token:aave: 1 missing day(s), first 2026-10-30, last 2026-10-30
+  missing: token:avalanche-2: 9 missing day(s), first 2026-10-22, last 2026-10-30
+  missing: token:axis-robotics: 177 missing day(s), first 2026-05-02, last 2026-10-30
+  missing: token:boomer-3: 182 missing day(s), first 2026-05-02, last 2026-10-30
+  missing: token:cardano: 2 missing day(s), first 2026-10-29, last 2026-10-30
+  missing: token:celestia: 14 missing day(s), first 2026-10-17, last 2026-10-30
+  missing: token:dai: 11 missing day(s), first 2026-10-20, last 2026-10-30
+  missing: token:doppler-finance: 170 missing day(s), first 2026-05-02, last 2026-10-30
+  missing: token:figure-heloc: 37 missing day(s), first 2026-05-03, last 2026-10-30
+  missing: token:irys: 6 missing day(s), first 2026-10-25, last 2026-10-30
+  missing: token:kaia: 21 missing day(s), first 2026-10-10, last 2026-10-30
+  missing: token:litecoin: 2 missing day(s), first 2026-10-29, last 2026-10-30
+  missing: token:magic: 21 missing day(s), first 2026-10-10, last 2026-10-30
+  missing: token:moonbirds: 7 missing day(s), first 2026-10-24, last 2026-10-30
+  missing: token:pump-fun: 23 missing day(s), first 2026-10-08, last 2026-10-30
+  missing: token:quack-ai: 4 missing day(s), first 2026-10-27, last 2026-10-30
+  missing: token:ripple-usd: 4 missing day(s), first 2026-10-27, last 2026-10-30
+  missing: token:sleepless-ai: 6 missing day(s), first 2026-10-25, last 2026-10-30
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-05-02, last 2026-10-30
+  missing: token:starknet: 15 missing day(s), first 2026-10-16, last 2026-10-30
+  missing: token:sui: 1 missing day(s), first 2026-10-30, last 2026-10-30
+  missing: token:worldcoin-wld: 6 missing day(s), first 2026-10-25, last 2026-10-30
+  missing: token:wormhole: 19 missing day(s), first 2026-10-12, last 2026-10-30
