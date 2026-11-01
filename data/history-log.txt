@@ -367,3 +367,27 @@
   missing: token:sui: 1 missing day(s), first 2026-10-30, last 2026-10-30
   missing: token:worldcoin-wld: 6 missing day(s), first 2026-10-25, last 2026-10-30
   missing: token:wormhole: 19 missing day(s), first 2026-10-12, last 2026-10-30
+2026-11-01T13:36:10Z history refresh: 49 assets, 0 fetch problem(s), 23 asset(s) with missing days.
+  missing: token:axis-robotics: 177 missing day(s), first 2026-05-03, last 2026-10-31
+  missing: token:boomer-3: 182 missing day(s), first 2026-05-03, last 2026-10-31
+  missing: token:cardano: 3 missing day(s), first 2026-10-29, last 2026-10-31
+  missing: token:celestia: 15 missing day(s), first 2026-10-17, last 2026-10-31
+  missing: token:dai: 12 missing day(s), first 2026-10-20, last 2026-10-31
+  missing: token:doppler-finance: 170 missing day(s), first 2026-05-03, last 2026-10-31
+  missing: token:figure-heloc: 38 missing day(s), first 2026-05-03, last 2026-10-31
+  missing: token:irys: 7 missing day(s), first 2026-10-25, last 2026-10-31
+  missing: token:kaia: 22 missing day(s), first 2026-10-10, last 2026-10-31
+  missing: token:litecoin: 3 missing day(s), first 2026-10-29, last 2026-10-31
+  missing: token:magic: 22 missing day(s), first 2026-10-10, last 2026-10-31
+  missing: token:moonbirds: 8 missing day(s), first 2026-10-24, last 2026-10-31
+  missing: token:pump-fun: 24 missing day(s), first 2026-10-08, last 2026-10-31
+  missing: token:quack-ai: 5 missing day(s), first 2026-10-27, last 2026-10-31
+  missing: token:ripple-usd: 5 missing day(s), first 2026-10-27, last 2026-10-31
+  missing: token:sleepless-ai: 7 missing day(s), first 2026-10-25, last 2026-10-31
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-05-03, last 2026-10-31
+  missing: token:starknet: 16 missing day(s), first 2026-10-16, last 2026-10-31
+  missing: token:sui: 2 missing day(s), first 2026-10-30, last 2026-10-31
+  missing: token:usd1-wlfi: 1 missing day(s), first 2026-10-31, last 2026-10-31
+  missing: token:usds: 1 missing day(s), first 2026-10-31, last 2026-10-31
+  missing: token:worldcoin-wld: 7 missing day(s), first 2026-10-25, last 2026-10-31
+  missing: token:wormhole: 20 missing day(s), first 2026-10-12, last 2026-10-31
