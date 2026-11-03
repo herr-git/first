@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-11-03T02:28:02Z",
+    "last_updated": "2026-11-03T10:00:28Z",
     "last_error": null,
     "rows": [
       {
@@ -12,35 +12,35 @@
         "price_usd": 1.0,
         "market_value_usd": 2017249270,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-03T02:27:52.000Z"
+        "price_time": "2026-11-03T09:59:48.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
         "market_value_usd": 2241476108,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-03T02:27:52.000Z"
+        "price_time": "2026-11-03T09:59:48.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2395972518,
-        "volume_24h_usd": 4421220,
-        "price_time": "2026-11-03T02:27:52.000Z"
+        "market_value_usd": 2393636227,
+        "volume_24h_usd": 5591067,
+        "price_time": "2026-11-03T09:59:48.000Z"
       },
       {
         "symbol": "OUSG",
         "price_usd": 117.13,
         "market_value_usd": 317709443,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-03T02:27:52.000Z"
+        "price_time": "2026-11-03T09:59:48.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.26,
-        "market_value_usd": 638002001,
+        "market_value_usd": 639749634,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-03T02:27:52.000Z"
+        "price_time": "2026-11-03T09:59:48.000Z"
       }
     ]
   },
@@ -48,63 +48,63 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-11-03T02:28:05Z",
+    "last_updated": "2026-11-03T10:00:30Z",
     "last_error": null,
     "rows": [
       {
         "ticker": "ABTC.SW",
         "currency": "CHF",
-        "price": 20.82,
-        "price_time": "2026-11-02T16:22:52Z",
-        "volume": 1402,
+        "price": 20.56,
+        "price_time": "2026-11-03T08:00:22Z",
+        "volume": 230,
         "total_assets": 674951360,
         "yearly_fee_pct": null,
-        "bid": 20.79,
-        "ask": 20.895
+        "bid": 20.65,
+        "ask": 20.69
       },
       {
         "ticker": "BITC.SW",
         "currency": "CHF",
-        "price": 61.28,
-        "price_time": "2026-11-02T14:23:36Z",
-        "volume": 522,
+        "price": 60.13,
+        "price_time": "2026-11-03T08:55:47Z",
+        "volume": 18,
         "total_assets": 1766304256,
         "yearly_fee_pct": 0.98,
-        "bid": 60.85,
-        "ask": 61.19
+        "bid": 60.5,
+        "ask": 60.56
       },
       {
         "ticker": "BTCE.DE",
         "currency": "EUR",
-        "price": 60.76,
-        "price_time": "2026-11-02T16:35:56Z",
-        "volume": 9919,
+        "price": 60.04,
+        "price_time": "2026-11-03T08:56:37Z",
+        "volume": 2202,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 60.745,
-        "ask": 60.7
+        "bid": 60.38,
+        "ask": 60.465
       },
       {
         "ticker": "VBTC.DE",
         "currency": "EUR",
-        "price": 36.29,
-        "price_time": "2026-11-02T16:36:14Z",
-        "volume": 25762,
+        "price": 36.102,
+        "price_time": "2026-11-03T09:45:17Z",
+        "volume": 4393,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 36.29,
-        "ask": 36.262
+        "bid": 36.074,
+        "ask": 36.102
       },
       {
         "ticker": "ZETH.DE",
         "currency": "EUR",
-        "price": 18.63,
-        "price_time": "2026-11-02T16:35:52Z",
-        "volume": 2634,
+        "price": 18.523,
+        "price_time": "2026-11-03T09:33:28Z",
+        "volume": 519,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 18.553,
-        "ask": 18.639
+        "bid": 18.557,
+        "ask": 18.586
       },
       {
         "ticker": "AETH.SW",
