@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-11-06T07:01:49Z",
+    "last_updated": "2026-11-06T14:57:52Z",
     "last_error": null,
     "rows": [
       {
@@ -12,35 +12,35 @@
         "price_usd": 1.0,
         "market_value_usd": 1883515472,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-06T07:00:50.000Z"
+        "price_time": "2026-11-06T14:56:52.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
-        "market_value_usd": 2185180334,
+        "market_value_usd": 2185970001,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-06T07:00:50.000Z"
+        "price_time": "2026-11-06T14:56:52.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2386806974,
-        "volume_24h_usd": 6294621,
-        "price_time": "2026-11-06T07:00:50.000Z"
+        "market_value_usd": 2392998003,
+        "volume_24h_usd": 3867161,
+        "price_time": "2026-11-06T14:56:52.000Z"
       },
       {
         "symbol": "OUSG",
         "price_usd": 117.16,
         "market_value_usd": 316996064,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-06T07:00:50.000Z"
+        "price_time": "2026-11-06T14:56:52.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.27,
-        "market_value_usd": 625184480,
+        "market_value_usd": 626396713,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-06T07:00:50.000Z"
+        "price_time": "2026-11-06T14:56:52.000Z"
       }
     ]
   },
@@ -48,74 +48,74 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-11-06T07:01:51Z",
+    "last_updated": "2026-11-06T14:57:55Z",
     "last_error": null,
     "rows": [
       {
         "ticker": "ABTC.SW",
         "currency": "CHF",
-        "price": 20.35,
-        "price_time": "2026-11-05T16:02:55Z",
-        "volume": 5485,
+        "price": 20.3,
+        "price_time": "2026-11-06T14:34:36Z",
+        "volume": 1808,
         "total_assets": 674951360,
         "yearly_fee_pct": null,
-        "bid": null,
-        "ask": null
+        "bid": 20.38,
+        "ask": 20.4
       },
       {
         "ticker": "BITC.SW",
         "currency": "CHF",
-        "price": 60.04,
-        "price_time": "2026-11-05T16:20:14Z",
-        "volume": 3069,
+        "price": 59.6,
+        "price_time": "2026-11-06T09:02:42Z",
+        "volume": 89,
         "total_assets": 1766304256,
         "yearly_fee_pct": 0.98,
-        "bid": 60.16,
-        "ask": 60.24
+        "bid": 59.77,
+        "ask": 59.88
       },
       {
         "ticker": "BTCE.DE",
         "currency": "EUR",
-        "price": 60.06,
-        "price_time": "2026-11-05T16:36:07Z",
-        "volume": 28433,
+        "price": 59.67,
+        "price_time": "2026-11-06T14:42:23Z",
+        "volume": 61098,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": null,
-        "ask": null
+        "bid": 59.59,
+        "ask": 59.66
       },
       {
         "ticker": "VBTC.DE",
         "currency": "EUR",
-        "price": 35.906,
-        "price_time": "2026-11-05T16:36:14Z",
-        "volume": 80841,
+        "price": 35.676,
+        "price_time": "2026-11-06T14:42:23Z",
+        "volume": 26557,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": null,
-        "ask": null
+        "bid": 35.658,
+        "ask": 35.654
       },
       {
         "ticker": "ZETH.DE",
         "currency": "EUR",
-        "price": 18.585,
-        "price_time": "2026-11-05T16:36:10Z",
-        "volume": 10275,
+        "price": 18.367,
+        "price_time": "2026-11-06T14:39:35Z",
+        "volume": 3149,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": null,
-        "ask": null
+        "bid": 18.363,
+        "ask": 18.407
       },
       {
         "ticker": "AETH.SW",
         "currency": "CHF",
-        "price": 20.195,
-        "price_time": "2026-11-05T16:04:02Z",
-        "volume": 4883,
+        "price": 20.175,
+        "price_time": "2026-11-06T14:19:10Z",
+        "volume": 2427,
         "total_assets": 327172672,
         "yearly_fee_pct": null,
-        "bid": null,
-        "ask": null
+        "bid": 20.225,
+        "ask": 20.245
       }
     ]
   }
