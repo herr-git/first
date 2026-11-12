@@ -4,43 +4,43 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-11-12T18:26:12Z",
+    "last_updated": "2026-11-12T23:50:56Z",
     "last_error": null,
     "rows": [
       {
         "symbol": "BUIDL",
         "price_usd": 1.0,
-        "market_value_usd": 1656665823,
+        "market_value_usd": 1554812788,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-12T18:25:42.000Z"
+        "price_time": "2026-11-12T23:49:55.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
         "market_value_usd": 2043751431,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-12T18:25:42.000Z"
+        "price_time": "2026-11-12T23:49:55.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2391099495,
-        "volume_24h_usd": 5927542,
-        "price_time": "2026-11-12T18:25:42.000Z"
+        "market_value_usd": 2394089759,
+        "volume_24h_usd": 4048121,
+        "price_time": "2026-11-12T23:49:55.000Z"
       },
       {
         "symbol": "OUSG",
-        "price_usd": 117.23,
-        "market_value_usd": 315920149,
+        "price_usd": 117.24,
+        "market_value_usd": 315946569,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-12T18:25:42.000Z"
+        "price_time": "2026-11-12T23:49:55.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.28,
-        "market_value_usd": 677839163,
+        "market_value_usd": 680202087,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-12T18:25:42.000Z"
+        "price_time": "2026-11-12T23:49:55.000Z"
       }
     ]
   },
@@ -48,7 +48,7 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-11-12T18:26:13Z",
+    "last_updated": "2026-11-12T23:50:57Z",
     "last_error": null,
     "rows": [
       {
