@@ -756,3 +756,33 @@
   missing: token:whitebit: 3 missing day(s), first 2026-11-11, last 2026-11-13
   missing: token:worldcoin-wld: 20 missing day(s), first 2026-10-25, last 2026-11-13
   missing: token:wormhole: 33 missing day(s), first 2026-10-12, last 2026-11-13
+2026-11-15T14:06:20Z history refresh: 55 assets, 0 fetch problem(s), 29 asset(s) with missing days.
+  missing: token:aave: 14 missing day(s), first 2026-11-01, last 2026-11-14
+  missing: token:akedo: 1 missing day(s), first 2026-11-14, last 2026-11-14
+  missing: token:avalanche-2: 3 missing day(s), first 2026-11-12, last 2026-11-14
+  missing: token:axis-robotics: 162 missing day(s), first 2026-05-17, last 2026-11-14
+  missing: token:bitcoin-cash: 7 missing day(s), first 2026-11-08, last 2026-11-14
+  missing: token:boomer-3: 182 missing day(s), first 2026-05-17, last 2026-11-14
+  missing: token:celestia: 29 missing day(s), first 2026-10-17, last 2026-11-14
+  missing: token:dai: 26 missing day(s), first 2026-10-20, last 2026-11-14
+  missing: token:doppler-finance: 170 missing day(s), first 2026-05-17, last 2026-11-14
+  missing: token:ethena: 1 missing day(s), first 2026-11-14, last 2026-11-14
+  missing: token:figure-heloc: 17 missing day(s), first 2026-05-24, last 2026-11-14
+  missing: token:irys: 21 missing day(s), first 2026-10-25, last 2026-11-14
+  missing: token:kaia: 36 missing day(s), first 2026-10-10, last 2026-11-14
+  missing: token:litecoin: 17 missing day(s), first 2026-10-29, last 2026-11-14
+  missing: token:magic: 36 missing day(s), first 2026-10-10, last 2026-11-14
+  missing: token:moonbirds: 22 missing day(s), first 2026-10-24, last 2026-11-14
+  missing: token:official-trump: 10 missing day(s), first 2026-11-05, last 2026-11-14
+  missing: token:pump-fun: 38 missing day(s), first 2026-10-08, last 2026-11-14
+  missing: token:quack-ai: 19 missing day(s), first 2026-10-27, last 2026-11-14
+  missing: token:sleepless-ai: 21 missing day(s), first 2026-10-25, last 2026-11-14
+  missing: token:spacex-backpack-securities: 38 missing day(s), first 2026-05-17, last 2026-11-14
+  missing: token:spdr-s-p-500-etf-trust-robinhood-tokenized-stock: 92 missing day(s), first 2026-05-17, last 2026-11-14
+  missing: token:starknet: 30 missing day(s), first 2026-10-16, last 2026-11-14
+  missing: token:tether-gold: 14 missing day(s), first 2026-11-01, last 2026-11-14
+  missing: token:thorchain: 5 missing day(s), first 2026-11-10, last 2026-11-14
+  missing: token:usds: 1 missing day(s), first 2026-11-14, last 2026-11-14
+  missing: token:whitebit: 4 missing day(s), first 2026-11-11, last 2026-11-14
+  missing: token:worldcoin-wld: 21 missing day(s), first 2026-10-25, last 2026-11-14
+  missing: token:wormhole: 34 missing day(s), first 2026-10-12, last 2026-11-14
