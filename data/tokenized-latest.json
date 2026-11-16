@@ -4,7 +4,7 @@
     "sample": false,
     "source": "CoinGecko free API.",
     "source_url": "https://www.coingecko.com/",
-    "last_updated": "2026-11-15T21:54:13Z",
+    "last_updated": "2026-11-16T01:56:26Z",
     "last_error": null,
     "rows": [
       {
@@ -12,35 +12,35 @@
         "price_usd": 1.0,
         "market_value_usd": 1637150776,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-15T21:53:49.000Z"
+        "price_time": "2026-11-16T01:55:52.000Z"
       },
       {
         "symbol": "USYC",
         "price_usd": 1.14,
         "market_value_usd": 2018283643,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-15T21:53:49.000Z"
+        "price_time": "2026-11-16T01:55:52.000Z"
       },
       {
         "symbol": "USDY",
         "price_usd": 1.15,
-        "market_value_usd": 2394718885,
-        "volume_24h_usd": 1245303,
-        "price_time": "2026-11-15T21:53:49.000Z"
+        "market_value_usd": 2393454940,
+        "volume_24h_usd": 2971616,
+        "price_time": "2026-11-16T01:55:52.000Z"
       },
       {
         "symbol": "OUSG",
         "price_usd": 117.25,
         "market_value_usd": 312854615,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-15T21:53:49.000Z"
+        "price_time": "2026-11-16T01:55:52.000Z"
       },
       {
         "symbol": "USTB",
         "price_usd": 11.28,
-        "market_value_usd": 683675835,
+        "market_value_usd": 684674928,
         "volume_24h_usd": 0.0,
-        "price_time": "2026-11-15T21:53:49.000Z"
+        "price_time": "2026-11-16T01:55:52.000Z"
       }
     ]
   },
@@ -48,7 +48,7 @@
     "sample": false,
     "source": "Yahoo Finance (unofficial access through the yfinance library).",
     "source_url": "https://finance.yahoo.com/",
-    "last_updated": "2026-11-15T21:54:15Z",
+    "last_updated": "2026-11-16T01:56:28Z",
     "last_error": null,
     "rows": [
       {
@@ -81,8 +81,8 @@
         "volume": 33428,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 54.5,
-        "ask": 54.595
+        "bid": null,
+        "ask": null
       },
       {
         "ticker": "VBTC.DE",
@@ -92,8 +92,8 @@
         "volume": 163906,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 32.69,
-        "ask": 32.71
+        "bid": null,
+        "ask": null
       },
       {
         "ticker": "ZETH.DE",
@@ -103,8 +103,8 @@
         "volume": 5991,
         "total_assets": null,
         "yearly_fee_pct": null,
-        "bid": 16.052,
-        "ask": 16.065
+        "bid": null,
+        "ask": null
       },
       {
         "ticker": "AETH.SW",
