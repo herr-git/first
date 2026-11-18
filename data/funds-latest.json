@@ -2,7 +2,7 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-11-17T21:41:13Z",
+  "last_updated": "2026-11-18T03:10:15Z",
   "market_status": "closed",
   "last_error": null,
   "partial_problems": [],
@@ -11,7 +11,7 @@
       "ticker": "IBIT",
       "price_usd": 36.14,
       "price_time": "2026-11-17T21:00:01Z",
-      "volume": 46533219,
+      "volume": 47362860,
       "total_assets_usd": 62297755648,
       "yearly_fee_pct": 0.25,
       "bid": null,
@@ -21,27 +21,27 @@
       "ticker": "FBTC",
       "price_usd": 55.55,
       "price_time": "2026-11-17T21:00:00Z",
-      "volume": 4421897,
+      "volume": 4436852,
       "total_assets_usd": 13473227776,
       "yearly_fee_pct": 0.25,
-      "bid": 55.56,
-      "ask": 55.58
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "GBTC",
       "price_usd": 49.29,
       "price_time": "2026-11-17T21:00:00Z",
-      "volume": 2867656,
+      "volume": 2893343,
       "total_assets_usd": 9615659008,
       "yearly_fee_pct": 1.5,
-      "bid": 49.27,
-      "ask": 49.28
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "ETHA",
       "price_usd": 40.65,
       "price_time": "2026-11-17T21:00:00Z",
-      "volume": 9438413,
+      "volume": 9614596,
       "total_assets_usd": 6974844416,
       "yearly_fee_pct": 0.25,
       "bid": null,
@@ -51,21 +51,21 @@
       "ticker": "ETHE",
       "price_usd": 14.38,
       "price_time": "2026-11-17T21:00:00Z",
-      "volume": 2155505,
+      "volume": 2164651,
       "total_assets_usd": 1539269248,
       "yearly_fee_pct": 2.5,
-      "bid": 14.38,
-      "ask": 14.39
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "ZCSH",
       "price_usd": 24.5,
       "price_time": "2026-11-17T21:00:00Z",
-      "volume": 1190088,
+      "volume": 1205558,
       "total_assets_usd": 729393216,
       "yearly_fee_pct": 2.5,
-      "bid": 24.5,
-      "ask": 24.58
+      "bid": null,
+      "ask": null
     }
   ]
 }
