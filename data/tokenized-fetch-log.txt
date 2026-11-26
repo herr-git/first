@@ -1,1 +1,2 @@
 2026-11-17T19:55:44Z exchange_traded refresh FAILED: Could not get data from Yahoo [no prices returned]. Kept the last good data.
+2026-11-26T11:07:46Z exchange_traded refresh FAILED: Could not get data from Yahoo [no prices returned]. Kept the last good data.
