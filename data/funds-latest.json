@@ -2,7 +2,7 @@
   "sample": false,
   "source": "Yahoo Finance (unofficial access through the yfinance library).",
   "source_url": "https://finance.yahoo.com/",
-  "last_updated": "2026-11-25T22:24:37Z",
+  "last_updated": "2026-11-26T22:14:44Z",
   "market_status": "closed",
   "last_error": null,
   "partial_problems": [],
@@ -24,8 +24,8 @@
       "volume": 6065114,
       "total_assets_usd": 13473227776,
       "yearly_fee_pct": 0.25,
-      "bid": 52.35,
-      "ask": 52.36
+      "bid": null,
+      "ask": null
     },
     {
       "ticker": "GBTC",
@@ -34,8 +34,8 @@
       "volume": 2826514,
       "total_assets_usd": 9615659008,
       "yearly_fee_pct": 1.5,
-      "bid": 46.37,
-      "ask": 46.38
+      "bid": 46.56,
+      "ask": 46.76
     },
     {
       "ticker": "ETHA",
@@ -54,7 +54,7 @@
       "volume": 2107351,
       "total_assets_usd": 1539269248,
       "yearly_fee_pct": 2.5,
-      "bid": 13.5,
+      "bid": 13.52,
       "ask": 13.51
     },
     {
@@ -64,8 +64,8 @@
       "volume": 754050,
       "total_assets_usd": 729393216,
       "yearly_fee_pct": 2.5,
-      "bid": 20.25,
-      "ask": 20.27
+      "bid": null,
+      "ask": null
     }
   ]
 }
