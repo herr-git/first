@@ -5,7 +5,10 @@
     "source": "CoinGecko free API (top tokens by 24-hour trading volume, re-ranked on every refresh).",
     "source_url": "https://www.coingecko.com/",
     "last_updated": "2026-11-26T04:32:59Z",
-    "last_error": null,
+    "last_error": {
+      "time": "2026-11-26T14:23:47Z",
+      "message": "CoinGecko's free request limit was reached"
+    },
     "rows": [
       {
         "id": "tether",
